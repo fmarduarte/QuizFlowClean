@@ -3,7 +3,7 @@ import { Reveal } from "./Reveal";
 const testimonials = [
   {
     quote:
-      "We replaced our landing page with a QuizFlowKit funnel and CPL on TikTok dropped almost in half. Same creative, better conversion.",
+      "We replaced our landing page with a QuizFlow AI funnel and CPL on TikTok dropped almost in half. Same creative, better conversion.",
     name: "Maya Okafor",
     role: "UGC Creator · 480K followers",
   },
@@ -23,7 +23,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="py-32 relative">
+    <section id="testimonials" className="py-24 sm:py-32 relative section-divider scroll-mt-20">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
           <div className="text-center max-w-2xl mx-auto mb-16">
@@ -39,7 +39,7 @@ export function Testimonials() {
         <div className="grid md:grid-cols-3 gap-5">
           {testimonials.map((t, i) => (
             <Reveal key={t.name} delay={i * 90}>
-              <figure className="group relative h-full rounded-2xl border border-hairline bg-surface-elevated p-8 hover-lift overflow-hidden">
+              <figure className="glass group relative h-full rounded-2xl p-8 hover-lift overflow-hidden">
                 <div className="absolute inset-0 bg-accent-gradient opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500 pointer-events-none" />
                 <blockquote className="relative text-[15px] leading-relaxed text-foreground/90">
                   &ldquo;{t.quote}&rdquo;

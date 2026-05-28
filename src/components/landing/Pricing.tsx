@@ -55,7 +55,7 @@ const tiers = [
 
 export function Pricing() {
   return (
-    <section id="pricing" className="py-32 bg-surface-subtle/40 border-y border-hairline">
+    <section id="pricing" className="py-24 sm:py-32 bg-surface-subtle/40 border-y border-hairline scroll-mt-20">
       <div className="mx-auto max-w-7xl px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">Pricing</p>
@@ -74,7 +74,7 @@ export function Pricing() {
               className={`relative rounded-2xl border p-8 hover-lift flex flex-col ${
                 t.highlighted
                   ? "border-foreground bg-foreground text-background shadow-hero"
-                  : "border-hairline bg-background"
+                  : "glass border-hairline"
               }`}
             >
               {t.highlighted && (

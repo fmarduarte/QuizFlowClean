@@ -1,7 +1,11 @@
+import { RouterProvider } from "react-router-dom";
+import { QuizzesProvider } from "@/context/QuizzesContext";
+import { router } from "@/routes/router";
+
 export default function App() {
-    return (
-      <div>
-        <h1>QuizFlow AI</h1>
-      </div>
-    );
-  }
+  return (
+    <QuizzesProvider>
+      <RouterProvider router={router} />
+    </QuizzesProvider>
+  );
+}

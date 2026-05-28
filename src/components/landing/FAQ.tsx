@@ -9,7 +9,7 @@ import {
 export const faqs = [
   {
     q: "How does the AI work?",
-    a: "Describe your product, audience, and goal in plain English. QuizFlowKit's AI drafts the full funnel — questions, branching logic, result variants, copy, and recommendations — in seconds. You can accept, regenerate, or edit any step.",
+    a: "Describe your product, audience, and goal in plain English. QuizFlow AI drafts the full funnel — questions, branching logic, result variants, copy, and recommendations — in seconds. You can accept, regenerate, or edit any step.",
   },
   {
     q: "Can I export to TikTok Ads?",
@@ -25,13 +25,13 @@ export const faqs = [
   },
   {
     q: "Can I use it for Meta Ads?",
-    a: "Yes. QuizFlowKit exports with the Meta Pixel, Conversions API, and UTM tracking, so funnels plug directly into Facebook and Instagram Ads Manager.",
+    a: "Yes. QuizFlow AI exports with the Meta Pixel, Conversions API, and UTM tracking, so funnels plug directly into Facebook and Instagram Ads Manager.",
   },
 ];
 
 export function FAQ() {
   return (
-    <section id="faq" className="py-32">
+    <section id="faq" className="py-24 sm:py-32 scroll-mt-20">
       <div className="mx-auto max-w-3xl px-6">
         <Reveal>
           <div className="text-center mb-14">

@@ -42,6 +42,8 @@
   --animate-shimmer: shimmer 8s linear infinite;
   --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
   --animate-marquee: marquee 30s linear infinite;
+  --animate-btn-shimmer: btn-shimmer 2.5s ease-in-out infinite;
+  --animate-glow-pulse: glow-pulse 4s ease-in-out infinite;
 }
 
 @keyframes fade-in {
@@ -67,6 +69,18 @@
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
+}
+@keyframes btn-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.65; transform: scale(1.05); }
+}
+@keyframes quiz-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
 :root {
@@ -123,6 +137,39 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+}
+
+.dark {
+  --background: oklch(0.11 0.015 270);
+  --foreground: oklch(0.97 0.005 270);
+  --card: oklch(0.14 0.018 270);
+  --card-foreground: oklch(0.97 0.005 270);
+  --popover: oklch(0.14 0.018 270);
+  --popover-foreground: oklch(0.97 0.005 270);
+  --primary: oklch(0.97 0.005 270);
+  --primary-foreground: oklch(0.11 0.015 270);
+  --secondary: oklch(0.17 0.02 270);
+  --secondary-foreground: oklch(0.97 0.005 270);
+  --muted: oklch(0.2 0.022 270);
+  --muted-foreground: oklch(0.62 0.02 270);
+  --accent: oklch(0.2 0.025 280);
+  --accent-foreground: oklch(0.97 0.005 270);
+  --border: oklch(0.24 0.025 270);
+  --input: oklch(0.24 0.025 270);
+  --ring: oklch(0.55 0.12 280);
+  --surface-subtle: oklch(0.13 0.018 270);
+  --surface-elevated: oklch(0.16 0.022 275);
+  --hairline: oklch(0.22 0.025 270);
+  --gradient-hero: radial-gradient(ellipse 90% 70% at 50% 0%, oklch(0.35 0.14 280 / 0.45), transparent 65%), radial-gradient(ellipse 60% 50% at 85% 15%, oklch(0.32 0.12 250 / 0.3), transparent 70%), radial-gradient(ellipse 50% 40% at 10% 25%, oklch(0.3 0.1 320 / 0.25), transparent 70%);
+  --gradient-text: linear-gradient(180deg, oklch(0.99 0.005 270) 0%, oklch(0.72 0.03 280) 100%);
+  --gradient-accent: linear-gradient(135deg, oklch(0.62 0.22 285) 0%, oklch(0.58 0.24 270) 50%, oklch(0.65 0.18 250) 100%);
+  --gradient-glow: radial-gradient(circle at 50% 50%, oklch(0.55 0.22 285 / 0.35), transparent 60%);
+  --gradient-section: linear-gradient(180deg, transparent 0%, oklch(0.14 0.02 270 / 0.8) 50%, transparent 100%);
+  --gradient-ambient: radial-gradient(ellipse 70% 50% at 50% 50%, oklch(0.4 0.15 285 / 0.2), transparent 70%);
+  --shadow-md: 0 4px 24px -4px oklch(0 0 0 / 0.5);
+  --shadow-lg: 0 24px 48px -16px oklch(0 0 0 / 0.55);
+  --shadow-xl: 0 50px 100px -24px oklch(0 0 0 / 0.6);
+  --shadow-glow: 0 0 80px -10px oklch(0.55 0.22 285 / 0.45);
 }
 
 @layer base {
@@ -211,9 +258,35 @@
     background: var(--gradient-ambient);
   }
   .glass {
-    background: color-mix(in oklab, var(--surface-elevated) 70%, transparent);
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    background: color-mix(in oklab, var(--surface-elevated) 55%, transparent);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid color-mix(in oklab, var(--hairline) 80%, transparent);
+  }
+  .glass-strong {
+    background: color-mix(in oklab, var(--surface-elevated) 75%, transparent);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid color-mix(in oklab, var(--hairline) 90%, transparent);
+  }
+  .btn-shimmer {
+    background-size: 200% 200%;
+    background-image: linear-gradient(
+      90deg,
+      oklch(0.58 0.24 285) 0%,
+      oklch(0.68 0.2 280) 25%,
+      oklch(0.55 0.26 270) 50%,
+      oklch(0.68 0.2 280) 75%,
+      oklch(0.58 0.24 285) 100%
+    );
+    animation: var(--animate-btn-shimmer);
+  }
+  .glow-orb {
+    animation: var(--animate-glow-pulse);
+  }
+  .quiz-progress-fill {
+    transform: scaleX(0);
+    animation: quiz-progress 2s ease-in-out forwards;
   }
   .section-divider {
     position: relative;
@@ -246,11 +319,20 @@
 /* Page-level ambient atmosphere */
 body {
   background-color: var(--color-background);
+  background-attachment: fixed;
+}
+:root body {
   background-image:
     radial-gradient(ellipse 80% 40% at 20% 0%, oklch(0.93 0.04 280 / 0.25), transparent 60%),
     radial-gradient(ellipse 70% 40% at 90% 30%, oklch(0.93 0.04 220 / 0.18), transparent 65%),
     radial-gradient(ellipse 60% 50% at 50% 100%, oklch(0.94 0.04 320 / 0.15), transparent 70%);
-  background-attachment: fixed;
+}
+.dark body,
+body:has(.dark) {
+  background-image:
+    radial-gradient(ellipse 80% 45% at 15% -5%, oklch(0.4 0.16 285 / 0.35), transparent 55%),
+    radial-gradient(ellipse 70% 40% at 95% 20%, oklch(0.35 0.14 250 / 0.25), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 50% 100%, oklch(0.32 0.12 320 / 0.2), transparent 65%);
 }
 body::before {
   content: "";

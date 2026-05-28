@@ -1,10 +1,13 @@
+import { Link } from "react-router-dom";
 import { Sparkles, MapPin, Mail } from "lucide-react";
+import { ROUTES } from "@/lib/routes";
 
 const companyLinks = [
   { label: "About", href: "#" },
-  { label: "Features", href: "#features" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Contact", href: "mailto:contact@quizflowkit.com" },
+  { label: "Features", href: ROUTES.landingSections.features },
+  { label: "Pricing", href: ROUTES.landingSections.pricing },
+  { label: "Dashboard", href: ROUTES.app, isRoute: true },
+  { label: "Contact", href: "mailto:hello@quizflow.ai" },
   { label: "Privacy Policy", href: "#" },
   { label: "Terms", href: "#" },
 ];
@@ -20,7 +23,7 @@ export function Footer() {
               <div className="h-8 w-8 rounded-lg bg-foreground flex items-center justify-center">
                 <Sparkles className="h-4 w-4 text-background" strokeWidth={2.5} />
               </div>
-              <span className="font-semibold tracking-tight">QuizFlowKit</span>
+              <span className="font-semibold tracking-tight">QuizFlow AI</span>
             </div>
             <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
               AI-powered quiz funnels for modern creators and paid social brands.
@@ -33,9 +36,21 @@ export function Footer() {
             <ul className="space-y-2.5">
               {companyLinks.map((l) => (
                 <li key={l.label}>
-                  <a href={l.href} className="text-sm text-foreground/80 hover:text-foreground transition-colors">
-                    {l.label}
-                  </a>
+                  {"isRoute" in l && l.isRoute ? (
+                    <Link
+                      to={l.href}
+                      className="text-sm text-foreground/80 hover:text-foreground transition-colors"
+                    >
+                      {l.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={l.href}
+                      className="text-sm text-foreground/80 hover:text-foreground transition-colors"
+                    >
+                      {l.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -45,7 +60,7 @@ export function Footer() {
           <div>
             <h3 className="text-xs uppercase tracking-[0.15em] text-muted-foreground mb-4">Company Information</h3>
             <div className="space-y-3 text-sm text-foreground/80">
-              <p className="font-semibold text-foreground">QuizFlowKit</p>
+              <p className="font-semibold text-foreground">QuizFlow AI</p>
               <p className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 mt-0.5 flex-none text-muted-foreground" />
                 <span>
@@ -55,11 +70,11 @@ export function Footer() {
               </p>
               <p>
                 <a
-                  href="mailto:contact@quizflowkit.com"
+                  href="mailto:hello@quizflow.ai"
                   className="inline-flex items-center gap-2 hover:text-foreground transition-colors"
                 >
                   <Mail className="h-4 w-4 text-muted-foreground" />
-                  contact@quizflowkit.com
+                  hello@quizflow.ai
                 </a>
               </p>
             </div>
@@ -67,7 +82,7 @@ export function Footer() {
         </div>
 
         <div className="mt-16 pt-8 border-t border-hairline flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-muted-foreground">© 2026 QuizFlowKit. All rights reserved.</p>
+          <p className="text-xs text-muted-foreground">© 2026 QuizFlow AI. All rights reserved.</p>
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
             All systems operational

@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { ROUTES } from "@/lib/routes";
 
 export function FinalCTA() {
   return (
-    <section id="cta" className="py-32">
+    <section id="cta" className="py-24 sm:py-32 scroll-mt-20">
       <div className="mx-auto max-w-5xl px-6">
         <div className="relative rounded-3xl border border-hairline bg-foreground text-background overflow-hidden p-12 sm:p-20 text-center shadow-hero">
           <div className="absolute inset-0 bg-accent-gradient opacity-30" />
@@ -21,15 +23,18 @@ export function FinalCTA() {
               Onboarding 200+ new creators this week
             </div>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <a
-                href="#"
-                className="group inline-flex items-center gap-2 bg-background text-foreground px-6 py-3.5 rounded-xl font-medium hover:bg-background/90 transition-all"
+              <Link
+                to={{ pathname: ROUTES.app, hash: "#generator" }}
+                className="btn-glow btn-shimmer group inline-flex items-center gap-2 bg-background text-foreground px-6 py-3.5 rounded-xl font-medium hover:bg-background/90 hover:-translate-y-0.5 transition-all shadow-elevated"
               >
                 Generate Your First AI Funnel
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-              </a>
-              <a href="#" className="text-sm text-background/70 hover:text-background transition-colors px-4 py-3.5">
-                Talk to sales →
+              </Link>
+              <a
+                href={ROUTES.landingSections.pricing}
+                className="text-sm text-background/70 hover:text-background transition-colors px-4 py-3.5"
+              >
+                View pricing →
               </a>
             </div>
           </div>

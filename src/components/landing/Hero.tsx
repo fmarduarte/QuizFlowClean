@@ -1,5 +1,6 @@
-import { ArrowRight, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { DashboardMockup } from "./DashboardMockup";
+import { QuizGeneratePanel } from "@/components/app/QuizGeneratePanel";
 
 export function Hero() {
   return (
@@ -32,32 +33,20 @@ export function Hero() {
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-hairline bg-surface-elevated shadow-sm text-xs font-medium animate-fade-in">
             <Sparkles className="h-3 w-3" />
-            <span>Introducing QuizFlowKit 2.0</span>
-            <span className="text-muted-foreground">— now with one-click ad export</span>
+            <span>QuizFlow AI</span>
+            <span className="text-muted-foreground">— AI Quiz Funnel Builder</span>
           </div>
 
           <h1 className="mt-7 sm:mt-8 text-[2rem] leading-[1.1] sm:text-6xl sm:leading-[1.05] lg:text-7xl font-semibold tracking-tight text-gradient animate-fade-up text-balance">
-            Interactive AI Quiz Funnels<br className="hidden sm:block" /> Built for Paid Social Ads
+            Build AI Quiz Funnels<br className="hidden sm:block" /> For Paid Social Ads
           </h1>
 
           <p className="mt-6 text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl leading-relaxed animate-fade-up" style={{ animationDelay: "100ms" }}>
             Create high-converting AI-powered quiz funnels for TikTok, Instagram, and Facebook Ads in minutes.
           </p>
 
-          <div className="mt-9 sm:mt-10 w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3 animate-fade-up" style={{ animationDelay: "200ms" }}>
-            <a
-              href="#cta"
-              className="btn-glow group inline-flex items-center justify-center gap-2 bg-foreground text-background px-6 py-3.5 rounded-xl font-medium shadow-elevated hover:shadow-glow transition-all duration-300 hover:-translate-y-0.5"
-            >
-              Start Building Funnels
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-            </a>
-            <a
-              href="#how"
-              className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-medium border border-hairline bg-surface-elevated/60 backdrop-blur hover:bg-surface-elevated hover:-translate-y-0.5 transition-all duration-300"
-            >
-              Watch Demo
-            </a>
+          <div className="mt-9 sm:mt-10 w-full animate-fade-up" style={{ animationDelay: "200ms" }}>
+            <QuizGeneratePanel variant="hero" />
           </div>
         </div>
 
