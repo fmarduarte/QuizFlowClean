@@ -1,13 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   CreditCard,
   LayoutDashboard,
   Bookmark,
+  Loader2,
+  LogOut,
   Settings,
   Sparkles,
   Wand2,
 } from "lucide-react";
+import { useState } from "react";
 import { ROUTES } from "@/lib/routes";
+import { useAuth } from "@/context/AuthContext";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { cn } from "@/lib/utils";
 
@@ -26,6 +30,17 @@ interface AppSidebarProps {
 
 export function AppSidebar({ onNavigate, className }: AppSidebarProps) {
   const active = useActiveSection();
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
+  const [loggingOut, setLoggingOut] = useState(false);
+
+  async function handleLogout() {
+    setLoggingOut(true);
+    await signOut();
+    onNavigate?.();
+    navigate(ROUTES.login, { replace: true });
+    setLoggingOut(false);
+  }
 
   return (
     <aside
@@ -70,7 +85,7 @@ export function AppSidebar({ onNavigate, className }: AppSidebarProps) {
         ))}
       </nav>
 
-      <div className="p-4 border-t border-hairline">
+      <div className="p-4 border-t border-hairline space-y-2">
         <div className="glass rounded-xl p-3 text-xs">
           <p className="font-medium text-foreground/90">Pro trial</p>
           <p className="text-muted-foreground mt-1 leading-relaxed">12 days left · Unlimited AI</p>
@@ -82,6 +97,19 @@ export function AppSidebar({ onNavigate, className }: AppSidebarProps) {
             Manage billing →
           </a>
         </div>
+        <button
+          type="button"
+          onClick={handleLogout}
+          disabled={loggingOut}
+          className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-surface-elevated/80 border border-hairline transition-all"
+        >
+          {loggingOut ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <LogOut className="h-4 w-4" />
+          )}
+          Log out
+        </button>
       </div>
     </aside>
   );

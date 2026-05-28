@@ -64,7 +64,7 @@ export function Nav() {
 
         <div className="hidden md:flex items-center gap-3">
           <Link
-            to={ROUTES.app}
+            to={ROUTES.login}
             className="text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             Sign in
@@ -114,7 +114,7 @@ export function Nav() {
           </Link>
           <div className="mt-3 pt-3 border-t border-hairline flex flex-col gap-2">
             <Link
-              to={ROUTES.app}
+              to={ROUTES.login}
               onClick={() => setOpen(false)}
               className="py-3 px-2 text-[15px] text-muted-foreground hover:text-foreground transition-colors"
             >

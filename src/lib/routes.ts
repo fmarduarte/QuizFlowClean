@@ -1,6 +1,8 @@
 /** Central route paths */
 export const ROUTES = {
   landing: "/",
+  login: "/login",
+  signup: "/signup",
   app: "/app",
   appSections: {
     overview: "#overview",
