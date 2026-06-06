@@ -40,8 +40,8 @@ export const PAGE_META = {
     ogType: "website",
   },
   dashboard: {
-    title: `Dashboard | ${SITE_NAME}`,
-    description: `Manage your AI funnels, create new campaigns, and track performance in ${SITE_NAME}.`,
+    title: `Workspace | ${SITE_NAME}`,
+    description: `Create and manage AI funnels in your ${SITE_NAME} workspace.`,
     robots: "noindex, nofollow",
     ogType: "website",
   },

@@ -1,3 +1,5 @@
+import { Navigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 import { Hero } from "@/components/landing/Hero";
 import { Features } from "@/components/landing/Features";
 import { HowItWorks } from "@/components/landing/HowItWorks";
@@ -12,7 +14,12 @@ import { ROUTES } from "@/lib/routes";
 
 /** Public landing — "/" */
 export function LandingPage() {
+  const { isAuthenticated, loading } = useAuth();
   usePageMeta({ ...PAGE_META.landing, canonical: ROUTES.landing });
+
+  if (!loading && isAuthenticated) {
+    return <Navigate to={ROUTES.app} replace />;
+  }
 
   return (
     <>

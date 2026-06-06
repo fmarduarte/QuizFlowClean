@@ -12,15 +12,15 @@ export function loginRedirectState(from: string): AuthRedirectState {
   return { from };
 }
 
-export function loginLink(from = `${ROUTES.app}${ROUTES.appSections.generator}`) {
+export function loginLink(from = ROUTES.app) {
   return { pathname: ROUTES.login, state: loginRedirectState(from) };
 }
 
-export function signupLink(from = `${ROUTES.app}${ROUTES.appSections.generator}`) {
+export function signupLink(from = ROUTES.app) {
   return { pathname: ROUTES.signup, state: loginRedirectState(from) };
 }
 
-/** Parse a stored redirect like `/app#generator` into router location parts. */
+/** Parse a stored redirect like `/app/create` into router location parts. */
 export function parseRedirectTarget(from: string) {
   const url = new URL(from, "http://redirect.local");
   return {

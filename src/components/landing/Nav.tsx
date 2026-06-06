@@ -25,10 +25,9 @@ const publicLinks = [
 ];
 
 const appLinks = [
-  { href: ROUTES.app, label: "Dashboard", isRoute: true },
-  { href: `${ROUTES.app}${ROUTES.appSections.saved}`, label: PRODUCT_COPY.funnel.myFunnels, isRoute: true },
-  { href: `${ROUTES.app}${ROUTES.appSections.billing}`, label: "Credits", isRoute: true },
-  { href: `${ROUTES.app}${ROUTES.appSections.settings}`, label: "Settings", isRoute: true },
+  { href: ROUTES.app, label: "Create", isRoute: true },
+  { href: ROUTES.appFunnels, label: PRODUCT_COPY.funnel.myFunnels, isRoute: true },
+  { href: ROUTES.appSettings, label: "Settings", isRoute: true },
 ];
 
 export function Nav() {
@@ -40,9 +39,7 @@ export function Nav() {
   const isHome = location.pathname === ROUTES.landing;
 
   const initial = user?.email?.[0]?.toUpperCase() ?? "Q";
-  const getStartedTo = isAuthenticated
-    ? { pathname: ROUTES.app, hash: ROUTES.appSections.generator }
-    : signupLink(`${ROUTES.app}${ROUTES.appSections.generator}`);
+  const getStartedTo = isAuthenticated ? ROUTES.app : signupLink(ROUTES.app);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -141,7 +138,7 @@ export function Nav() {
                   <Link to={ROUTES.app}>Dashboard</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to={`${ROUTES.app}${ROUTES.appSections.settings}`}>Settings</Link>
+                  <Link to={ROUTES.appSettings}>Settings</Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleSignOut} className="text-destructive focus:text-destructive">

@@ -1,28 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
-import {
-  CreditCard,
-  LayoutDashboard,
-  Bookmark,
-  Loader2,
-  LogOut,
-  Settings,
-  Sparkles,
-  Wand2,
-} from "lucide-react";
+import { Bookmark, Loader2, LogOut, Plus, Settings, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { PRODUCT_COPY } from "@/lib/product-copy";
 import { ROUTES } from "@/lib/routes";
 import { useAuth } from "@/context/AuthContext";
-import { useActiveSection } from "@/hooks/use-active-section";
-import { APP_BUILD, APP_VERSION } from "@/lib/version";
+import { useAppNavActive } from "@/hooks/use-app-nav-active";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { id: "overview" as const, hash: ROUTES.appSections.overview, label: "Overview", icon: LayoutDashboard },
-  { id: "generator" as const, hash: ROUTES.appSections.generator, label: PRODUCT_COPY.funnel.generator, icon: Wand2 },
-  { id: "saved" as const, hash: ROUTES.appSections.saved, label: PRODUCT_COPY.funnel.myFunnels, icon: Bookmark },
-  { id: "billing" as const, hash: ROUTES.appSections.billing, label: "Billing", icon: CreditCard },
-  { id: "settings" as const, hash: ROUTES.appSections.settings, label: "Settings", icon: Settings },
+  { id: "create" as const, to: ROUTES.app, label: PRODUCT_COPY.funnel.create, icon: Plus },
+  { id: "funnels" as const, to: ROUTES.appFunnels, label: PRODUCT_COPY.funnel.myFunnels, icon: Bookmark },
+  { id: "settings" as const, to: ROUTES.appSettings, label: "Settings", icon: Settings },
 ];
 
 interface AppSidebarProps {
@@ -31,7 +19,7 @@ interface AppSidebarProps {
 }
 
 export function AppSidebar({ onNavigate, className }: AppSidebarProps) {
-  const active = useActiveSection();
+  const active = useAppNavActive();
   const { signOut } = useAuth();
   const navigate = useNavigate();
   const [loggingOut, setLoggingOut] = useState(false);
@@ -47,63 +35,46 @@ export function AppSidebar({ onNavigate, className }: AppSidebarProps) {
   return (
     <aside
       className={cn(
-        "flex flex-col h-full border-r border-hairline bg-surface-subtle/50 backdrop-blur-xl",
+        "flex flex-col h-full border-r border-hairline/60 bg-background/40",
         className
       )}
     >
       <Link
         to={ROUTES.app}
         onClick={onNavigate}
-        className="h-16 flex items-center gap-2.5 px-5 border-b border-hairline flex-shrink-0 hover:bg-surface-elevated/30 transition-colors"
+        className="h-14 flex items-center gap-2.5 px-5 border-b border-hairline/60 flex-shrink-0 hover:bg-muted/20 transition-colors"
       >
-        <div className="h-8 w-8 rounded-lg bg-accent-gradient flex items-center justify-center shadow-glow">
-          <Sparkles className="h-4 w-4 text-white" strokeWidth={2.5} />
+        <div className="h-7 w-7 rounded-lg bg-violet-500/15 flex items-center justify-center">
+          <Sparkles className="h-3.5 w-3.5 text-violet-300" strokeWidth={2.5} />
         </div>
-        <div>
-          <p className="text-sm font-semibold tracking-tight leading-none">QuizFlow AI</p>
-          <p className="text-[10px] text-muted-foreground mt-0.5">Workspace</p>
-        </div>
+        <p className="text-sm font-medium tracking-tight leading-none text-foreground/90">QuizFlow</p>
       </Link>
 
-      <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
-        <p className="px-3 pt-2 pb-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
-          Workspace
-        </p>
-        {navItems.map(({ id, hash, label, icon: Icon }) => (
-          <a
+      <nav className="flex-1 p-3 space-y-1">
+        {navItems.map(({ id, to, label, icon: Icon }) => (
+          <Link
             key={id}
-            href={`${ROUTES.app}${hash}`}
+            to={to}
             onClick={onNavigate}
             className={cn(
               "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200",
               active === id
-                ? "bg-violet-500/15 text-violet-200 border border-violet-500/25 shadow-sm"
-                : "text-muted-foreground hover:text-foreground hover:bg-surface-elevated/80"
+                ? "bg-violet-500/10 text-foreground"
+                : "text-muted-foreground/80 hover:text-foreground hover:bg-muted/30"
             )}
           >
             <Icon className="h-4 w-4 flex-shrink-0" strokeWidth={2} />
             {label}
-          </a>
+          </Link>
         ))}
       </nav>
 
-      <div className="p-4 border-t border-hairline space-y-2">
-        <div className="glass rounded-xl p-3 text-xs">
-          <p className="font-medium text-foreground/90">Pro trial</p>
-          <p className="text-muted-foreground mt-1 leading-relaxed">12 days left · Unlimited AI</p>
-          <a
-            href={`${ROUTES.app}${ROUTES.appSections.billing}`}
-            onClick={onNavigate}
-            className="mt-2 inline-block text-violet-300 hover:text-violet-200 font-medium transition-colors"
-          >
-            Manage billing →
-          </a>
-        </div>
+      <div className="p-3 border-t border-hairline">
         <button
           type="button"
           onClick={handleLogout}
           disabled={loggingOut}
-          className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-surface-elevated/80 border border-hairline transition-all"
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-surface-elevated/80 transition-all"
         >
           {loggingOut ? (
             <Loader2 className="h-4 w-4 animate-spin" />
@@ -112,18 +83,6 @@ export function AppSidebar({ onNavigate, className }: AppSidebarProps) {
           )}
           Log out
         </button>
-      </div>
-
-      <div className="flex-shrink-0 border-t border-hairline px-5 py-3">
-        <div className="space-y-0.5 select-none">
-          <p className="text-[11px] font-medium tracking-tight text-muted-foreground/70">
-            QuizFlow AI
-          </p>
-          <p className="text-[10px] text-muted-foreground/50">Version {APP_VERSION}</p>
-          <p className="text-[10px] font-mono tabular-nums text-muted-foreground/40">
-            Build {APP_BUILD}
-          </p>
-        </div>
       </div>
     </aside>
   );

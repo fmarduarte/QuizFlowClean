@@ -1,115 +1,76 @@
 import { formatDistanceToNow } from "date-fns";
 import { Bookmark, Pencil, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SectionHeading } from "@/components/app/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useQuizzes } from "@/context/QuizzesContext";
-import { PRODUCT_COPY } from "@/lib/product-copy";
 import { ROUTES } from "@/lib/routes";
 
 export function SavedQuizzesSection() {
   const { quizzes, removeQuiz } = useQuizzes();
 
-  return (
-    <section id="saved" className="scroll-mt-24 pt-4 animate-fade-up">
-      <SectionHeading
-        title={PRODUCT_COPY.funnel.saved}
-        description="Your AI-generated funnels — edit, duplicate, or publish to paid social."
-      />
+  if (quizzes.length === 0) {
+    return (
+      <Card className="glass border-hairline border-dashed">
+        <CardContent className="py-16 flex flex-col items-center text-center">
+          <Bookmark className="h-10 w-10 text-muted-foreground/60 mb-4" />
+          <p className="font-medium">No funnels yet</p>
+          <p className="text-sm text-muted-foreground mt-2 max-w-sm">
+            Create your first funnel to get started.
+          </p>
+          <Button asChild className="mt-6 rounded-xl btn-shimmer text-white border-0 bg-accent-gradient shadow-glow">
+            <Link to={ROUTES.app}>Create funnel</Link>
+          </Button>
+        </CardContent>
+      </Card>
+    );
+  }
 
-      {quizzes.length === 0 ? (
-        <Card className="glass border-hairline border-dashed">
-          <CardContent className="py-14 flex flex-col items-center text-center">
-            <Bookmark className="h-11 w-11 text-muted-foreground mb-3" />
-            <p className="font-medium">No funnels yet</p>
-            <p className="text-sm text-muted-foreground mt-2 max-w-sm">
-              Use the funnel generator above to create your first campaign.
-            </p>
-            <a
-              href={ROUTES.appSections.generator}
-              className="mt-5 inline-flex items-center justify-center rounded-xl btn-shimmer text-white px-5 py-2.5 text-sm font-medium shadow-glow"
-            >
-              Go to generator
-            </a>
-          </CardContent>
-        </Card>
-      ) : (
-        <div className="space-y-4">
-          {quizzes.map((quiz, i) => (
-            <article
-              key={quiz.id}
-              className="glass rounded-2xl p-5 sm:p-6 border border-hairline hover-lift transition-all duration-300"
-              style={{ animationDelay: `${i * 40}ms` }}
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="min-w-0 flex-1">
-                  <h3 className="text-lg font-semibold tracking-tight">{quiz.title}</h3>
-                  {quiz.description && (
-                    <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{quiz.description}</p>
-                  )}
-                  <p className="text-xs text-muted-foreground mt-3">
-                    {quiz.questions.length} steps · Saved{" "}
-                    {formatDistanceToNow(new Date(quiz.createdAt), { addSuffix: true })}
-                  </p>
-                </div>
-                <div className="flex items-center gap-1 flex-shrink-0">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    asChild
-                    className="rounded-xl border-hairline hidden sm:inline-flex"
-                  >
-                    <Link to={ROUTES.quizEdit(quiz.id)}>
-                      <Pencil className="h-3.5 w-3.5" />
-                      Edit
-                    </Link>
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="rounded-xl text-muted-foreground hover:text-destructive"
-                    onClick={() => removeQuiz(quiz.id)}
-                    aria-label={`Delete ${quiz.title}`}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-              <ol className="mt-4 space-y-2">
-                {quiz.questions.map((q, qi) => (
-                  <li
-                    key={q.id}
-                    className="flex items-start gap-2 text-sm text-foreground/80 rounded-lg bg-surface-subtle/80 px-3 py-2"
-                  >
-                    <span className="text-violet-400 font-mono text-xs mt-0.5">{qi + 1}.</span>
-                    <div className="min-w-0 flex-1">
-                      <span>{q.title}</span>
-                      {q.options.length > 0 && (
-                        <p className="text-xs text-muted-foreground mt-0.5 truncate">
-                          {q.options.map((o) => o.label).join(" · ")}
-                        </p>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ol>
+  return (
+    <div className="space-y-4">
+      {quizzes.map((quiz, i) => (
+        <article
+          key={quiz.id}
+          className="glass rounded-2xl p-5 sm:p-6 border border-hairline hover-lift transition-all duration-300"
+          style={{ animationDelay: `${i * 40}ms` }}
+        >
+          <div className="flex items-start justify-between gap-4">
+            <div className="min-w-0 flex-1">
+              <h3 className="text-lg font-semibold tracking-tight">{quiz.title}</h3>
+              {quiz.brief?.funnelTypeLabel && (
+                <p className="text-xs text-violet-300/80 mt-1">{quiz.brief.funnelTypeLabel}</p>
+              )}
+              <p className="text-xs text-muted-foreground mt-2">
+                {quiz.questions.length} steps ·{" "}
+                {formatDistanceToNow(new Date(quiz.createdAt), { addSuffix: true })}
+              </p>
+            </div>
+            <div className="flex items-center gap-1 flex-shrink-0">
               <Button
                 variant="outline"
                 size="sm"
                 asChild
-                className="mt-4 w-full sm:hidden rounded-xl border-hairline"
+                className="rounded-xl border-hairline"
               >
                 <Link to={ROUTES.quizEdit(quiz.id)}>
                   <Pencil className="h-3.5 w-3.5" />
-                  Edit funnel
+                  Edit
                 </Link>
               </Button>
-            </article>
-          ))}
-        </div>
-      )}
-    </section>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="rounded-xl text-muted-foreground hover:text-destructive"
+                onClick={() => removeQuiz(quiz.id)}
+                aria-label={`Delete ${quiz.title}`}
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
   );
 }

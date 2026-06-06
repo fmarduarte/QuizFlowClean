@@ -10,11 +10,7 @@ import { cn } from "@/lib/utils";
 
 export function FunnelTypePicker() {
   const { isAuthenticated, loading } = useAuth();
-  const redirect = `${ROUTES.app}${ROUTES.appSections.generator}`;
-
-  const ctaTo = isAuthenticated
-    ? { pathname: ROUTES.app, hash: ROUTES.appSections.generator }
-    : signupLink(redirect);
+  const ctaTo = isAuthenticated ? ROUTES.app : signupLink(ROUTES.app);
 
   return (
     <div className="w-full max-w-4xl mx-auto text-left">

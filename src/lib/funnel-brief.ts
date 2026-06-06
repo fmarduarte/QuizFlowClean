@@ -1,3 +1,4 @@
+import { analyzeBriefCoach } from "@/lib/input-coach";
 import { FUNNEL_TYPES } from "@/lib/funnel-types";
 import type { FunnelBrief, LanguageDetection, LanguageMode } from "@/types/funnel-brief";
 
@@ -124,75 +125,18 @@ export function validateFunnelBrief(values: FunnelBriefValues): FunnelBriefValid
 
 export interface BriefQualityResult {
   score: number;
-  label: "Incomplete" | "Needs detail" | "Good" | "Excellent";
+  label: "Poor" | "Basic" | "Good" | "Excellent";
   hint: string;
-}
-
-function fieldQualityScore(value: string, minLength: number, weight: number): number {
-  const len = value.trim().length;
-  if (len === 0) return 0;
-  if (len < minLength) return weight * 0.35;
-  if (len < minLength * 1.5) return weight * 0.75;
-  return weight;
+  canGenerate: boolean;
 }
 
 export function computeBriefQuality(values: FunnelBriefValues): BriefQualityResult {
-  const weights = {
-    funnelType: 15,
-    businessNiche: 15,
-    productOffer: 20,
-    targetAudience: 25,
-    goal: 25,
-  } as const;
-
-  let score = 0;
-  if (values.funnelType && FUNNEL_TYPE_IDS.includes(values.funnelType)) {
-    score += weights.funnelType;
-  }
-  score += fieldQualityScore(
-    values.businessNiche,
-    FUNNEL_BRIEF_FIELDS.businessNiche.minLength,
-    weights.businessNiche
-  );
-  score += fieldQualityScore(
-    values.productOffer,
-    FUNNEL_BRIEF_FIELDS.productOffer.minLength,
-    weights.productOffer
-  );
-  score += fieldQualityScore(
-    values.targetAudience,
-    FUNNEL_BRIEF_FIELDS.targetAudience.minLength,
-    weights.targetAudience
-  );
-  score += fieldQualityScore(values.goal, FUNNEL_BRIEF_FIELDS.goal.minLength, weights.goal);
-
-  const rounded = Math.round(score);
-
-  if (rounded < 25) {
-    return {
-      score: rounded,
-      label: "Incomplete",
-      hint: "Fill in all fields to unlock generation.",
-    };
-  }
-  if (rounded < 60) {
-    return {
-      score: rounded,
-      label: "Needs detail",
-      hint: "Add more audience and offer detail for stronger funnel copy.",
-    };
-  }
-  if (rounded < 85) {
-    return {
-      score: rounded,
-      label: "Good",
-      hint: "Your brief is solid — you can generate now or refine further.",
-    };
-  }
+  const coach = analyzeBriefCoach(values);
   return {
-    score: rounded,
-    label: "Excellent",
-    hint: "Rich brief — expect more tailored funnel steps and results.",
+    score: coach.score,
+    label: coach.label,
+    hint: coach.hint,
+    canGenerate: coach.canGenerate,
   };
 }
 

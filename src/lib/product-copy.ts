@@ -11,6 +11,18 @@ export const PRODUCT_COPY = {
     primaryCta: "Create your first funnel",
     secondaryCta: "See how it works",
   },
+  app: {
+    homeHeadline: "What would you like to build today?",
+    homeSubhead: "Choose a funnel type to start building.",
+    createTitle: "Create funnel",
+    createDescription: "Describe your offer and audience — AI drafts the full funnel.",
+    funnelsTitle: "My Funnels",
+    funnelsDescription: "Edit, publish, or create another funnel.",
+    settingsTitle: "Settings",
+    settingsDescription: "Account and workspace preferences.",
+    billingTitle: "Billing",
+    billingDescription: "Plan, payment method, and invoices.",
+  },
   funnel: {
     create: "Create Funnel",
     generate: "Generate Funnel",

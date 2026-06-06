@@ -9,8 +9,8 @@ export function FinalCTA() {
   const { isAuthenticated, loading } = useAuth();
 
   const ctaTo = isAuthenticated
-    ? { pathname: ROUTES.app, hash: ROUTES.appSections.generator }
-    : signupLink(`${ROUTES.app}${ROUTES.appSections.generator}`);
+    ? ROUTES.app
+    : signupLink(ROUTES.app);
 
   return (
     <section id="cta" className="py-24 sm:py-32 scroll-mt-20">

@@ -38,8 +38,8 @@ export function LanguageChoiceModal({
             Your input language was detected as <strong>{languageLabel}</strong>.
             <br />
             <br />
-            For best results, QuizFlow AI can automatically translate and optimize your input for
-            AI generation.
+            For best results, QuizFlow AI can automatically translate and optimize your input
+            before generation.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex-col sm:flex-col gap-2 sm:gap-2">

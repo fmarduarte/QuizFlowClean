@@ -1,4 +1,5 @@
 import { Progress } from "@/components/ui/progress";
+import { MIN_BRIEF_QUALITY_SCORE } from "@/lib/input-coach";
 import type { BriefQualityResult } from "@/lib/funnel-brief";
 import { cn } from "@/lib/utils";
 
@@ -7,8 +8,8 @@ interface FunnelBriefQualityProps {
 }
 
 const labelStyles: Record<BriefQualityResult["label"], string> = {
-  Incomplete: "text-muted-foreground",
-  "Needs detail": "text-amber-400",
+  Poor: "text-red-400",
+  Basic: "text-amber-400",
   Good: "text-emerald-400",
   Excellent: "text-violet-400",
 };
@@ -32,10 +33,15 @@ export function FunnelBriefQuality({ quality }: FunnelBriefQualityProps) {
       </div>
       <div className="flex items-center gap-3">
         <Progress value={quality.score} className="h-2 flex-1 bg-muted" />
-        <span className="text-xs text-muted-foreground tabular-nums w-8 text-right">
+        <span className="text-xs text-muted-foreground tabular-nums w-10 text-right">
           {quality.score}%
         </span>
       </div>
+      {!quality.canGenerate && quality.score > 0 && (
+        <p className="text-[11px] text-amber-400/90">
+          Minimum {MIN_BRIEF_QUALITY_SCORE}% required to generate.
+        </p>
+      )}
     </div>
   );
 }

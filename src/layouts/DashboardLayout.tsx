@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { X } from "lucide-react";
+import { LegacyHashRedirect } from "@/components/app/LegacyHashRedirect";
 import { AppSidebar } from "@/components/dashboard/AppSidebar";
 import { AppNavbar } from "@/components/dashboard/AppNavbar";
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,8 @@ export function DashboardLayout() {
   return (
     <div className="dark min-h-screen bg-background text-foreground flex selection:bg-violet-500/30">
       <SkipLink />
-      <div className="hidden lg:block w-64 flex-shrink-0 fixed inset-y-0 left-0 z-40">
+      <LegacyHashRedirect />
+      <div className="hidden lg:block w-52 flex-shrink-0 fixed inset-y-0 left-0 z-40">
         <AppSidebar />
       </div>
 
@@ -48,9 +50,9 @@ export function DashboardLayout() {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col min-h-screen lg:pl-64">
+      <div className="flex-1 flex flex-col min-h-screen lg:pl-52">
         <AppNavbar onMenuClick={() => setSidebarOpen(true)} />
-        <main id="main-content" className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
+        <main id="main-content" className="flex-1 px-4 sm:px-10 lg:px-16 py-8 sm:py-12 overflow-auto">
           <div className="animate-fade-in">
             <Outlet />
           </div>

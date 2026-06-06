@@ -20,7 +20,7 @@ export function SignupPage() {
   const location = useLocation();
   const from =
     (location.state as { from?: string } | null)?.from ??
-    `${ROUTES.app}${ROUTES.appSections.generator}`;
+    ROUTES.app;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

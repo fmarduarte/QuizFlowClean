@@ -19,9 +19,7 @@ export function LoginPage() {
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from =
-    (location.state as { from?: string } | null)?.from ??
-    `${ROUTES.app}${ROUTES.appSections.generator}`;
+  const from = (location.state as { from?: string } | null)?.from ?? ROUTES.app;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

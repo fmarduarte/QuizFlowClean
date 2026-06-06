@@ -30,4 +30,5 @@ export interface LanguageDetection {
   label: string;
   confidence: number;
   isEnglish: boolean;
+  isReliable: boolean;
 }

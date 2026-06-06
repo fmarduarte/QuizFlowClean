@@ -9,7 +9,11 @@ import { LoginPage } from "@/pages/auth/LoginPage";
 import { SignupPage } from "@/pages/auth/SignupPage";
 import { ForgotPasswordPage } from "@/pages/auth/ForgotPasswordPage";
 import { ResetPasswordPage } from "@/pages/auth/ResetPasswordPage";
-import { DashboardPage } from "@/pages/app/DashboardPage";
+import { AppHomePage } from "@/pages/app/AppHomePage";
+import { CreateFunnelPage } from "@/pages/app/CreateFunnelPage";
+import { MyFunnelsPage } from "@/pages/app/MyFunnelsPage";
+import { AppSettingsPage } from "@/pages/app/AppSettingsPage";
+import { AppBillingPage } from "@/pages/app/AppBillingPage";
 import { QuizBuilderPage } from "@/pages/app/QuizBuilderPage";
 import { NotFoundPage } from "@/pages/marketing/NotFoundPage";
 import { ROUTES } from "@/lib/routes";
@@ -44,7 +48,11 @@ export const router = createBrowserRouter([
         path: ROUTES.app,
         element: <DashboardLayout />,
         children: [
-          { index: true, element: <DashboardPage /> },
+          { index: true, element: <AppHomePage /> },
+          { path: "create", element: <CreateFunnelPage /> },
+          { path: "funnels", element: <MyFunnelsPage /> },
+          { path: "settings", element: <AppSettingsPage /> },
+          { path: "billing", element: <AppBillingPage /> },
           { path: "quiz/:quizId", element: <QuizBuilderPage /> },
         ],
       },

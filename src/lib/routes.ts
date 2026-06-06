@@ -6,14 +6,12 @@ export const ROUTES = {
   forgotPassword: "/forgot-password",
   resetPassword: "/reset-password",
   app: "/app",
+  appCreate: "/app/create",
+  appFunnels: "/app/funnels",
+  appSettings: "/app/settings",
+  appBilling: "/app/billing",
+  appCreateWithType: (type: string) => `/app/create?type=${encodeURIComponent(type)}`,
   quizEdit: (id: string) => `/app/quiz/${id}`,
-  appSections: {
-    overview: "#overview",
-    generator: "#generator",
-    saved: "#saved",
-    settings: "#settings",
-    billing: "#billing",
-  },
   landingSections: {
     how: "/#how",
     features: "/#features",
@@ -24,4 +22,4 @@ export const ROUTES = {
   },
 } as const;
 
-export type AppSectionId = keyof typeof ROUTES.appSections;
+export type AppNavId = "create" | "funnels" | "settings" | "billing";
