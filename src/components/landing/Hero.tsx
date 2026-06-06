@@ -75,6 +75,20 @@ export function Hero() {
             {PRODUCT_COPY.hero.subhead}
           </p>
 
+          <ul
+            className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground/80 animate-fade-up"
+            style={{ animationDelay: "150ms" }}
+          >
+            {PRODUCT_COPY.hero.benefits.map((benefit) => (
+              <li key={benefit} className="flex items-center gap-1.5">
+                <span className="text-emerald-400/80" aria-hidden>
+                  ✓
+                </span>
+                {benefit}
+              </li>
+            ))}
+          </ul>
+
           <div
             className="mt-10 sm:mt-12 w-full animate-fade-up"
             style={{ animationDelay: "200ms" }}

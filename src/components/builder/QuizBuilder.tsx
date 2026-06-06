@@ -11,9 +11,11 @@ import { cn } from "@/lib/utils";
 interface QuizBuilderProps {
   quiz: Quiz;
   onSave: (quiz: Quiz) => void;
+  onPublish?: (draft: Quiz) => void;
+  isPublished?: boolean;
 }
 
-export function QuizBuilder({ quiz, onSave }: QuizBuilderProps) {
+export function QuizBuilder({ quiz, onSave, onPublish, isPublished }: QuizBuilderProps) {
   const handleSave = useCallback(
     (draft: Quiz) => {
       onSave({
@@ -40,7 +42,7 @@ export function QuizBuilder({ quiz, onSave }: QuizBuilderProps) {
     addQuestion,
     deleteQuestion,
     duplicateQuestion,
-    reorderQuestions,
+    moveQuestion,
     addOption,
     deleteOption,
   } = useQuizBuilder({
@@ -54,6 +56,9 @@ export function QuizBuilder({ quiz, onSave }: QuizBuilderProps) {
         title={draft.title}
         onTitleChange={updateTitle}
         saveStatus={saveStatus}
+        onPublish={onPublish ? () => onPublish(draft) : undefined}
+        isPublished={isPublished}
+        canPublish={draft.questions.length > 0}
       />
 
       {/* Desktop: three-panel layout */}
@@ -66,7 +71,8 @@ export function QuizBuilder({ quiz, onSave }: QuizBuilderProps) {
             onAdd={addQuestion}
             onDelete={deleteQuestion}
             onDuplicate={duplicateQuestion}
-            onReorder={reorderQuestions}
+            onMove={moveQuestion}
+            quizTypeId={draft.brief?.funnelType}
           />
         </aside>
 
@@ -93,7 +99,7 @@ export function QuizBuilder({ quiz, onSave }: QuizBuilderProps) {
         </main>
 
         <aside className="border-l border-hairline bg-surface-subtle/20 min-h-0 overflow-hidden">
-          <QuizLivePreview quiz={draft} activeQuestion={selectedQuestion} activeIndex={selectedIndex} />
+          <QuizLivePreview quiz={draft} />
         </aside>
       </div>
 
@@ -107,7 +113,8 @@ export function QuizBuilder({ quiz, onSave }: QuizBuilderProps) {
             onAdd={addQuestion}
             onDelete={deleteQuestion}
             onDuplicate={duplicateQuestion}
-            onReorder={reorderQuestions}
+            onMove={moveQuestion}
+            quizTypeId={draft.brief?.funnelType}
           />
         </aside>
 
@@ -142,7 +149,7 @@ export function QuizBuilder({ quiz, onSave }: QuizBuilderProps) {
             />
           </TabsContent>
           <TabsContent value="preview" className="flex-1 min-h-0 mt-0 data-[state=inactive]:hidden">
-            <QuizLivePreview quiz={draft} activeQuestion={selectedQuestion} activeIndex={selectedIndex} />
+            <QuizLivePreview quiz={draft} />
           </TabsContent>
         </Tabs>
       </div>
@@ -172,7 +179,8 @@ export function QuizBuilder({ quiz, onSave }: QuizBuilderProps) {
             onAdd={addQuestion}
             onDelete={deleteQuestion}
             onDuplicate={duplicateQuestion}
-            onReorder={reorderQuestions}
+            onMove={moveQuestion}
+            quizTypeId={draft.brief?.funnelType}
           />
         </TabsContent>
 
@@ -199,7 +207,7 @@ export function QuizBuilder({ quiz, onSave }: QuizBuilderProps) {
         </TabsContent>
 
         <TabsContent value="preview" className="flex-1 min-h-0 mt-0 data-[state=inactive]:hidden">
-          <QuizLivePreview quiz={draft} activeQuestion={selectedQuestion} activeIndex={selectedIndex} />
+          <QuizLivePreview quiz={draft} />
         </TabsContent>
       </Tabs>
     </div>

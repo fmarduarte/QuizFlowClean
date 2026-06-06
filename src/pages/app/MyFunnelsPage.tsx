@@ -7,7 +7,7 @@ import { ROUTES } from "@/lib/routes";
 export function MyFunnelsPage() {
   usePageMeta({
     ...PAGE_META.dashboard,
-    title: `${PRODUCT_COPY.app.funnelsTitle} | QuizFlow AI`,
+    title: `${PRODUCT_COPY.app.quizzesTitle} | QuizFlow AI`,
     canonical: ROUTES.appFunnels,
   });
 
@@ -15,7 +15,7 @@ export function MyFunnelsPage() {
     <div className="max-w-2xl mx-auto w-full py-8 sm:py-12">
       <header className="mb-10">
         <h1 className="text-xl sm:text-2xl font-semibold tracking-tight">
-          {PRODUCT_COPY.app.funnelsTitle}
+          {PRODUCT_COPY.app.quizzesTitle}
         </h1>
       </header>
       <SavedQuizzesSection />

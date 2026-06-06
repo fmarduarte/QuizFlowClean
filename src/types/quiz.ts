@@ -18,6 +18,8 @@ export interface Quiz {
   description?: string;
   questions: Question[];
   brief?: FunnelBrief;
+  published?: boolean;
+  publishedAt?: string;
   createdAt: string;
   updatedAt: string;
 }

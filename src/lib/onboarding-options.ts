@@ -6,12 +6,31 @@ export interface OnboardingOption {
   description?: string;
 }
 
-export const ONBOARDING_FUNNEL_TYPES: OnboardingOption[] = [
-  { id: "lead_generation", label: "Lead Generation Funnel", description: "Capture emails before your offer" },
-  { id: "sales", label: "Sales Funnel", description: "Guide buyers to purchase" },
-  { id: "application", label: "Application Funnel", description: "Qualify high-intent prospects" },
-  { id: "webinar", label: "Webinar Funnel", description: "Drive registrations and attendance" },
+export const ONBOARDING_QUIZ_TYPES: OnboardingOption[] = [
+  {
+    id: "lead_generation",
+    label: "Lead Qualification Quiz",
+    description: "Score answers and capture qualified leads",
+  },
+  {
+    id: "sales",
+    label: "Product Recommendation Quiz",
+    description: "Match visitors to the right product or offer",
+  },
+  {
+    id: "application",
+    label: "Application Quiz",
+    description: "Filter and qualify high-intent applicants",
+  },
+  {
+    id: "webinar",
+    label: "Assessment Quiz",
+    description: "Segment audience with scored assessments",
+  },
 ];
+
+/** @deprecated Use ONBOARDING_QUIZ_TYPES */
+export const ONBOARDING_FUNNEL_TYPES = ONBOARDING_QUIZ_TYPES;
 
 export const ONBOARDING_PRODUCT_TYPES: OnboardingOption[] = [
   { id: "saas", label: "SaaS" },
@@ -34,15 +53,14 @@ export const ONBOARDING_CUSTOMER_TYPES: OnboardingOption[] = [
 ];
 
 export const ONBOARDING_ACTIONS: OnboardingOption[] = [
-  { id: "buy", label: "Buy" },
-  { id: "email", label: "Leave Email" },
-  { id: "call", label: "Book a Call" },
-  { id: "apply", label: "Apply" },
-  { id: "register", label: "Register" },
+  { id: "buy", label: "Recommend a product" },
+  { id: "email", label: "Capture email leads" },
+  { id: "call", label: "Book a call" },
+  { id: "apply", label: "Submit an application" },
+  { id: "register", label: "Register for an event" },
 ];
 
-/** Maps onboarding funnel ids to internal engine funnel type ids. */
-const FUNNEL_TYPE_MAP: Record<string, string> = {
+const QUIZ_TYPE_MAP: Record<string, string> = {
   lead_generation: "lead_generation",
   sales: "product_recommendation",
   application: "application",
@@ -68,11 +86,11 @@ const CUSTOMER_LABELS: Record<string, string> = {
 };
 
 const ACTION_GOALS: Record<string, string> = {
-  buy: "Drive purchases and increase sales",
-  email: "Capture email leads",
+  buy: "Recommend the right product and drive purchases",
+  email: "Capture qualified email leads",
   call: "Book qualified strategy calls",
   apply: "Collect qualified applications",
-  register: "Drive webinar or event registrations",
+  register: "Drive event or webinar registrations",
 };
 
 export interface OnboardingAnswers {
@@ -118,15 +136,18 @@ export function resolveActionGoal(answers: OnboardingAnswers): string | null {
   return ACTION_GOALS[answers.action] ?? null;
 }
 
-export function resolveFunnelTypeLabel(answers: OnboardingAnswers): string | null {
-  return ONBOARDING_FUNNEL_TYPES.find((t) => t.id === answers.funnelType)?.label ?? null;
+export function resolveQuizTypeLabel(answers: OnboardingAnswers): string | null {
+  return ONBOARDING_QUIZ_TYPES.find((t) => t.id === answers.funnelType)?.label ?? null;
 }
+
+/** @deprecated Use resolveQuizTypeLabel */
+export const resolveFunnelTypeLabel = resolveQuizTypeLabel;
 
 export function buildBriefFromOnboarding(answers: OnboardingAnswers): FunnelBriefValues {
   const product = resolveProductLabel(answers);
   const customer = resolveCustomerLabel(answers);
   const goal = resolveActionGoal(answers);
-  const funnelType = answers.funnelType ? FUNNEL_TYPE_MAP[answers.funnelType] ?? answers.funnelType : "";
+  const funnelType = answers.funnelType ? QUIZ_TYPE_MAP[answers.funnelType] ?? answers.funnelType : "";
 
   const details = answers.details.trim();
   const productOffer = details
@@ -144,10 +165,10 @@ export function buildBriefFromOnboarding(answers: OnboardingAnswers): FunnelBrie
 
 export function buildOnboardingNarrative(answers: OnboardingAnswers): string {
   const parts = [
-    resolveFunnelTypeLabel(answers),
-    resolveProductLabel(answers) ? `Selling: ${resolveProductLabel(answers)}` : null,
+    resolveQuizTypeLabel(answers),
+    resolveProductLabel(answers) ? `Business: ${resolveProductLabel(answers)}` : null,
     resolveCustomerLabel(answers) ? `Audience: ${resolveCustomerLabel(answers)}` : null,
-    resolveActionGoal(answers) ? `Goal: ${resolveActionGoal(answers)}` : null,
+    resolveActionGoal(answers) ? `Quiz goal: ${resolveActionGoal(answers)}` : null,
     answers.details.trim() ? answers.details.trim() : null,
   ].filter(Boolean);
 

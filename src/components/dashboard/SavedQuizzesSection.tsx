@@ -14,12 +14,12 @@ export function SavedQuizzesSection() {
       <Card className="glass border-hairline border-dashed">
         <CardContent className="py-16 flex flex-col items-center text-center">
           <Bookmark className="h-10 w-10 text-muted-foreground/60 mb-4" />
-          <p className="font-medium">No funnels yet</p>
+          <p className="font-medium">No quizzes yet</p>
           <p className="text-sm text-muted-foreground mt-2 max-w-sm">
-            Create your first funnel to get started.
+            Generate your first AI quiz funnel to get started.
           </p>
           <Button asChild className="mt-6 rounded-xl btn-shimmer text-white border-0 bg-accent-gradient shadow-glow">
-            <Link to={ROUTES.app}>Create funnel</Link>
+            <Link to={ROUTES.app}>Create Quiz Funnel</Link>
           </Button>
         </CardContent>
       </Card>

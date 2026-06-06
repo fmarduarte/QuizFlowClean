@@ -56,12 +56,12 @@ function confidenceMessage(confidence: number, answers: OnboardingAnswers): stri
     return "I still need more information about your audience.";
   }
   if (confidence >= 90) {
-    return "I understand your offer and can generate a high-quality funnel.";
+    return "I understand your business and can generate a high-quality quiz.";
   }
   if (confidence >= MIN_AI_CONFIDENCE) {
-    return "I have enough context to build your funnel.";
+    return "I have enough context to generate your quiz questions.";
   }
-  return "Complete the steps above so I can understand your offer.";
+  return "Complete the steps above so I can understand your business.";
 }
 
 /**
@@ -72,7 +72,7 @@ export function computeAIConfidence(answers: OnboardingAnswers): AIConfidenceRes
   let missingHint: string | null = null;
 
   if (answers.funnelType) confidence += 23;
-  else missingHint = "Choose a funnel type to continue.";
+  else missingHint = "Choose a quiz type to continue.";
 
   if (answers.productType) {
     if (needsOtherDetail(answers.productType, answers.productOther)) {

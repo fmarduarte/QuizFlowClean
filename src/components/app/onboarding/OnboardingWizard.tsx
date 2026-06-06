@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, CheckCircle2, Loader2, Sparkles } from "lucide-react";
-import { AIConfidenceSummary } from "@/components/app/onboarding/AIConfidenceSummary";
+import { AIUnderstandingStep } from "@/components/app/onboarding/AIUnderstandingStep";
 import { OnboardingOptionGrid } from "@/components/app/onboarding/OnboardingOptionGrid";
 import { OnboardingProgress } from "@/components/app/onboarding/OnboardingProgress";
 import { AuthRequiredModal } from "@/components/auth/AuthRequiredModal";
@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useAuth } from "@/context/AuthContext";
 import { useQuizzes } from "@/context/QuizzesContext";
-import { computeAIConfidence } from "@/lib/ai-confidence";
+import { buildAIQuizUnderstanding } from "@/lib/ai-quiz-understanding";
 import { saveFunnelBriefToSupabase } from "@/lib/funnel-brief-store";
 import { createFunnelBrief, type FunnelBriefValues } from "@/lib/funnel-brief";
 import { detectBriefLanguage } from "@/lib/language-detect";
@@ -23,8 +23,8 @@ import {
   EMPTY_ONBOARDING,
   ONBOARDING_ACTIONS,
   ONBOARDING_CUSTOMER_TYPES,
-  ONBOARDING_FUNNEL_TYPES,
   ONBOARDING_PRODUCT_TYPES,
+  ONBOARDING_QUIZ_TYPES,
   type OnboardingAnswers,
 } from "@/lib/onboarding-options";
 import { AuthRequiredError, generateQuizFunnel } from "@/lib/quiz-generation";
@@ -34,11 +34,12 @@ import type { LanguageMode } from "@/types/funnel-brief";
 import { cn } from "@/lib/utils";
 
 const STEP_TITLES = [
-  "What do you want to create?",
-  "What are you selling?",
-  "Who is your customer?",
-  "What do you want them to do?",
-  "Optional details",
+  "What type of quiz do you want?",
+  "What is your business?",
+  "Who is your audience?",
+  "What should the quiz achieve?",
+  "Tell us more about your business",
+  "AI Understanding",
 ] as const;
 
 export function OnboardingWizard() {
@@ -57,14 +58,9 @@ export function OnboardingWizard() {
   const [detectedLanguageLabel, setDetectedLanguageLabel] = useState("Portuguese");
   const [pendingGeneration, setPendingGeneration] = useState<FunnelBriefValues | null>(null);
 
-  const confidence = useMemo(() => computeAIConfidence(answers), [answers]);
-
+  const understanding = useMemo(() => buildAIQuizUnderstanding(answers), [answers]);
   const briefValues = useMemo(() => buildBriefFromOnboarding(answers), [answers]);
-
-  const language = useMemo(
-    () => detectBriefLanguage(briefValues),
-    [briefValues]
-  );
+  const language = useMemo(() => detectBriefLanguage(briefValues), [briefValues]);
 
   function updateAnswers(patch: Partial<OnboardingAnswers>) {
     setAnswers((prev) => ({ ...prev, ...patch }));
@@ -86,7 +82,9 @@ export function OnboardingWizard() {
       case 4:
         return Boolean(answers.action);
       case 5:
-        return confidence.canGenerate;
+        return true;
+      case 6:
+        return understanding.canGenerate;
       default:
         return false;
     }
@@ -99,13 +97,16 @@ export function OnboardingWizard() {
     }
   }
 
+  function handleEdit() {
+    setStep(1);
+    setError(null);
+  }
+
   function handleContinue() {
     if (!canAdvanceFromStep(step)) return;
-    if (step < 5) {
+    if (step < 6) {
       setStep((s) => s + 1);
-      return;
     }
-    handleGenerate();
   }
 
   async function runGeneration(languageMode: LanguageMode, generationValues: FunnelBriefValues) {
@@ -153,7 +154,7 @@ export function OnboardingWizard() {
         setError(
           err instanceof Error
             ? err.message
-            : "We couldn't generate your funnel. Please try again."
+            : "We couldn't generate your quiz. Please try again."
         );
       }
     } finally {
@@ -177,8 +178,8 @@ export function OnboardingWizard() {
   function handleGenerate() {
     if (authLoading || loading) return;
 
-    if (!confidence.canGenerate) {
-      setError(confidence.missingHint ?? confidence.message);
+    if (!understanding.canGenerate) {
+      setError("Complete all steps so AI can generate your quiz.");
       return;
     }
 
@@ -206,9 +207,14 @@ export function OnboardingWizard() {
   if (result && !loading) {
     return (
       <div className="max-w-lg mx-auto w-full space-y-6 animate-fade-in">
-        <div className="flex items-center justify-center gap-2 text-sm text-emerald-400/90">
-          <CheckCircle2 className="h-4 w-4" />
-          Funnel ready
+        <div className="text-center space-y-2">
+          <div className="flex items-center justify-center gap-2 text-sm text-emerald-400/90">
+            <CheckCircle2 className="h-4 w-4" />
+            Quiz generated
+          </div>
+          <p className="text-sm text-muted-foreground/55">
+            Your AI quiz funnel is ready — edit questions and publish when you&apos;re happy.
+          </p>
         </div>
         <QuizResultCard
           title={result.title}
@@ -221,7 +227,7 @@ export function OnboardingWizard() {
                 onClick={() => navigate(ROUTES.quizEdit(savedQuizId))}
                 className="w-full rounded-xl bg-white text-black hover:bg-white/90 h-11 font-medium"
               >
-                Open in builder
+                Open Quiz Editor
               </Button>
             ) : undefined
           }
@@ -263,12 +269,20 @@ export function OnboardingWizard() {
         )}
 
         <header className="mb-8 sm:mb-10">
+          <p className="text-[11px] uppercase tracking-wider text-muted-foreground/40 mb-2">
+            {PRODUCT_COPY.quiz.create}
+          </p>
           <h1 className="text-2xl sm:text-[1.65rem] font-semibold tracking-tight text-foreground/95">
             {STEP_TITLES[step - 1]}
           </h1>
           {step === 5 && (
             <p className="mt-2 text-sm text-muted-foreground/50 leading-relaxed">
-              Add anything that helps — your offer name, price point, or unique angle.
+              Optional — add your offer name, price point, or unique angle.
+            </p>
+          )}
+          {step === 6 && (
+            <p className="mt-2 text-sm text-muted-foreground/50 leading-relaxed">
+              Review what AI understood before generating your quiz questions.
             </p>
           )}
         </header>
@@ -276,7 +290,7 @@ export function OnboardingWizard() {
         <div className="space-y-8">
           {step === 1 && (
             <OnboardingOptionGrid
-              options={ONBOARDING_FUNNEL_TYPES}
+              options={ONBOARDING_QUIZ_TYPES}
               selected={answers.funnelType}
               onSelect={(id) => updateAnswers({ funnelType: id })}
             />
@@ -332,21 +346,20 @@ export function OnboardingWizard() {
           )}
 
           {step === 5 && (
-            <>
-              <Textarea
-                value={answers.details}
-                onChange={(e) => updateAnswers({ details: e.target.value })}
-                placeholder="e.g. AI Hook Generator — $29/mo free trial for new users"
-                rows={3}
-                className={cn(
-                  "min-h-[88px] text-sm leading-relaxed resize-none",
-                  "bg-transparent border border-white/[0.08] rounded-xl",
-                  "focus-visible:ring-1 focus-visible:ring-white/15 placeholder:text-muted-foreground/35"
-                )}
-              />
-              <AIConfidenceSummary result={confidence} />
-            </>
+            <Textarea
+              value={answers.details}
+              onChange={(e) => updateAnswers({ details: e.target.value })}
+              placeholder="e.g. AI Hook Generator — $29/mo free trial for TikTok Shop creators"
+              rows={4}
+              className={cn(
+                "min-h-[100px] text-sm leading-relaxed resize-none",
+                "bg-transparent border border-white/[0.08] rounded-xl",
+                "focus-visible:ring-1 focus-visible:ring-white/15 placeholder:text-muted-foreground/35"
+              )}
+            />
           )}
+
+          {step === 6 && <AIUnderstandingStep understanding={understanding} />}
 
           {error && (
             <p className="text-sm text-muted-foreground/60 text-center" role="alert">
@@ -354,32 +367,57 @@ export function OnboardingWizard() {
             </p>
           )}
 
-          <Button
-            type="button"
-            onClick={handleContinue}
-            disabled={!canAdvanceFromStep(step) || loading || authLoading}
-            aria-busy={loading}
-            className={cn(
-              "h-12 w-full rounded-xl font-medium border-0 transition-all",
-              canAdvanceFromStep(step) && !loading
-                ? "bg-white text-black hover:bg-white/90"
-                : "bg-white/10 text-white/40 cursor-not-allowed"
-            )}
-          >
-            {loading ? (
-              <>
-                <Loader2 className="h-4 w-4 animate-spin" />
-                Generating…
-              </>
-            ) : step === 5 ? (
-              <>
-                <Sparkles className="h-4 w-4" />
-                {PRODUCT_COPY.funnel.generate}
-              </>
-            ) : (
-              "Continue"
-            )}
-          </Button>
+          {step === 6 ? (
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleEdit}
+                disabled={loading}
+                className="h-12 flex-1 rounded-xl border-white/10 bg-transparent hover:bg-white/[0.04]"
+              >
+                Edit
+              </Button>
+              <Button
+                type="button"
+                onClick={handleGenerate}
+                disabled={!understanding.canGenerate || loading || authLoading}
+                aria-busy={loading}
+                className={cn(
+                  "h-12 flex-1 rounded-xl font-medium border-0",
+                  understanding.canGenerate && !loading
+                    ? "bg-white text-black hover:bg-white/90"
+                    : "bg-white/10 text-white/40 cursor-not-allowed"
+                )}
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Generating quiz…
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="h-4 w-4" />
+                    {PRODUCT_COPY.quiz.generate}
+                  </>
+                )}
+              </Button>
+            </div>
+          ) : (
+            <Button
+              type="button"
+              onClick={handleContinue}
+              disabled={!canAdvanceFromStep(step) || loading}
+              className={cn(
+                "h-12 w-full rounded-xl font-medium border-0 transition-all",
+                canAdvanceFromStep(step) && !loading
+                  ? "bg-white text-black hover:bg-white/90"
+                  : "bg-white/10 text-white/40 cursor-not-allowed"
+              )}
+            >
+              Continue
+            </Button>
+          )}
         </div>
       </div>
     </>

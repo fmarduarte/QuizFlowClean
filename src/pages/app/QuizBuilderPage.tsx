@@ -26,6 +26,19 @@ export function QuizBuilderPage() {
       title: draft.title,
       description: draft.description,
       questions: draft.questions,
+      published: draft.published,
+      publishedAt: draft.publishedAt,
+    });
+  }
+
+  function handlePublish(draft: Quiz) {
+    if (!quizId || draft.questions.length === 0) return;
+    updateQuiz(quizId, {
+      title: draft.title,
+      description: draft.description,
+      questions: draft.questions,
+      published: true,
+      publishedAt: new Date().toISOString(),
     });
   }
 
@@ -44,5 +57,13 @@ export function QuizBuilderPage() {
     );
   }
 
-  return <QuizBuilder key={quiz.id} quiz={quiz} onSave={handleSave} />;
+  return (
+    <QuizBuilder
+      key={quiz.id}
+      quiz={quiz}
+      onSave={handleSave}
+      onPublish={handlePublish}
+      isPublished={Boolean(quiz.published)}
+    />
+  );
 }

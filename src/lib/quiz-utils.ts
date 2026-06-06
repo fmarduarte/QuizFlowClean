@@ -60,6 +60,8 @@ export function normalizeQuiz(raw: unknown): Quiz | null {
     description: typeof q.description === "string" ? q.description : undefined,
     questions,
     brief,
+    published: q.published === true,
+    publishedAt: typeof q.publishedAt === "string" ? q.publishedAt : undefined,
     createdAt,
     updatedAt,
   };

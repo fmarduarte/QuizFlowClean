@@ -16,10 +16,10 @@ export function FunnelTypePicker() {
     <div className="w-full max-w-4xl mx-auto text-left">
       <div className="text-center mb-8 sm:mb-10">
         <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground">
-          {PRODUCT_COPY.hero.funnelPickerHeading}
+          {PRODUCT_COPY.hero.quizPickerHeading}
         </h2>
         <p className="mt-2 text-sm sm:text-base text-muted-foreground max-w-lg mx-auto">
-          {PRODUCT_COPY.hero.funnelPickerSubhead}
+          {PRODUCT_COPY.hero.quizPickerSubhead}
         </p>
       </div>
 
