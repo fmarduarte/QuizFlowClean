@@ -111,6 +111,18 @@ export function AppSidebar({ onNavigate, className }: AppSidebarProps) {
           Log out
         </button>
       </div>
+
+      <div className="flex-shrink-0 border-t border-hairline px-5 py-3">
+        <div className="space-y-0.5 select-none">
+          <p className="text-[11px] font-medium tracking-tight text-muted-foreground/70">
+            QuizFlow AI
+          </p>
+          <p className="text-[10px] text-muted-foreground/50">Version 0.9.0 Beta</p>
+          <p className="text-[10px] font-mono tabular-nums text-muted-foreground/40">
+            Build 2026.06.06
+          </p>
+        </div>
+      </div>
     </aside>
   );
 }

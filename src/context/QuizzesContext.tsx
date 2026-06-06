@@ -2,45 +2,85 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
 } from "react";
-import type { Quiz } from "@/types/quiz";
+import { createSeedQuiz, normalizeQuiz } from "@/lib/quiz-utils";
+import type { Quiz, QuizInput } from "@/types/quiz";
 
 interface QuizzesContextValue {
   quizzes: Quiz[];
-  addQuiz: (quiz: Omit<Quiz, "id" | "createdAt">) => Quiz;
+  getQuiz: (id: string) => Quiz | undefined;
+  addQuiz: (quiz: QuizInput) => Quiz;
+  updateQuiz: (id: string, updates: Partial<QuizInput>) => Quiz | undefined;
   removeQuiz: (id: string) => void;
 }
 
 const QuizzesContext = createContext<QuizzesContextValue | null>(null);
 
+const STORAGE_KEY = "quizflow_quizzes";
+
 const SEED_QUIZZES: Quiz[] = [
-  {
-    id: "seed-1",
-    title: "Skincare Routine Matcher",
-    description: "TikTok ad funnel for sensitive skin",
-    questions: [
-      "What's your skin type?",
-      "What's your biggest concern?",
-      "How much do you spend monthly?",
-    ],
-    createdAt: new Date(Date.now() - 86400000 * 3).toISOString(),
-  },
+  createSeedQuiz(
+    "Skincare Routine Matcher",
+    "TikTok ad funnel for sensitive skin",
+    ["What's your skin type?", "What's your biggest concern?", "How much do you spend monthly?"],
+    "seed-1"
+  ),
 ];
 
-export function QuizzesProvider({ children }: { children: ReactNode }) {
-  const [quizzes, setQuizzes] = useState<Quiz[]>(SEED_QUIZZES);
+function loadQuizzes(): Quiz[] {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (!stored) return SEED_QUIZZES;
+    const parsed = JSON.parse(stored) as unknown[];
+    const normalized = parsed.map(normalizeQuiz).filter((q): q is Quiz => q !== null);
+    return normalized.length > 0 ? normalized : SEED_QUIZZES;
+  } catch {
+    return SEED_QUIZZES;
+  }
+}
 
-  const addQuiz = useCallback((quiz: Omit<Quiz, "id" | "createdAt">) => {
+export function QuizzesProvider({ children }: { children: ReactNode }) {
+  const [quizzes, setQuizzes] = useState<Quiz[]>(loadQuizzes);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(quizzes));
+  }, [quizzes]);
+
+  const getQuiz = useCallback(
+    (id: string) => quizzes.find((q) => q.id === id),
+    [quizzes]
+  );
+
+  const addQuiz = useCallback((quiz: QuizInput) => {
+    const now = new Date().toISOString();
     const entry: Quiz = {
       ...quiz,
       id: crypto.randomUUID(),
-      createdAt: new Date().toISOString(),
+      createdAt: now,
+      updatedAt: now,
     };
     setQuizzes((prev) => [entry, ...prev]);
     return entry;
+  }, []);
+
+  const updateQuiz = useCallback((id: string, updates: Partial<QuizInput>) => {
+    let updated: Quiz | undefined;
+    setQuizzes((prev) =>
+      prev.map((q) => {
+        if (q.id !== id) return q;
+        updated = {
+          ...q,
+          ...updates,
+          updatedAt: new Date().toISOString(),
+        };
+        return updated;
+      })
+    );
+    return updated;
   }, []);
 
   const removeQuiz = useCallback((id: string) => {
@@ -48,8 +88,8 @@ export function QuizzesProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ quizzes, addQuiz, removeQuiz }),
-    [quizzes, addQuiz, removeQuiz]
+    () => ({ quizzes, getQuiz, addQuiz, updateQuiz, removeQuiz }),
+    [quizzes, getQuiz, addQuiz, updateQuiz, removeQuiz]
   );
 
   return <QuizzesContext.Provider value={value}>{children}</QuizzesContext.Provider>;

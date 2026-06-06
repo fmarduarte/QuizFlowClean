@@ -4,6 +4,7 @@ export const ROUTES = {
   login: "/login",
   signup: "/signup",
   app: "/app",
+  quizEdit: (id: string) => `/app/quiz/${id}`,
   appSections: {
     overview: "#overview",
     generator: "#generator",

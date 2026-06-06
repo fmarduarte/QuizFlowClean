@@ -1,9 +1,10 @@
 import { CheckCircle2, Sparkles } from "lucide-react";
+import type { Question } from "@/types/quiz";
 import { cn } from "@/lib/utils";
 
 interface QuizResultCardProps {
   title: string;
-  questions: string[];
+  questions: Question[];
   className?: string;
   footer?: React.ReactNode;
 }
@@ -39,14 +40,27 @@ export function QuizResultCard({ title, questions, className, footer }: QuizResu
       <ol className="space-y-3">
         {questions.map((q, i) => (
           <li
-            key={q}
-            className="flex items-start gap-3 rounded-xl glass px-4 py-3.5 text-sm animate-fade-up"
+            key={q.id}
+            className="rounded-xl glass px-4 py-3.5 text-sm animate-fade-up"
             style={{ animationDelay: `${i * 80}ms` }}
           >
-            <span className="flex-none h-6 w-6 rounded-lg bg-violet-500/20 text-violet-300 text-xs font-semibold flex items-center justify-center">
-              {i + 1}
-            </span>
-            <span className="text-foreground/90 leading-relaxed pt-0.5">{q}</span>
+            <div className="flex items-start gap-3">
+              <span className="flex-none h-6 w-6 rounded-lg bg-violet-500/20 text-violet-300 text-xs font-semibold flex items-center justify-center">
+                {i + 1}
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="text-foreground/90 leading-relaxed">{q.title}</p>
+                {q.options.length > 0 && (
+                  <ul className="mt-2 space-y-1">
+                    {q.options.map((opt) => (
+                      <li key={opt.id} className="text-xs text-muted-foreground pl-3 border-l border-hairline">
+                        {opt.label}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
           </li>
         ))}
       </ol>

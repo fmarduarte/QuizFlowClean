@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ArrowRight, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,8 +7,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { QuizResultCard } from "@/components/app/QuizResultCard";
 import { useQuizzes } from "@/context/QuizzesContext";
-import { DEMO_QUIZ } from "@/types/quiz";
+import { quizFromInput } from "@/lib/quiz-utils";
 import { ROUTES } from "@/lib/routes";
+import { DEMO_QUIZ } from "@/types/quiz";
 import { cn } from "@/lib/utils";
 
 interface QuizGeneratePanelProps {
@@ -17,24 +18,28 @@ interface QuizGeneratePanelProps {
 
 export function QuizGeneratePanel({ variant = "page" }: QuizGeneratePanelProps) {
   const { addQuiz } = useQuizzes();
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<typeof DEMO_QUIZ | null>(null);
+  const [result, setResult] = useState<ReturnType<typeof quizFromInput> | null>(null);
+  const [savedQuizId, setSavedQuizId] = useState<string | null>(null);
 
   async function handleGenerate() {
     setLoading(true);
     setResult(null);
+    setSavedQuizId(null);
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    const generated = {
+    const generated = quizFromInput({
       title: title.trim() || DEMO_QUIZ.title,
+      description: description.trim() || DEMO_QUIZ.description,
       questions: DEMO_QUIZ.questions,
-      description: description.trim() || undefined,
-    };
+    });
 
-    addQuiz(generated);
+    const entry = addQuiz(generated);
     setResult(generated);
+    setSavedQuizId(entry.id);
     setLoading(false);
   }
 
@@ -116,7 +121,7 @@ export function QuizGeneratePanel({ variant = "page" }: QuizGeneratePanelProps) 
             </div>
             <div className="text-center">
               <p className="text-sm font-medium">AI is building your quiz funnel…</p>
-              <p className="text-xs text-muted-foreground mt-1">Writing questions & branching logic</p>
+              <p className="text-xs text-muted-foreground mt-1">Writing questions & answer options</p>
             </div>
             <div className="w-full max-w-xs h-1.5 rounded-full bg-muted overflow-hidden">
               <div className="h-full w-full bg-accent-gradient rounded-full origin-left quiz-progress-fill" />
@@ -133,12 +138,15 @@ export function QuizGeneratePanel({ variant = "page" }: QuizGeneratePanelProps) 
                 <Button variant="outline" asChild className="flex-1 rounded-xl border-hairline">
                   <a href={`${ROUTES.app}${ROUTES.appSections.saved}`}>View saved quizzes</a>
                 </Button>
-                <Button
-                  asChild
-                  className="flex-1 rounded-xl btn-shimmer text-white border-0 bg-accent-gradient shadow-glow"
-                >
-                  <a href={`${ROUTES.app}${ROUTES.appSections.generator}`}>Generate another</a>
-                </Button>
+                {savedQuizId && (
+                  <Button
+                    type="button"
+                    onClick={() => navigate(ROUTES.quizEdit(savedQuizId))}
+                    className="flex-1 rounded-xl btn-shimmer text-white border-0 bg-accent-gradient shadow-glow"
+                  >
+                    Open in builder
+                  </Button>
+                )}
               </div>
             }
           />

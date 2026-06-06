@@ -1,5 +1,6 @@
 import { formatDistanceToNow } from "date-fns";
-import { Bookmark, Trash2 } from "lucide-react";
+import { Bookmark, Pencil, Trash2 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { SectionHeading } from "@/components/app/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -51,28 +52,59 @@ export function SavedQuizzesSection() {
                     {formatDistanceToNow(new Date(quiz.createdAt), { addSuffix: true })}
                   </p>
                 </div>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon"
-                  className="rounded-xl text-muted-foreground hover:text-destructive flex-shrink-0"
-                  onClick={() => removeQuiz(quiz.id)}
-                  aria-label={`Delete ${quiz.title}`}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
+                <div className="flex items-center gap-1 flex-shrink-0">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    asChild
+                    className="rounded-xl border-hairline hidden sm:inline-flex"
+                  >
+                    <Link to={ROUTES.quizEdit(quiz.id)}>
+                      <Pencil className="h-3.5 w-3.5" />
+                      Edit
+                    </Link>
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="rounded-xl text-muted-foreground hover:text-destructive"
+                    onClick={() => removeQuiz(quiz.id)}
+                    aria-label={`Delete ${quiz.title}`}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
               <ol className="mt-4 space-y-2">
                 {quiz.questions.map((q, qi) => (
                   <li
-                    key={q}
+                    key={q.id}
                     className="flex items-start gap-2 text-sm text-foreground/80 rounded-lg bg-surface-subtle/80 px-3 py-2"
                   >
                     <span className="text-violet-400 font-mono text-xs mt-0.5">{qi + 1}.</span>
-                    {q}
+                    <div className="min-w-0 flex-1">
+                      <span>{q.title}</span>
+                      {q.options.length > 0 && (
+                        <p className="text-xs text-muted-foreground mt-0.5 truncate">
+                          {q.options.map((o) => o.label).join(" · ")}
+                        </p>
+                      )}
+                    </div>
                   </li>
                 ))}
               </ol>
+              <Button
+                variant="outline"
+                size="sm"
+                asChild
+                className="mt-4 w-full sm:hidden rounded-xl border-hairline"
+              >
+                <Link to={ROUTES.quizEdit(quiz.id)}>
+                  <Pencil className="h-3.5 w-3.5" />
+                  Edit in builder
+                </Link>
+              </Button>
             </article>
           ))}
         </div>
