@@ -4,6 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/AuthContext";
 import { ROUTES } from "@/lib/routes";
+import { APP_VERSION_LABEL } from "@/lib/version";
+
+const SUPPORT_HREF = "mailto:hello@quizflow.ai?subject=Support";
 import { useState } from "react";
 
 interface AppNavbarProps {
@@ -47,7 +50,16 @@ export function AppNavbar({ onMenuClick }: AppNavbarProps) {
 
       <div className="flex-1 lg:flex-none" />
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 sm:gap-3">
+        <a
+          href={SUPPORT_HREF}
+          className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:inline-flex"
+        >
+          Support
+        </a>
+        <span className="text-[11px] text-muted-foreground/45 select-none tabular-nums hidden sm:inline">
+          {APP_VERSION_LABEL}
+        </span>
         <Button
           variant="ghost"
           size="icon"

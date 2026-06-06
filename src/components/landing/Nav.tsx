@@ -2,6 +2,9 @@ import { Link, useLocation } from "react-router-dom";
 import { Sparkles, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { ROUTES } from "@/lib/routes";
+import { APP_VERSION_LABEL } from "@/lib/version";
+
+const SUPPORT_HREF = "mailto:hello@quizflow.ai?subject=Support";
 
 const sectionLinks = [
   { href: ROUTES.landingSections.how, label: "How it works" },
@@ -64,6 +67,15 @@ export function Nav() {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
+          <a
+            href={SUPPORT_HREF}
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Support
+          </a>
+          <span className="text-[11px] text-muted-foreground/45 select-none tabular-nums">
+            {APP_VERSION_LABEL}
+          </span>
           <Link
             to={ROUTES.login}
             className="text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -114,6 +126,14 @@ export function Nav() {
             Dashboard
           </Link>
           <div className="mt-3 pt-3 border-t border-hairline flex flex-col gap-2">
+            <a
+              href={SUPPORT_HREF}
+              onClick={() => setOpen(false)}
+              className="py-3 px-2 text-[15px] text-foreground/90 hover:bg-surface-subtle rounded-lg transition-colors"
+            >
+              Support
+            </a>
+            <p className="px-2 text-[11px] text-muted-foreground/45 select-none">{APP_VERSION_LABEL}</p>
             <Link
               to={ROUTES.login}
               onClick={() => setOpen(false)}

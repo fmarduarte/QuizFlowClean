@@ -9,6 +9,7 @@ import {
 } from "react";
 import type { AuthError, Session, User } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
+import { ROUTES } from "@/lib/routes";
 
 interface AuthContextValue {
   user: User | null;
@@ -16,6 +17,8 @@ interface AuthContextValue {
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: AuthError | null }>;
   signUp: (email: string, password: string) => Promise<{ error: AuthError | null }>;
+  resetPassword: (email: string) => Promise<{ error: AuthError | null }>;
+  updatePassword: (password: string) => Promise<{ error: AuthError | null }>;
   signOut: () => Promise<void>;
 }
 
@@ -54,13 +57,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error };
   }, []);
 
+  const resetPassword = useCallback(async (email: string) => {
+    const origin =
+      import.meta.env.VITE_SITE_URL?.replace(/\/$/, "") || window.location.origin;
+    const redirectTo = `${origin}${ROUTES.resetPassword}`;
+    const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo });
+    return { error };
+  }, []);
+
+  const updatePassword = useCallback(async (password: string) => {
+    const { error } = await supabase.auth.updateUser({ password });
+    return { error };
+  }, []);
+
   const signOut = useCallback(async () => {
     await supabase.auth.signOut();
   }, []);
 
   const value = useMemo(
-    () => ({ user, session, loading, signIn, signUp, signOut }),
-    [user, session, loading, signIn, signUp, signOut]
+    () => ({ user, session, loading, signIn, signUp, resetPassword, updatePassword, signOut }),
+    [user, session, loading, signIn, signUp, resetPassword, updatePassword, signOut]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -7,6 +7,8 @@ import { DashboardLayout } from "@/layouts/DashboardLayout";
 import { LandingPage } from "@/pages/marketing/LandingPage";
 import { LoginPage } from "@/pages/auth/LoginPage";
 import { SignupPage } from "@/pages/auth/SignupPage";
+import { ForgotPasswordPage } from "@/pages/auth/ForgotPasswordPage";
+import { ResetPasswordPage } from "@/pages/auth/ResetPasswordPage";
 import { DashboardPage } from "@/pages/app/DashboardPage";
 import { QuizBuilderPage } from "@/pages/app/QuizBuilderPage";
 import { NotFoundPage } from "@/pages/marketing/NotFoundPage";
@@ -19,6 +21,10 @@ export const router = createBrowserRouter([
     children: [{ index: true, element: <LandingPage /> }],
   },
   {
+    element: <AuthLayout />,
+    children: [{ path: ROUTES.resetPassword, element: <ResetPasswordPage /> }],
+  },
+  {
     element: <GuestRoute />,
     children: [
       {
@@ -26,6 +32,7 @@ export const router = createBrowserRouter([
         children: [
           { path: ROUTES.login, element: <LoginPage /> },
           { path: ROUTES.signup, element: <SignupPage /> },
+          { path: ROUTES.forgotPassword, element: <ForgotPasswordPage /> },
         ],
       },
     ],

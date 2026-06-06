@@ -3,6 +3,8 @@ export const ROUTES = {
   landing: "/",
   login: "/login",
   signup: "/signup",
+  forgotPassword: "/forgot-password",
+  resetPassword: "/reset-password",
   app: "/app",
   quizEdit: (id: string) => `/app/quiz/${id}`,
   appSections: {

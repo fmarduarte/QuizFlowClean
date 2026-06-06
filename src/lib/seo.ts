@@ -27,6 +27,18 @@ export const PAGE_META = {
     robots: "noindex, nofollow",
     ogType: "website",
   },
+  forgotPassword: {
+    title: `Reset password | ${SITE_NAME}`,
+    description: `Reset your ${SITE_NAME} account password.`,
+    robots: "noindex, nofollow",
+    ogType: "website",
+  },
+  resetPassword: {
+    title: `Create new password | ${SITE_NAME}`,
+    description: `Set a new password for your ${SITE_NAME} account.`,
+    robots: "noindex, nofollow",
+    ogType: "website",
+  },
   dashboard: {
     title: `Dashboard | ${SITE_NAME}`,
     description: `Manage your AI quiz funnels, generate new quizzes, and track performance in ${SITE_NAME}.`,

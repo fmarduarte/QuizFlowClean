@@ -13,6 +13,7 @@ import { useState } from "react";
 import { ROUTES } from "@/lib/routes";
 import { useAuth } from "@/context/AuthContext";
 import { useActiveSection } from "@/hooks/use-active-section";
+import { APP_BUILD, APP_VERSION } from "@/lib/version";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -117,9 +118,9 @@ export function AppSidebar({ onNavigate, className }: AppSidebarProps) {
           <p className="text-[11px] font-medium tracking-tight text-muted-foreground/70">
             QuizFlow AI
           </p>
-          <p className="text-[10px] text-muted-foreground/50">Version 0.9.0 Beta</p>
+          <p className="text-[10px] text-muted-foreground/50">Version {APP_VERSION}</p>
           <p className="text-[10px] font-mono tabular-nums text-muted-foreground/40">
-            Build 2026.06.06
+            Build {APP_BUILD}
           </p>
         </div>
       </div>
