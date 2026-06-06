@@ -2,17 +2,19 @@ import { cn } from "@/lib/utils";
 
 const STEPS = [
   { num: 1, label: "Funnel Type" },
-  { num: 2, label: "Business Brief" },
-  { num: 3, label: "Review & Generate" },
+  { num: 2, label: "AI Brief" },
 ] as const;
 
 interface WizardStepIndicatorProps {
-  currentStep: 1 | 2 | 3;
+  currentStep: 1 | 2;
 }
 
 export function WizardStepIndicator({ currentStep }: WizardStepIndicatorProps) {
   return (
-    <nav aria-label="Create funnel progress" className="flex items-center justify-center gap-2 sm:gap-4">
+    <nav
+      aria-label="Create funnel progress"
+      className="flex items-center justify-center gap-2 sm:gap-4"
+    >
       {STEPS.map((step, i) => {
         const done = step.num < currentStep;
         const active = step.num === currentStep;
@@ -22,18 +24,18 @@ export function WizardStepIndicator({ currentStep }: WizardStepIndicatorProps) {
             <div className="flex items-center gap-2">
               <span
                 className={cn(
-                  "flex h-7 w-7 items-center justify-center rounded-full text-xs font-medium tabular-nums transition-colors",
-                  active && "bg-violet-500/20 text-violet-200 ring-1 ring-violet-500/30",
-                  done && "bg-violet-500/10 text-violet-300/80",
-                  !active && !done && "bg-muted/40 text-muted-foreground/50"
+                  "flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-medium tabular-nums transition-colors",
+                  active && "bg-white/10 text-foreground ring-1 ring-white/15",
+                  done && "bg-white/5 text-muted-foreground",
+                  !active && !done && "bg-white/[0.03] text-muted-foreground/40"
                 )}
               >
                 {step.num}
               </span>
               <span
                 className={cn(
-                  "text-xs sm:text-sm hidden sm:inline",
-                  active ? "text-foreground font-medium" : "text-muted-foreground/60"
+                  "text-xs hidden sm:inline",
+                  active ? "text-foreground/90" : "text-muted-foreground/50"
                 )}
               >
                 {step.label}
@@ -41,10 +43,7 @@ export function WizardStepIndicator({ currentStep }: WizardStepIndicatorProps) {
             </div>
             {i < STEPS.length - 1 && (
               <div
-                className={cn(
-                  "h-px w-6 sm:w-10",
-                  done ? "bg-violet-500/25" : "bg-hairline"
-                )}
+                className={cn("h-px w-8 sm:w-12", done ? "bg-white/15" : "bg-white/[0.06]")}
                 aria-hidden
               />
             )}

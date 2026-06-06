@@ -1,32 +1,24 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, CheckCircle2, Loader2, Sparkles } from "lucide-react";
+import { CheckCircle2, Loader2, Sparkles } from "lucide-react";
+import { AIBriefInput } from "@/components/app/AIBriefInput";
+import { ExtractedBriefSummary } from "@/components/app/ExtractedBriefSummary";
 import { AuthRequiredModal } from "@/components/auth/AuthRequiredModal";
-import { BriefPreGenerationReview } from "@/components/app/BriefPreGenerationReview";
-import { BriefReviewPanel } from "@/components/app/BriefReviewPanel";
-import { FieldCoachHint, FieldExample } from "@/components/app/FieldCoachHint";
-import { FieldHelpTooltip } from "@/components/app/FieldHelpTooltip";
 import { LanguageChoiceModal } from "@/components/app/LanguageChoiceModal";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { QuizResultCard } from "@/components/app/QuizResultCard";
+import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
 import { useQuizzes } from "@/context/QuizzesContext";
 import { loginLink } from "@/lib/auth-redirect";
+import { extractBriefFromNarrative } from "@/lib/brief-extract";
+import { analyzeFunnelReadiness } from "@/lib/funnel-readiness";
 import { saveFunnelBriefToSupabase } from "@/lib/funnel-brief-store";
-import { analyzeBriefProtection } from "@/lib/brief-protection";
-import { MIN_BRIEF_QUALITY_SCORE } from "@/lib/input-coach";
-import { mockTranslateAndOptimize } from "@/lib/mock-translate";
+import { detectBriefLanguage } from "@/lib/language-detect";
+import { mockTranslateAndOptimize, mockTranslateText } from "@/lib/mock-translate";
 import { AuthRequiredError, generateQuizFunnel } from "@/lib/quiz-generation";
 import {
   createFunnelBrief,
   EMPTY_FUNNEL_BRIEF,
-  FUNNEL_BRIEF_FIELDS,
-  validateFunnelBrief,
-  type FunnelBriefField,
   type FunnelBriefValues,
 } from "@/lib/funnel-brief";
 import type { LanguageMode } from "@/types/funnel-brief";
@@ -37,46 +29,21 @@ import { cn } from "@/lib/utils";
 interface QuizGeneratePanelProps {
   variant?: "hero" | "page";
   initialFunnelType?: string;
-  wizardStep?: 2 | 3;
-  onWizardContinue?: () => void;
-}
-
-const TEXT_FIELDS: FunnelBriefField[] = [
-  "businessNiche",
-  "productOffer",
-  "targetAudience",
-  "goal",
-];
-
-function CharacterCounter({ value, max }: { value: string; max: number }) {
-  const count = value.length;
-  const over = count > max;
-  return (
-    <span
-      className={cn(
-        "text-[11px] tabular-nums",
-        over ? "text-red-400" : "text-muted-foreground/50"
-      )}
-      aria-live="polite"
-    >
-      {count}/{max}
-    </span>
-  );
+  aiBriefOnly?: boolean;
 }
 
 export function QuizGeneratePanel({
   variant = "page",
   initialFunnelType,
-  wizardStep,
-  onWizardContinue,
+  aiBriefOnly = false,
 }: QuizGeneratePanelProps) {
   const { user, isAuthenticated, getAccessToken, loading: authLoading } = useAuth();
   const { addQuiz, updateQuiz } = useQuizzes();
   const navigate = useNavigate();
 
+  const [narrative, setNarrative] = useState("");
   const [values, setValues] = useState<FunnelBriefValues>(EMPTY_FUNNEL_BRIEF);
-  const [touched, setTouched] = useState<Partial<Record<FunnelBriefField, boolean>>>({});
-  const [submitAttempted, setSubmitAttempted] = useState(false);
+  const [showExtracted, setShowExtracted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<Awaited<ReturnType<typeof generateQuizFunnel>> | null>(
@@ -85,15 +52,11 @@ export function QuizGeneratePanel({
   const [savedQuizId, setSavedQuizId] = useState<string | null>(null);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [languageModalOpen, setLanguageModalOpen] = useState(false);
-  const [reviewModalOpen, setReviewModalOpen] = useState(false);
   const [detectedLanguageLabel, setDetectedLanguageLabel] = useState("Portuguese");
+  const [pendingGeneration, setPendingGeneration] = useState<FunnelBriefValues | null>(null);
 
-  const validation = useMemo(() => validateFunnelBrief(values), [values]);
-  const protection = useMemo(() => analyzeBriefProtection(values), [values]);
-  const coach = protection.coach;
-  const language = protection.language;
-
-  const isWizard = wizardStep !== undefined;
+  const isHero = variant === "hero";
+  const generatorRedirect = ROUTES.appCreate;
 
   useEffect(() => {
     if (initialFunnelType) {
@@ -101,44 +64,22 @@ export function QuizGeneratePanel({
     }
   }, [initialFunnelType]);
 
-  const isHero = variant === "hero";
-  const generatorRedirect = ROUTES.appCreate;
+  const readiness = useMemo(
+    () => analyzeFunnelReadiness(narrative, values.funnelType),
+    [narrative, values.funnelType]
+  );
 
-  function updateField<K extends FunnelBriefField>(field: K, value: FunnelBriefValues[K]) {
-    setValues((prev) => ({ ...prev, [field]: value }));
-    setError(null);
-  }
-
-  function markTouched(field: FunnelBriefField) {
-    setTouched((prev) => ({ ...prev, [field]: true }));
-  }
-
-  function showError(field: FunnelBriefField): boolean {
-    return Boolean((touched[field] || submitAttempted) && validation.errors[field]);
-  }
-
-  function fieldClass(field: FunnelBriefField, base: string): string {
-    const fieldCoach = coach.fields.find((f) => f.field === field);
-    const coachWarning =
-      fieldCoach?.isGeneric || (fieldCoach && fieldCoach.score < 40 && values[field].trim());
-    return cn(
-      base,
-      showError(field) && "border-red-500/60 focus-visible:ring-red-500/30",
-      !showError(field) &&
-        coachWarning &&
-        (touched[field] || submitAttempted) &&
-        "border-amber-500/50 focus-visible:ring-amber-500/25"
-    );
-  }
-
-  function showCoach(field: FunnelBriefField): boolean {
-    const fieldCoach = coach.fields.find((f) => f.field === field);
-    if (!fieldCoach) return false;
-    return Boolean(
-      (touched[field] || submitAttempted) &&
-        (fieldCoach.isGeneric || fieldCoach.message || fieldCoach.score < 75)
-    );
-  }
+  const language = useMemo(
+    () =>
+      detectBriefLanguage({
+        ...values,
+        businessNiche: narrative,
+        productOffer: narrative,
+        targetAudience: narrative,
+        goal: narrative,
+      }),
+    [narrative, values]
+  );
 
   function handleOpenBuilder() {
     if (!isAuthenticated) {
@@ -198,64 +139,33 @@ export function QuizGeneratePanel({
       }
     } finally {
       setLoading(false);
+      setPendingGeneration(null);
     }
   }
 
-  function proceedToGeneration() {
+  function proceedToGeneration(generationValues: FunnelBriefValues) {
     setDetectedLanguageLabel(language.label);
 
-    if (!language.isEnglish) {
+    if (!language.isEnglish && language.isReliable) {
+      setPendingGeneration(generationValues);
       setLanguageModalOpen(true);
       return;
     }
 
-    void runGeneration("original", values);
-  }
-
-  function handleWizardContinue() {
-    if (authLoading) return;
-
-    setSubmitAttempted(true);
-    setTouched({
-      businessNiche: true,
-      productOffer: true,
-      targetAudience: true,
-      goal: true,
-    });
-
-    if (!validation.isValid) {
-      setError("Please complete all fields to continue.");
-      return;
-    }
-
-    if (!isAuthenticated) {
-      setAuthModalOpen(true);
-      return;
-    }
-
-    setError(null);
-    onWizardContinue?.();
+    void runGeneration("original", generationValues);
   }
 
   function handleGenerate() {
     if (authLoading || loading) return;
 
-    setSubmitAttempted(true);
-    setTouched({
-      funnelType: true,
-      businessNiche: true,
-      productOffer: true,
-      targetAudience: true,
-      goal: true,
-    });
-
-    if (!validation.isValid) {
-      setError("Please complete all required fields before generating your funnel.");
-      return;
-    }
-
-    if (!protection.canGenerate) {
-      setError(protection.blockReasons[0] ?? "Please improve your brief before generating.");
+    if (!readiness.canGenerate) {
+      const firstMissing = readiness.missingInfo[0];
+      const firstWarning = readiness.viabilityWarnings[0];
+      setError(
+        firstWarning ??
+          firstMissing?.whyItMatters ??
+          "Add more detail about your offer, audience, and goal before generating."
+      );
       return;
     }
 
@@ -266,160 +176,90 @@ export function QuizGeneratePanel({
 
     setError(null);
 
-    if (isWizard && wizardStep === 3) {
-      proceedToGeneration();
-      return;
-    }
+    const trimmed = narrative.trim();
+    const extracted = extractBriefFromNarrative(trimmed, values.funnelType);
+    const merged: FunnelBriefValues = {
+      ...values,
+      businessNiche: extracted.businessNiche || readiness.business.value || trimmed.slice(0, 80),
+      productOffer: extracted.productOffer || readiness.offer.value || trimmed.slice(0, 200),
+      targetAudience: extracted.targetAudience || readiness.audience.value || "",
+      goal: extracted.goal || readiness.goal.value || "",
+    };
 
-    setReviewModalOpen(true);
-  }
-
-  function proceedAfterReview() {
-    setReviewModalOpen(false);
-    proceedToGeneration();
+    setValues(merged);
+    setShowExtracted(true);
+    proceedToGeneration(merged);
   }
 
   function handleTranslateAndOptimize() {
-    void runGeneration("translated", mockTranslateAndOptimize(values));
+    if (!pendingGeneration) return;
+    const translatedNarrative = mockTranslateText(narrative);
+    setNarrative(translatedNarrative);
+    const extracted = extractBriefFromNarrative(translatedNarrative, values.funnelType);
+    const merged = { ...pendingGeneration, ...extracted };
+    setValues(merged);
+    void runGeneration("translated", mockTranslateAndOptimize(merged));
   }
 
   function handleContinueOriginal() {
-    void runGeneration("original", values);
+    if (!pendingGeneration) return;
+    void runGeneration("original", pendingGeneration);
   }
 
-  const canContinue = validation.isValid && !loading && !authLoading;
-  const canGenerate = protection.canGenerate && !loading && !authLoading;
+  const canGenerate = readiness.canGenerate && !loading && !authLoading;
 
-  const briefForm = (
-    <div className="space-y-5">
-      {TEXT_FIELDS.map((field) => {
-        const config = FUNNEL_BRIEF_FIELDS[field];
-        const isTextarea = field === "targetAudience" || field === "goal";
-        const InputComponent = isTextarea ? Textarea : Input;
-        const fieldCoach = coach.fields.find((f) => f.field === field);
-
-        return (
-          <div key={field} className="space-y-2">
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-1.5">
-                <Label htmlFor={field} className="text-sm font-medium">
-                  {config.label}
-                </Label>
-                <FieldHelpTooltip help={config.help} example={config.example} />
-              </div>
-              <CharacterCounter value={values[field]} max={config.maxLength} />
-            </div>
-            <InputComponent
-              id={field}
-              placeholder={config.placeholder}
-              value={values[field]}
-              onChange={(e) => updateField(field, e.target.value)}
-              onBlur={() => markTouched(field)}
-              disabled={loading}
-              maxLength={config.maxLength}
-              aria-invalid={showError(field)}
-              aria-describedby={showError(field) ? `${field}-error` : undefined}
-              className={fieldClass(
-                field,
-                cn(
-                  "bg-background/40 border-hairline resize-none rounded-xl",
-                  isTextarea ? "min-h-[88px]" : "h-11"
-                )
-              )}
-            />
-            {!isWizard && <FieldExample field={field} />}
-            {showError(field) && (
-              <p id={`${field}-error`} className="text-xs text-red-400" role="alert">
-                {validation.errors[field]}
-              </p>
-            )}
-            <FieldCoachHint analysis={fieldCoach} show={showCoach(field)} />
-          </div>
-        );
-      })}
-    </div>
-  );
-
-  return (
-    <TooltipProvider delayDuration={200}>
-      <AuthRequiredModal
-        open={authModalOpen}
-        onOpenChange={setAuthModalOpen}
-        redirectTo={generatorRedirect}
-      />
-
-      {!isWizard && (
-        <BriefPreGenerationReview
-          open={reviewModalOpen}
-          onOpenChange={setReviewModalOpen}
-          report={protection}
-          onConfirm={proceedAfterReview}
+  if (aiBriefOnly) {
+    return (
+      <>
+        <AuthRequiredModal
+          open={authModalOpen}
+          onOpenChange={setAuthModalOpen}
+          redirectTo={generatorRedirect}
         />
-      )}
 
-      <LanguageChoiceModal
-        open={languageModalOpen}
-        languageLabel={detectedLanguageLabel}
-        onTranslateOptimize={handleTranslateAndOptimize}
-        onContinueOriginal={handleContinueOriginal}
-        onOpenChange={setLanguageModalOpen}
-      />
+        <LanguageChoiceModal
+          open={languageModalOpen}
+          languageLabel={detectedLanguageLabel}
+          onTranslateOptimize={handleTranslateAndOptimize}
+          onContinueOriginal={handleContinueOriginal}
+          onOpenChange={setLanguageModalOpen}
+        />
 
-      <div className={cn("w-full", isHero ? "max-w-xl mx-auto" : "")}>
-        {isWizard && wizardStep === 2 && briefForm}
-
-        {isWizard && wizardStep === 3 && (
-          <BriefReviewPanel report={protection} />
-        )}
-
-        {!isWizard && !isHero && (
-          <div className="glass rounded-2xl p-6 sm:p-8 mb-8 space-y-6">{briefForm}</div>
-        )}
-
-        <div
-          className={cn(
-            "flex gap-3 mt-8",
-            isHero
-              ? "flex-col sm:flex-row items-stretch sm:items-center justify-center"
-              : "flex-col"
-          )}
-        >
-          {isWizard && wizardStep === 2 && (
-            <Button
-              type="button"
-              onClick={handleWizardContinue}
-              disabled={!canContinue}
-              className={cn(
-                "h-12 w-full rounded-xl font-medium text-white border-0",
-                canContinue
-                  ? "btn-glow btn-shimmer bg-accent-gradient shadow-glow hover:-translate-y-0.5"
-                  : "opacity-50 cursor-not-allowed bg-muted"
-              )}
-            >
-              Continue
-              <ArrowRight className="h-4 w-4" />
-            </Button>
+        <div className="space-y-8">
+          {!showExtracted && (
+            <AIBriefInput
+              value={narrative}
+              readiness={readiness}
+              onChange={(v) => {
+                setNarrative(v);
+                setError(null);
+              }}
+              disabled={loading}
+            />
           )}
 
-          {(isWizard && wizardStep === 3) || (!isWizard && !isHero) ? (
+          {showExtracted && !result && (
+            <ExtractedBriefSummary
+              values={{
+                businessNiche: values.businessNiche,
+                productOffer: values.productOffer,
+                targetAudience: values.targetAudience,
+                goal: values.goal,
+              }}
+            />
+          )}
+
+          {!showExtracted && (
             <Button
               type="button"
               onClick={handleGenerate}
-              disabled={isWizard ? !canGenerate : !canGenerate}
+              disabled={!canGenerate}
               aria-busy={loading}
-              title={
-                !protection.canGenerate
-                  ? protection.blockReasons[0] ??
-                    `Reach ${MIN_BRIEF_QUALITY_SCORE}% brief quality to generate`
-                  : undefined
-              }
               className={cn(
-                "h-12 w-full rounded-xl font-medium text-white border-0",
-                loading
-                  ? "opacity-80 btn-shimmer bg-accent-gradient"
-                  : canGenerate
-                    ? "btn-glow btn-shimmer bg-accent-gradient shadow-glow hover:-translate-y-0.5"
-                    : "opacity-50 cursor-not-allowed bg-muted"
+                "h-12 w-full rounded-xl font-medium text-white border-0 transition-all",
+                canGenerate
+                  ? "bg-white text-black hover:bg-white/90"
+                  : "bg-white/10 text-white/40 cursor-not-allowed"
               )}
             >
               {loading ? (
@@ -434,66 +274,97 @@ export function QuizGeneratePanel({
                 </>
               )}
             </Button>
-          ) : null}
+          )}
 
-          {isHero ? (
+          {error && (
+            <p className="text-sm text-muted-foreground/70 text-center" role="alert">
+              {error}
+            </p>
+          )}
+
+          {(loading || result) && (
+            <div className="space-y-6 pt-4 animate-fade-in">
+              {loading && (
+                <div className="flex flex-col items-center gap-4 py-8" role="status" aria-live="polite">
+                  <Loader2 className="h-6 w-6 text-muted-foreground animate-spin" />
+                  <p className="text-sm text-muted-foreground/60">Building your funnel…</p>
+                </div>
+              )}
+
+              {result && !loading && (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-center gap-2 text-sm text-emerald-400/90">
+                    <CheckCircle2 className="h-4 w-4" />
+                    Funnel ready
+                  </div>
+                  <QuizResultCard
+                    title={result.title}
+                    questions={result.questions}
+                    brief={result.brief}
+                    footer={
+                      savedQuizId ? (
+                        <Button
+                          type="button"
+                          onClick={() => navigate(ROUTES.quizEdit(savedQuizId))}
+                          className="w-full rounded-xl bg-white text-black hover:bg-white/90 h-11 font-medium"
+                        >
+                          Open in builder
+                        </Button>
+                      ) : undefined
+                    }
+                  />
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <AuthRequiredModal
+        open={authModalOpen}
+        onOpenChange={setAuthModalOpen}
+        redirectTo={generatorRedirect}
+      />
+
+      <div className={cn("w-full", isHero ? "max-w-xl mx-auto" : "")}>
+        <AIBriefInput
+          value={narrative}
+          readiness={readiness}
+          onChange={setNarrative}
+          disabled={loading}
+        />
+
+        <div className="flex gap-3 mt-8 flex-col sm:flex-row items-stretch sm:items-center justify-center">
+          <Button
+            type="button"
+            onClick={handleGenerate}
+            disabled={!canGenerate}
+            className={cn(
+              "h-12 px-6 rounded-xl font-medium",
+              canGenerate
+                ? "bg-white text-black hover:bg-white/90"
+                : "bg-muted text-muted-foreground"
+            )}
+          >
+            <Sparkles className="h-4 w-4" />
+            {PRODUCT_COPY.funnel.generate}
+          </Button>
+          {isHero && (
             <Button
               type="button"
               variant="outline"
               onClick={handleOpenBuilder}
-              className="h-12 rounded-xl border-hairline glass"
+              className="h-12 rounded-xl border-hairline"
             >
               Open {PRODUCT_COPY.funnel.builder.toLowerCase()}
             </Button>
-          ) : null}
+          )}
         </div>
-
-        {error && (
-          <p className="mt-4 text-sm text-red-400/90" role="alert">
-            {error}
-          </p>
-        )}
-
-        {(isWizard || !isHero) && (
-          <div className="min-h-[80px] mt-8">
-            {loading && (
-              <div
-                className="flex flex-col items-center justify-center gap-4 py-12 animate-fade-in"
-                role="status"
-                aria-live="polite"
-              >
-                <Loader2 className="h-8 w-8 text-violet-400 animate-spin" />
-                <p className="text-sm text-muted-foreground">Building your funnel…</p>
-              </div>
-            )}
-
-            {result && !loading && (
-              <div className="space-y-4 animate-fade-in">
-                <div className="flex items-center gap-2 text-sm text-emerald-400">
-                  <CheckCircle2 className="h-4 w-4" />
-                  Funnel ready
-                </div>
-                <QuizResultCard
-                  title={result.title}
-                  questions={result.questions}
-                  brief={result.brief}
-                  footer={
-                    savedQuizId ? (
-                      <Button
-                        type="button"
-                        onClick={() => navigate(ROUTES.quizEdit(savedQuizId))}
-                        className="w-full rounded-xl btn-shimmer text-white border-0 bg-accent-gradient shadow-glow"
-                      >
-                        Open in builder
-                      </Button>
-                    ) : undefined
-                  }
-                />
-              </div>
-            )}
-          </div>
-        )}
       </div>
-    </TooltipProvider>
+    </>
   );
 }

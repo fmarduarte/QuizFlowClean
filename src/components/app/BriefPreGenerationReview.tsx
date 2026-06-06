@@ -8,14 +8,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { BriefReviewPanel } from "@/components/app/BriefReviewPanel";
+import { FunnelCoachPanel } from "@/components/app/FunnelCoachPanel";
 import type { BriefProtectionReport } from "@/lib/brief-protection";
+import type { FunnelBriefField } from "@/lib/funnel-brief";
 
 interface BriefPreGenerationReviewProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   report: BriefProtectionReport;
   onConfirm: () => void;
+  onApplySuggestion?: (field: FunnelBriefField, value: string) => void;
 }
 
 export function BriefPreGenerationReview({
@@ -23,6 +25,7 @@ export function BriefPreGenerationReview({
   onOpenChange,
   report,
   onConfirm,
+  onApplySuggestion,
 }: BriefPreGenerationReviewProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -32,14 +35,18 @@ export function BriefPreGenerationReview({
             <div className="h-10 w-10 rounded-xl bg-violet-500/15 flex items-center justify-center">
               <Sparkles className="h-5 w-5 text-violet-400" />
             </div>
-            <DialogTitle>Review & generate</DialogTitle>
+            <DialogTitle>AI Funnel Coach</DialogTitle>
           </div>
           <DialogDescription className="text-left pt-1">
-            Confirm your brief before AI generation.
+            Review your brief quality before generating.
           </DialogDescription>
         </DialogHeader>
 
-        <BriefReviewPanel report={report} />
+        <FunnelCoachPanel
+          report={report}
+          onApplySuggestion={onApplySuggestion}
+          showFieldBreakdown
+        />
 
         <DialogFooter className="flex-col sm:flex-col gap-2">
           <Button
@@ -56,7 +63,7 @@ export function BriefPreGenerationReview({
             onClick={() => onOpenChange(false)}
             className="w-full rounded-xl border-hairline"
           >
-            Edit brief
+            Keep editing
           </Button>
         </DialogFooter>
       </DialogContent>

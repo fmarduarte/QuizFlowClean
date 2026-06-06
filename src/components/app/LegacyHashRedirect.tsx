@@ -4,7 +4,7 @@ import { ROUTES } from "@/lib/routes";
 
 const HASH_REDIRECTS: Record<string, string> = {
   "#overview": ROUTES.app,
-  "#generator": ROUTES.appCreate,
+  "#generator": ROUTES.app,
   "#saved": ROUTES.appFunnels,
   "#settings": ROUTES.appSettings,
   "#billing": ROUTES.appBilling,

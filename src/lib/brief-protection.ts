@@ -36,12 +36,16 @@ export function analyzeBriefProtection(values: FunnelBriefValues): BriefProtecti
     blockReasons.push("Your brief contains content that is not allowed. Please revise and try again.");
   }
 
+  if (coach.duplicatePairs.length > 0) {
+    blockReasons.push(coach.duplicatePairs[0].message);
+  }
+
   if (!coach.canGenerate) {
     if (coach.poorBriefWarning) {
       blockReasons.push(coach.poorBriefWarning);
     } else if (coach.score < 60) {
       blockReasons.push(
-        `Brief quality is ${coach.score}%. Reach at least 60% with specific, relevant details.`
+        `Funnel quality is ${coach.score}%. Add specific niche, offer, audience, and goal details to reach 60%.`
       );
     }
   }

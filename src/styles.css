@@ -269,6 +269,13 @@
     -webkit-backdrop-filter: blur(24px) saturate(180%);
     border: 1px solid color-mix(in oklab, var(--hairline) 90%, transparent);
   }
+  .coach-glass {
+    background: color-mix(in oklab, var(--surface-elevated) 42%, transparent);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    border: 1px solid color-mix(in oklab, var(--hairline) 55%, transparent);
+    box-shadow: 0 1px 0 color-mix(in oklab, white 4%, transparent) inset;
+  }
   .btn-shimmer {
     background-size: 200% 200%;
     background-image: linear-gradient(
