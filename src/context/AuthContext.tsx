@@ -15,6 +15,8 @@ interface AuthContextValue {
   user: User | null;
   session: Session | null;
   loading: boolean;
+  isAuthenticated: boolean;
+  getAccessToken: () => string | null;
   signIn: (email: string, password: string) => Promise<{ error: AuthError | null }>;
   signUp: (email: string, password: string) => Promise<{ error: AuthError | null }>;
   resetPassword: (email: string) => Promise<{ error: AuthError | null }>;
@@ -74,9 +76,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await supabase.auth.signOut();
   }, []);
 
+  const getAccessToken = useCallback(() => session?.access_token ?? null, [session]);
+
+  const isAuthenticated = !!session;
+
   const value = useMemo(
-    () => ({ user, session, loading, signIn, signUp, resetPassword, updatePassword, signOut }),
-    [user, session, loading, signIn, signUp, resetPassword, updatePassword, signOut]
+    () => ({
+      user,
+      session,
+      loading,
+      isAuthenticated,
+      getAccessToken,
+      signIn,
+      signUp,
+      resetPassword,
+      updatePassword,
+      signOut,
+    }),
+    [
+      user,
+      session,
+      loading,
+      isAuthenticated,
+      getAccessToken,
+      signIn,
+      signUp,
+      resetPassword,
+      updatePassword,
+      signOut,
+    ]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

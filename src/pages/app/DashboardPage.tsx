@@ -10,6 +10,7 @@ import { BillingSection } from "@/components/dashboard/BillingSection";
 import { Button } from "@/components/ui/button";
 import { usePageMeta } from "@/hooks/use-page-meta";
 import { PAGE_META } from "@/lib/seo";
+import { PRODUCT_COPY } from "@/lib/product-copy";
 import { ROUTES } from "@/lib/routes";
 
 export function DashboardPage() {
@@ -29,7 +30,7 @@ export function DashboardPage() {
       <section id="overview" className="scroll-mt-24">
         <PageHeader
           title="Dashboard"
-          description="Build, manage, and scale AI quiz funnels for paid social."
+          description="Build, manage, and scale AI funnels for paid social ads."
           action={
             <Button
               asChild
@@ -37,7 +38,7 @@ export function DashboardPage() {
             >
               <a href={`${ROUTES.app}${ROUTES.appSections.generator}`}>
                 <Sparkles className="h-4 w-4" />
-                New quiz
+                {PRODUCT_COPY.funnel.new}
               </a>
             </Button>
           }
@@ -45,11 +46,11 @@ export function DashboardPage() {
         <DashboardStats />
       </section>
 
-      {/* Quiz generator */}
+      {/* Funnel generator */}
       <section id="generator" className="scroll-mt-24">
         <SectionHeading
-          title="Quiz Generator"
-          description="Describe your offer. AI drafts questions, branching, and result pages in seconds."
+          title={PRODUCT_COPY.funnel.generator}
+          description="Describe your offer. AI drafts funnel steps, result pages, and lead capture in seconds."
         />
         <div className="glass rounded-2xl border border-hairline p-6 sm:p-8">
           <QuizGeneratePanel variant="page" />

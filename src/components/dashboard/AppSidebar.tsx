@@ -10,6 +10,7 @@ import {
   Wand2,
 } from "lucide-react";
 import { useState } from "react";
+import { PRODUCT_COPY } from "@/lib/product-copy";
 import { ROUTES } from "@/lib/routes";
 import { useAuth } from "@/context/AuthContext";
 import { useActiveSection } from "@/hooks/use-active-section";
@@ -18,8 +19,8 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { id: "overview" as const, hash: ROUTES.appSections.overview, label: "Overview", icon: LayoutDashboard },
-  { id: "generator" as const, hash: ROUTES.appSections.generator, label: "Quiz Generator", icon: Wand2 },
-  { id: "saved" as const, hash: ROUTES.appSections.saved, label: "Saved Quizzes", icon: Bookmark },
+  { id: "generator" as const, hash: ROUTES.appSections.generator, label: PRODUCT_COPY.funnel.generator, icon: Wand2 },
+  { id: "saved" as const, hash: ROUTES.appSections.saved, label: PRODUCT_COPY.funnel.myFunnels, icon: Bookmark },
   { id: "billing" as const, hash: ROUTES.appSections.billing, label: "Billing", icon: CreditCard },
   { id: "settings" as const, hash: ROUTES.appSections.settings, label: "Settings", icon: Settings },
 ];

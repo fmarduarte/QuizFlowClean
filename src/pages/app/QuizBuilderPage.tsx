@@ -14,7 +14,7 @@ export function QuizBuilderPage() {
   const quiz = quizId ? getQuiz(quizId) : undefined;
 
   usePageMeta({
-    title: quiz ? `${quiz.title} | Quiz Builder | QuizFlow AI` : PAGE_META.builder.title,
+    title: quiz ? `${quiz.title} | ${PAGE_META.builder.title}` : PAGE_META.builder.title,
     description: PAGE_META.builder.description,
     robots: PAGE_META.builder.robots,
     canonical: undefined,
@@ -33,9 +33,9 @@ export function QuizBuilderPage() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
         <FileQuestion className="h-12 w-12 text-muted-foreground mb-4" />
-        <h1 className="text-xl font-semibold tracking-tight">Quiz not found</h1>
+        <h1 className="text-xl font-semibold tracking-tight">Funnel not found</h1>
         <p className="text-sm text-muted-foreground mt-2 max-w-sm">
-          This quiz may have been deleted or the link is incorrect.
+          This funnel may have been deleted or the link is incorrect.
         </p>
         <Button asChild className="mt-6 rounded-xl">
           <Link to={ROUTES.app}>Back to dashboard</Link>

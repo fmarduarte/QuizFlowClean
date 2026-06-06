@@ -1,12 +1,15 @@
 import { useState, type FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, Loader2, Sparkles } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { AuthAlert } from "@/components/auth/AuthAlert";
+import { AuthShell } from "@/components/auth/AuthShell";
+import { PasswordInput } from "@/components/auth/PasswordInput";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/context/AuthContext";
 import { usePageMeta } from "@/hooks/use-page-meta";
+import { getAuthErrorMessage } from "@/lib/auth-errors";
 import { PAGE_META } from "@/lib/seo";
 import { ROUTES } from "@/lib/routes";
 
@@ -14,6 +17,10 @@ export function SignupPage() {
   usePageMeta({ ...PAGE_META.signup, canonical: ROUTES.signup });
   const { signUp } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from =
+    (location.state as { from?: string } | null)?.from ??
+    `${ROUTES.app}${ROUTES.appSections.generator}`;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,7 +35,7 @@ export function SignupPage() {
     setSuccess(null);
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setError("Passwords do not match. Please try again.");
       return;
     }
 
@@ -42,113 +49,102 @@ export function SignupPage() {
     setLoading(false);
 
     if (authError) {
-      setError(authError.message);
+      setError(getAuthErrorMessage(authError));
       return;
     }
 
     setSuccess(
-      "Account created! Check your email to confirm, or sign in if confirmation is disabled."
+      "Account created! Check your email to confirm your address, then sign in to start building."
     );
 
-    setTimeout(() => navigate(ROUTES.login, { replace: true }), 2500);
+    setTimeout(() => {
+      navigate(ROUTES.login, { replace: true, state: { from } });
+    }, 2800);
   }
 
   return (
-    <div className="w-full max-w-md animate-fade-up">
-      <div className="glass-strong rounded-2xl border border-hairline p-8 sm:p-10 shadow-elevated">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-hairline bg-surface-elevated text-xs font-medium mb-4">
-            <Sparkles className="h-3 w-3 text-violet-400" />
-            Get started free
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-gradient">
-            Create your account
-          </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Start building AI quiz funnels in minutes
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {error && <AuthAlert variant="error" message={error} />}
-          {success && <AuthAlert variant="success" message={success} />}
-
-          <div className="space-y-2">
-            <Label htmlFor="signup-email">Email</Label>
-            <Input
-              id="signup-email"
-              type="email"
-              autoComplete="email"
-              placeholder="you@company.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              disabled={loading || !!success}
-              className="h-11 rounded-xl border-hairline bg-background/80"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="signup-password">Password</Label>
-            <Input
-              id="signup-password"
-              type="password"
-              autoComplete="new-password"
-              placeholder="Min. 6 characters"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              disabled={loading || !!success}
-              minLength={6}
-              className="h-11 rounded-xl border-hairline bg-background/80"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="signup-confirm">Confirm password</Label>
-            <Input
-              id="signup-confirm"
-              type="password"
-              autoComplete="new-password"
-              placeholder="Repeat password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              disabled={loading || !!success}
-              minLength={6}
-              className="h-11 rounded-xl border-hairline bg-background/80"
-            />
-          </div>
-
-          <Button
-            type="submit"
-            disabled={loading || !!success}
-            className="w-full h-11 rounded-xl btn-shimmer text-white border-0 bg-accent-gradient shadow-glow font-medium"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="h-4 w-4 animate-spin" />
-                Creating account…
-              </>
-            ) : (
-              <>
-                Create account
-                <ArrowRight className="h-4 w-4" />
-              </>
-            )}
-          </Button>
-        </form>
-
-        <p className="mt-6 text-center text-sm text-muted-foreground">
+    <AuthShell
+      badge="Get started free"
+      title="Create your account"
+      description="Start building AI funnels for paid social in minutes"
+      footer={
+        <p className="text-center text-sm text-muted-foreground">
           Already have an account?{" "}
           <Link
-            to={ROUTES.login}
+            to={{ pathname: ROUTES.login, state: { from } }}
             className="text-violet-300 hover:text-violet-200 font-medium transition-colors"
           >
             Sign in
           </Link>
         </p>
-      </div>
-    </div>
+      }
+    >
+      <form onSubmit={handleSubmit} className="space-y-5" aria-busy={loading}>
+        {error && <AuthAlert variant="error" message={error} />}
+        {success && <AuthAlert variant="success" message={success} />}
+
+        <div className="space-y-2">
+          <Label htmlFor="signup-email">Email</Label>
+          <Input
+            id="signup-email"
+            type="email"
+            autoComplete="email"
+            placeholder="you@company.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            disabled={loading || !!success}
+            autoFocus
+            className="h-11 rounded-xl border-hairline bg-background/80"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="signup-password">Password</Label>
+          <PasswordInput
+            id="signup-password"
+            value={password}
+            onChange={setPassword}
+            autoComplete="new-password"
+            placeholder="Min. 6 characters"
+            disabled={loading || !!success}
+            minLength={6}
+            required
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="signup-confirm">Confirm password</Label>
+          <PasswordInput
+            id="signup-confirm"
+            value={confirmPassword}
+            onChange={setConfirmPassword}
+            autoComplete="new-password"
+            placeholder="Repeat password"
+            disabled={loading || !!success}
+            minLength={6}
+            required
+          />
+        </div>
+
+        <Button
+          type="submit"
+          disabled={loading || !!success || !email.trim() || !password || !confirmPassword}
+          className="w-full h-11 rounded-xl btn-shimmer text-white border-0 bg-accent-gradient shadow-glow font-medium"
+        >
+          {loading ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" />
+              Creating account…
+            </>
+          ) : (
+            <>
+              Create account
+              <ArrowRight className="h-4 w-4" />
+            </>
+          )}
+        </Button>
+      </form>
+    </AuthShell>
   );
 }

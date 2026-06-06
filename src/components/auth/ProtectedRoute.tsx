@@ -1,6 +1,7 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { buildRedirectPath, loginRedirectState } from "@/lib/auth-redirect";
 import { ROUTES } from "@/lib/routes";
 
 export function ProtectedRoute() {
@@ -19,7 +20,14 @@ export function ProtectedRoute() {
   }
 
   if (!session) {
-    return <Navigate to={ROUTES.login} state={{ from: location.pathname }} replace />;
+    const from = buildRedirectPath(location.pathname, location.hash, location.search);
+    return (
+      <Navigate
+        to={ROUTES.login}
+        state={loginRedirectState(from)}
+        replace
+      />
+    );
   }
 
   return <Outlet />;

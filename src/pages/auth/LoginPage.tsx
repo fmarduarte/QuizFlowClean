@@ -11,6 +11,7 @@ import { useAuth } from "@/context/AuthContext";
 import { usePageMeta } from "@/hooks/use-page-meta";
 import { getAuthErrorMessage } from "@/lib/auth-errors";
 import { PAGE_META } from "@/lib/seo";
+import { parseRedirectTarget } from "@/lib/auth-redirect";
 import { ROUTES } from "@/lib/routes";
 
 export function LoginPage() {
@@ -18,7 +19,9 @@ export function LoginPage() {
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = (location.state as { from?: string } | null)?.from ?? ROUTES.app;
+  const from =
+    (location.state as { from?: string } | null)?.from ??
+    `${ROUTES.app}${ROUTES.appSections.generator}`;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,14 +42,14 @@ export function LoginPage() {
       return;
     }
 
-    navigate(from, { replace: true });
+    navigate(parseRedirectTarget(from), { replace: true });
   }
 
   return (
     <AuthShell
       badge="Welcome back"
       title="Sign in to QuizFlow AI"
-      description="Access your quiz funnels and AI workspace"
+      description="Access your funnels and AI workspace"
       footer={
         <p className="text-center text-sm text-muted-foreground">
           Don&apos;t have an account?{" "}

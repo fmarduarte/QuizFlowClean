@@ -1,8 +1,17 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { signupLink } from "@/lib/auth-redirect";
+import { PRODUCT_COPY } from "@/lib/product-copy";
 import { ROUTES } from "@/lib/routes";
 
 export function FinalCTA() {
+  const { isAuthenticated, loading } = useAuth();
+
+  const ctaTo = isAuthenticated
+    ? { pathname: ROUTES.app, hash: ROUTES.appSections.generator }
+    : signupLink(`${ROUTES.app}${ROUTES.appSections.generator}`);
+
   return (
     <section id="cta" className="py-24 sm:py-32 scroll-mt-20">
       <div className="mx-auto max-w-5xl px-6">
@@ -13,23 +22,26 @@ export function FinalCTA() {
 
           <div className="relative">
             <h2 className="text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] text-background">
-              Launch Your First AI<br />Quiz Funnel Today
+              Launch Your First AI<br />Funnel Today
             </h2>
             <p className="mt-6 text-lg text-background/70 max-w-xl mx-auto">
-              Build high-converting quiz funnels for paid social ads in minutes. Free to start. No credit card required.
+              Build high-converting funnels for TikTok, Facebook and Instagram Ads in minutes. Free
+              to start. No credit card required.
             </p>
             <div className="mt-6 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-background/20 bg-background/5 text-xs text-background/80">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Onboarding 200+ new creators this week
             </div>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link
-                to={{ pathname: ROUTES.app, hash: "#generator" }}
-                className="btn-glow btn-shimmer group inline-flex items-center gap-2 bg-background text-foreground px-6 py-3.5 rounded-xl font-medium hover:bg-background/90 hover:-translate-y-0.5 transition-all shadow-elevated"
-              >
-                Generate Your First AI Funnel
-                <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
+              {!loading && (
+                <Link
+                  to={ctaTo}
+                  className="btn-glow btn-shimmer group inline-flex items-center gap-2 bg-background text-foreground px-6 py-3.5 rounded-xl font-medium hover:bg-background/90 hover:-translate-y-0.5 transition-all shadow-elevated"
+                >
+                  {isAuthenticated ? PRODUCT_COPY.funnel.create : "Get started free"}
+                  <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                </Link>
+              )}
               <a
                 href={ROUTES.landingSections.pricing}
                 className="text-sm text-background/70 hover:text-background transition-colors px-4 py-3.5"

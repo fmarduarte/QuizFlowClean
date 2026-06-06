@@ -1,8 +1,8 @@
 # QuizFlow AI
 
-> AI-powered quiz funnel builder for TikTok, Instagram, and Meta Ads. Generate high-converting interactive quizzes for paid social in minutes.
+> AI funnel builder for TikTok, Facebook, and Instagram Ads. Build lead gen, product recommendation, qualification, and application funnels for paid social in minutes.
 
-QuizFlow AI helps creators, media buyers, ecommerce brands, and agencies replace static landing pages with AI-generated quiz funnels optimized for paid social advertising.
+QuizFlow AI helps creators, media buyers, ecommerce brands, and agencies replace static landing pages with AI-generated funnels optimized for paid social advertising.
 
 ## Pages
 

@@ -1,7 +1,7 @@
 {
   "name": "QuizFlow AI",
   "short_name": "QuizFlow",
-  "description": "AI-powered quiz funnel builder for paid social ads",
+  "description": "AI funnel builder for paid social ads",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a12",

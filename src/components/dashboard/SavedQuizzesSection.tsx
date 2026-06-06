@@ -5,6 +5,7 @@ import { SectionHeading } from "@/components/app/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useQuizzes } from "@/context/QuizzesContext";
+import { PRODUCT_COPY } from "@/lib/product-copy";
 import { ROUTES } from "@/lib/routes";
 
 export function SavedQuizzesSection() {
@@ -13,17 +14,17 @@ export function SavedQuizzesSection() {
   return (
     <section id="saved" className="scroll-mt-24 pt-4 animate-fade-up">
       <SectionHeading
-        title="Saved Quizzes"
-        description="Your AI-generated quiz funnels — edit, duplicate, or publish to paid social."
+        title={PRODUCT_COPY.funnel.saved}
+        description="Your AI-generated funnels — edit, duplicate, or publish to paid social."
       />
 
       {quizzes.length === 0 ? (
         <Card className="glass border-hairline border-dashed">
           <CardContent className="py-14 flex flex-col items-center text-center">
             <Bookmark className="h-11 w-11 text-muted-foreground mb-3" />
-            <p className="font-medium">No saved quizzes yet</p>
+            <p className="font-medium">No funnels yet</p>
             <p className="text-sm text-muted-foreground mt-2 max-w-sm">
-              Use the generator above to create your first funnel.
+              Use the funnel generator above to create your first campaign.
             </p>
             <a
               href={ROUTES.appSections.generator}
@@ -48,7 +49,7 @@ export function SavedQuizzesSection() {
                     <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{quiz.description}</p>
                   )}
                   <p className="text-xs text-muted-foreground mt-3">
-                    {quiz.questions.length} questions · Saved{" "}
+                    {quiz.questions.length} steps · Saved{" "}
                     {formatDistanceToNow(new Date(quiz.createdAt), { addSuffix: true })}
                   </p>
                 </div>
@@ -102,7 +103,7 @@ export function SavedQuizzesSection() {
               >
                 <Link to={ROUTES.quizEdit(quiz.id)}>
                   <Pencil className="h-3.5 w-3.5" />
-                  Edit in builder
+                  Edit funnel
                 </Link>
               </Button>
             </article>

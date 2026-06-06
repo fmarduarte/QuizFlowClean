@@ -4,8 +4,8 @@ const steps = [
   {
     n: "01",
     icon: MessageSquare,
-    title: "Generate Your Quiz Funnel",
-    desc: "Describe your product in one sentence. AI drafts questions, branching logic, and result pages instantly.",
+    title: "Choose Your Funnel Type",
+    desc: "Pick lead gen, product recommendation, qualification, or application. AI drafts the full funnel instantly.",
   },
   {
     n: "02",

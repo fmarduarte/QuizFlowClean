@@ -28,15 +28,15 @@ export function BuilderToolbar({ title, onTitleChange, saveStatus }: BuilderTool
         </Button>
         <div className="min-w-0 flex-1">
           <label htmlFor="quiz-builder-title" className="sr-only">
-            Quiz title
+            Funnel title
           </label>
           <Input
             id="quiz-builder-title"
             value={title}
             onChange={(e) => onTitleChange(e.target.value)}
             className="h-9 border-transparent bg-transparent hover:bg-surface-elevated/50 focus-visible:bg-surface-elevated/80 focus-visible:border-hairline text-base sm:text-lg font-semibold tracking-tight px-2"
-            placeholder="Untitled quiz"
-            aria-label="Quiz title"
+            placeholder="Untitled funnel"
+            aria-label="Funnel title"
           />
         </div>
       </div>

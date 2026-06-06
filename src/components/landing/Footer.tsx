@@ -1,19 +1,31 @@
 import { Link } from "react-router-dom";
 import { Sparkles, MapPin, Mail } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 import { ROUTES } from "@/lib/routes";
 
-const companyLinks = [
-  { label: "How it works", href: ROUTES.landingSections.how },
+const baseLinks = [
   { label: "Features", href: ROUTES.landingSections.features },
   { label: "Pricing", href: ROUTES.landingSections.pricing },
   { label: "FAQ", href: ROUTES.landingSections.faq },
-  { label: "Dashboard", href: ROUTES.app, isRoute: true },
   { label: "Contact", href: "mailto:hello@quizflow.ai" },
   { label: "Privacy", href: "mailto:hello@quizflow.ai?subject=Privacy%20Policy" },
   { label: "Terms", href: "mailto:hello@quizflow.ai?subject=Terms%20of%20Service" },
 ];
 
 export function Footer() {
+  const { isAuthenticated } = useAuth();
+
+  const companyLinks = isAuthenticated
+    ? [
+        ...baseLinks.slice(0, 3),
+        { label: "Dashboard", href: ROUTES.app, isRoute: true as const },
+        ...baseLinks.slice(3),
+      ]
+    : [
+        ...baseLinks.slice(0, 3),
+        { label: "Sign in", href: ROUTES.login, isRoute: true as const },
+        ...baseLinks.slice(3),
+      ];
   return (
     <footer className="border-t border-hairline bg-surface-subtle/40">
       <div className="mx-auto max-w-7xl px-6 pt-20 pb-12">
@@ -27,7 +39,7 @@ export function Footer() {
               <span className="font-semibold tracking-tight">QuizFlow AI</span>
             </div>
             <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
-              AI-powered quiz funnels for modern creators and paid social brands.
+              AI funnel builder for modern creators and paid social brands.
             </p>
           </div>
 

@@ -1,12 +1,12 @@
 import { Brain, Flame, Share2, Smartphone, BarChart3, LayoutTemplate } from "lucide-react";
 
 const features = [
-  { icon: Brain, title: "AI Quiz Funnel Generator", desc: "Describe your product. Get a full funnel with branching logic and dynamic recommendations in seconds." },
+  { icon: Brain, title: "AI Funnel Generator", desc: "Choose your funnel type. AI builds the full experience — steps, results, and lead capture in seconds." },
   { icon: Flame, title: "Viral Hook Generator", desc: "AI-crafted opening questions tuned to stop the scroll on TikTok, Reels, and Stories." },
   { icon: Share2, title: "One-Click Ad Export", desc: "Push funnels live with TikTok, Meta, and Google pixels, UTMs, and CRM connections wired automatically." },
   { icon: Smartphone, title: "Mobile Optimized Funnels", desc: "Every funnel renders flawlessly inside TikTok and IG in-app browsers. No reflows, no friction." },
   { icon: BarChart3, title: "Real-Time Analytics", desc: "Live CVR, CPL, and drop-off insights built for performance marketers and UGC creators." },
-  { icon: LayoutTemplate, title: "Creator Templates", desc: "Battle-tested quiz frameworks for DTC, info products, and creator offers — ready to customize." },
+  { icon: LayoutTemplate, title: "Funnel Templates", desc: "Battle-tested funnel frameworks for DTC, info products, and creator offers — ready to customize." },
 ];
 
 
