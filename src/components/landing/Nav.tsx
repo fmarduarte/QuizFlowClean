@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 import { ROUTES } from "@/lib/routes";
 
 const sectionLinks = [
+  { href: ROUTES.landingSections.how, label: "How it works" },
   { href: ROUTES.landingSections.features, label: "Features" },
   { href: ROUTES.landingSections.pricing, label: "Pricing" },
-  { href: ROUTES.landingSections.testimonials, label: "Testimonials" },
+  { href: ROUTES.landingSections.faq, label: "FAQ" },
 ];
 
 export function Nav() {
@@ -40,12 +41,12 @@ export function Nav() {
       <div className="mx-auto max-w-7xl px-5 sm:px-6 h-16 flex items-center justify-between">
         <Link to={ROUTES.landing} className="flex items-center gap-2 group">
           <div className="relative h-8 w-8 rounded-lg bg-accent-gradient flex items-center justify-center shadow-glow">
-            <Sparkles className="h-4 w-4 text-white" strokeWidth={2.5} />
+            <Sparkles className="h-4 w-4 text-white" strokeWidth={2.5} aria-hidden />
           </div>
           <span className="font-semibold tracking-tight text-foreground">QuizFlow AI</span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
+        <nav aria-label="Main navigation" className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
           {isHome
             ? sectionLinks.map((l) => (
                 <a key={l.href} href={l.href} className="hover:text-foreground transition-colors">
@@ -93,7 +94,7 @@ export function Nav() {
           open ? "max-h-[520px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <nav className="px-5 py-4 flex flex-col gap-1">
+        <nav aria-label="Mobile navigation" className="px-5 py-4 flex flex-col gap-1">
           {isHome &&
             sectionLinks.map((l) => (
               <a

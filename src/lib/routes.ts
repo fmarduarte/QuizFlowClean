@@ -13,9 +13,11 @@ export const ROUTES = {
     billing: "#billing",
   },
   landingSections: {
+    how: "/#how",
     features: "/#features",
     pricing: "/#pricing",
     testimonials: "/#testimonials",
+    faq: "/#faq",
     cta: "/#cta",
   },
 } as const;

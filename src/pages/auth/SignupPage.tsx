@@ -6,9 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/context/AuthContext";
+import { usePageMeta } from "@/hooks/use-page-meta";
+import { PAGE_META } from "@/lib/seo";
 import { ROUTES } from "@/lib/routes";
 
 export function SignupPage() {
+  usePageMeta({ ...PAGE_META.signup, canonical: ROUTES.signup });
   const { signUp } = useAuth();
   const navigate = useNavigate();
 

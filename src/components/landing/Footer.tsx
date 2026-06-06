@@ -3,13 +3,14 @@ import { Sparkles, MapPin, Mail } from "lucide-react";
 import { ROUTES } from "@/lib/routes";
 
 const companyLinks = [
-  { label: "About", href: "#" },
+  { label: "How it works", href: ROUTES.landingSections.how },
   { label: "Features", href: ROUTES.landingSections.features },
   { label: "Pricing", href: ROUTES.landingSections.pricing },
+  { label: "FAQ", href: ROUTES.landingSections.faq },
   { label: "Dashboard", href: ROUTES.app, isRoute: true },
   { label: "Contact", href: "mailto:hello@quizflow.ai" },
-  { label: "Privacy Policy", href: "#" },
-  { label: "Terms", href: "#" },
+  { label: "Privacy", href: "mailto:hello@quizflow.ai?subject=Privacy%20Policy" },
+  { label: "Terms", href: "mailto:hello@quizflow.ai?subject=Terms%20of%20Service" },
 ];
 
 export function Footer() {
@@ -21,7 +22,7 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <div className="h-8 w-8 rounded-lg bg-foreground flex items-center justify-center">
-                <Sparkles className="h-4 w-4 text-background" strokeWidth={2.5} />
+                <Sparkles className="h-4 w-4 text-background" strokeWidth={2.5} aria-hidden />
               </div>
               <span className="font-semibold tracking-tight">QuizFlow AI</span>
             </div>
@@ -62,7 +63,7 @@ export function Footer() {
             <div className="space-y-3 text-sm text-foreground/80">
               <p className="font-semibold text-foreground">QuizFlow AI</p>
               <p className="flex items-start gap-2">
-                <MapPin className="h-4 w-4 mt-0.5 flex-none text-muted-foreground" />
+                <MapPin className="h-4 w-4 mt-0.5 flex-none text-muted-foreground" aria-hidden />
                 <span>
                   Bragança Paulista — SP<br />
                   Brazil
@@ -73,7 +74,7 @@ export function Footer() {
                   href="mailto:hello@quizflow.ai"
                   className="inline-flex items-center gap-2 hover:text-foreground transition-colors"
                 >
-                  <Mail className="h-4 w-4 text-muted-foreground" />
+                  <Mail className="h-4 w-4 text-muted-foreground" aria-hidden />
                   hello@quizflow.ai
                 </a>
               </p>

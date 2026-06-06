@@ -33,8 +33,12 @@ export function DashboardMockup() {
             </div>
           </aside>
 
-          {/* Main */}
-          <main className="col-span-12 md:col-span-7 p-6 space-y-5 border-r border-hairline">
+          {/* Main panel (decorative mockup) */}
+          <div
+            role="img"
+            aria-label="QuizFlow AI dashboard mockup showing funnel metrics and quiz preview"
+            className="col-span-12 md:col-span-7 p-6 space-y-5 border-r border-hairline"
+          >
             {/* AI prompt */}
             <div className="rounded-xl border border-hairline p-4 bg-background">
               <div className="flex items-center gap-2 mb-3">
@@ -93,7 +97,7 @@ export function DashboardMockup() {
                 </div>
               ))}
             </div>
-          </main>
+          </div>
 
           {/* Phone preview */}
           <aside className="hidden md:flex col-span-3 p-6 bg-surface-subtle/50 items-center justify-center">

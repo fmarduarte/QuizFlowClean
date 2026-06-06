@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 import { AppSidebar } from "@/components/dashboard/AppSidebar";
 import { AppNavbar } from "@/components/dashboard/AppNavbar";
 import { Button } from "@/components/ui/button";
+import { SkipLink } from "@/components/seo/SkipLink";
 import { cn } from "@/lib/utils";
 
 export function DashboardLayout() {
@@ -11,6 +12,7 @@ export function DashboardLayout() {
 
   return (
     <div className="dark min-h-screen bg-background text-foreground flex selection:bg-violet-500/30">
+      <SkipLink />
       <div className="hidden lg:block w-64 flex-shrink-0 fixed inset-y-0 left-0 z-40">
         <AppSidebar />
       </div>
@@ -48,7 +50,7 @@ export function DashboardLayout() {
 
       <div className="flex-1 flex flex-col min-h-screen lg:pl-64">
         <AppNavbar onMenuClick={() => setSidebarOpen(true)} />
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
+        <main id="main-content" className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
           <div className="animate-fade-in">
             <Outlet />
           </div>

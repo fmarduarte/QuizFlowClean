@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { GuestRoute } from "@/components/auth/GuestRoute";
 import { MarketingLayout } from "@/layouts/MarketingLayout";
@@ -9,6 +9,7 @@ import { LoginPage } from "@/pages/auth/LoginPage";
 import { SignupPage } from "@/pages/auth/SignupPage";
 import { DashboardPage } from "@/pages/app/DashboardPage";
 import { QuizBuilderPage } from "@/pages/app/QuizBuilderPage";
+import { NotFoundPage } from "@/pages/marketing/NotFoundPage";
 import { ROUTES } from "@/lib/routes";
 
 export const router = createBrowserRouter([
@@ -42,5 +43,8 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  { path: "*", element: <Navigate to={ROUTES.landing} replace /> },
+  {
+    element: <MarketingLayout />,
+    children: [{ path: "*", element: <NotFoundPage /> }],
+  },
 ]);

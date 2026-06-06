@@ -1,5 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
 import { Sparkles } from "lucide-react";
+import { SkipLink } from "@/components/seo/SkipLink";
 import { ROUTES } from "@/lib/routes";
 
 export function AuthLayout() {
@@ -22,6 +23,7 @@ export function AuthLayout() {
         }}
       />
 
+      <SkipLink />
       <div className="relative z-10 min-h-screen flex flex-col">
         <header className="px-5 sm:px-8 h-16 flex items-center justify-between">
           <Link to={ROUTES.landing} className="flex items-center gap-2 group">
@@ -38,7 +40,7 @@ export function AuthLayout() {
           </Link>
         </header>
 
-        <main className="flex-1 flex items-center justify-center px-5 py-12">
+        <main id="main-content" className="flex-1 flex items-center justify-center px-5 py-12">
           <Outlet />
         </main>
       </div>

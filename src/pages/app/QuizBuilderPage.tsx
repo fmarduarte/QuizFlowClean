@@ -3,6 +3,8 @@ import { FileQuestion } from "lucide-react";
 import { QuizBuilder } from "@/components/builder/QuizBuilder";
 import { Button } from "@/components/ui/button";
 import { useQuizzes } from "@/context/QuizzesContext";
+import { usePageMeta } from "@/hooks/use-page-meta";
+import { PAGE_META } from "@/lib/seo";
 import { ROUTES } from "@/lib/routes";
 import type { Quiz } from "@/types/quiz";
 
@@ -10,6 +12,13 @@ export function QuizBuilderPage() {
   const { quizId } = useParams<{ quizId: string }>();
   const { getQuiz, updateQuiz } = useQuizzes();
   const quiz = quizId ? getQuiz(quizId) : undefined;
+
+  usePageMeta({
+    title: quiz ? `${quiz.title} | Quiz Builder | QuizFlow AI` : PAGE_META.builder.title,
+    description: PAGE_META.builder.description,
+    robots: PAGE_META.builder.robots,
+    canonical: undefined,
+  });
 
   function handleSave(draft: Quiz) {
     if (!quizId) return;

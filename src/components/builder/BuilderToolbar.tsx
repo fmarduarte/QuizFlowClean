@@ -26,12 +26,19 @@ export function BuilderToolbar({ title, onTitleChange, saveStatus }: BuilderTool
             <ArrowLeft className="h-4 w-4" />
           </Link>
         </Button>
-        <Input
-          value={title}
-          onChange={(e) => onTitleChange(e.target.value)}
-          className="h-9 border-transparent bg-transparent hover:bg-surface-elevated/50 focus-visible:bg-surface-elevated/80 focus-visible:border-hairline text-base sm:text-lg font-semibold tracking-tight px-2"
-          placeholder="Untitled quiz"
-        />
+        <div className="min-w-0 flex-1">
+          <label htmlFor="quiz-builder-title" className="sr-only">
+            Quiz title
+          </label>
+          <Input
+            id="quiz-builder-title"
+            value={title}
+            onChange={(e) => onTitleChange(e.target.value)}
+            className="h-9 border-transparent bg-transparent hover:bg-surface-elevated/50 focus-visible:bg-surface-elevated/80 focus-visible:border-hairline text-base sm:text-lg font-semibold tracking-tight px-2"
+            placeholder="Untitled quiz"
+            aria-label="Quiz title"
+          />
+        </div>
       </div>
 
       <div

@@ -8,9 +8,12 @@ import { SavedQuizzesSection } from "@/components/dashboard/SavedQuizzesSection"
 import { SettingsSection } from "@/components/dashboard/SettingsSection";
 import { BillingSection } from "@/components/dashboard/BillingSection";
 import { Button } from "@/components/ui/button";
+import { usePageMeta } from "@/hooks/use-page-meta";
+import { PAGE_META } from "@/lib/seo";
 import { ROUTES } from "@/lib/routes";
 
 export function DashboardPage() {
+  usePageMeta({ ...PAGE_META.dashboard, canonical: ROUTES.app });
   useEffect(() => {
     const hash = window.location.hash;
     if (!hash) return;
