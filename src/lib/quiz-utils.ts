@@ -1,3 +1,4 @@
+import type { FunnelBrief } from "@/types/funnel-brief";
 import type { AnswerOption, Question, Quiz, QuizInput } from "@/types/quiz";
 
 export function createOption(label = "New option"): AnswerOption {
@@ -50,11 +51,15 @@ export function normalizeQuiz(raw: unknown): Quiz | null {
     };
   });
 
+  const brief =
+    q.brief && typeof q.brief === "object" ? (q.brief as FunnelBrief) : undefined;
+
   return {
     id: q.id,
     title: q.title,
     description: typeof q.description === "string" ? q.description : undefined,
     questions,
+    brief,
     createdAt,
     updatedAt,
   };
@@ -82,5 +87,6 @@ export function quizFromInput(input: QuizInput): Omit<Quiz, "id" | "createdAt" |
     title: input.title,
     description: input.description,
     questions: input.questions.map(regenerateIds),
+    brief: input.brief,
   };
 }

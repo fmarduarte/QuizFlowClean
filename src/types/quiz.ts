@@ -10,11 +10,14 @@ export interface Question {
   options: AnswerOption[];
 }
 
+import type { FunnelBrief } from "@/types/funnel-brief";
+
 export interface Quiz {
   id: string;
   title: string;
   description?: string;
   questions: Question[];
+  brief?: FunnelBrief;
   createdAt: string;
   updatedAt: string;
 }

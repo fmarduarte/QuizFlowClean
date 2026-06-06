@@ -1,6 +1,8 @@
+import { buildFunnelDescription } from "@/lib/funnel-brief";
 import { quizFromInput } from "@/lib/quiz-utils";
+import { generateMockFunnelQuestions } from "@/lib/mock-funnel-generator";
 import { getAuthErrorMessage } from "@/lib/auth-errors";
-import { DEMO_QUIZ } from "@/types/quiz";
+import type { FunnelBrief } from "@/types/funnel-brief";
 import type { QuizInput } from "@/types/quiz";
 
 export class AuthRequiredError extends Error {
@@ -10,21 +12,24 @@ export class AuthRequiredError extends Error {
   }
 }
 
-interface GenerateQuizParams {
-  title: string;
-  description?: string;
+export interface GenerateQuizParams {
+  brief: FunnelBrief;
   accessToken: string | null | undefined;
 }
 
+export interface GeneratedFunnelResult extends QuizInput {
+  brief: FunnelBrief;
+}
+
 /**
- * Generates a quiz funnel. Requires a valid Supabase access token before any
- * AI/OpenAI work runs — swap the mock body for a server call when wired up.
+ * Generates a funnel from the canonical brief object.
+ * Mock engine: dynamic questions from brief fields (no OpenAI yet).
+ * Production: POST brief to server function with Authorization: Bearer <token>.
  */
 export async function generateQuizFunnel({
-  title,
-  description,
+  brief,
   accessToken,
-}: GenerateQuizParams): Promise<QuizInput> {
+}: GenerateQuizParams): Promise<GeneratedFunnelResult> {
   if (!accessToken) {
     throw new AuthRequiredError();
   }
@@ -34,11 +39,18 @@ export async function generateQuizFunnel({
     // The server validates the JWT with Supabase before calling OpenAI.
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    return quizFromInput({
-      title: title.trim() || DEMO_QUIZ.title,
-      description: description?.trim() || DEMO_QUIZ.description,
-      questions: DEMO_QUIZ.questions,
+    const questions = generateMockFunnelQuestions(brief);
+    const title = brief.title.trim() || "Untitled Funnel";
+    const description = buildFunnelDescription(brief.generationValues);
+
+    const quiz = quizFromInput({
+      title,
+      description,
+      questions,
+      brief,
     });
+
+    return { ...quiz, brief };
   } catch (err) {
     if (err instanceof AuthRequiredError) throw err;
     throw new Error(getAuthErrorMessage(err instanceof Error ? err.message : String(err)));
