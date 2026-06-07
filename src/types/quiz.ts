@@ -12,42 +12,50 @@ export interface Question {
 
 import type { FunnelBrief } from "@/types/funnel-brief";
 
-export type QuizStatus = "draft" | "published" | "archived";
+export type FunnelStatus = "draft" | "published" | "archived";
+
+export interface FunnelResultScreen {
+  thankYouTitle: string;
+  thankYouMessage: string;
+  ctaLabel: string;
+  ctaUrl: string;
+}
+
+export const DEFAULT_FUNNEL_RESULT: FunnelResultScreen = {
+  thankYouTitle: "Thank you!",
+  thankYouMessage: "Your answers have been submitted. We'll be in touch soon.",
+  ctaLabel: "Continue",
+  ctaUrl: "",
+};
+
+export interface PublishedQuizSnapshot {
+  title: string;
+  description?: string;
+  questions: Question[];
+  result: FunnelResultScreen;
+}
 
 export interface Quiz {
   id: string;
+  supabaseId?: string;
   title: string;
   description?: string;
   questions: Question[];
   brief?: FunnelBrief;
-  status?: QuizStatus;
-  /** @deprecated Prefer `status`. Kept for migration. */
+  status: FunnelStatus;
+  /** @deprecated Use status === "published" */
   published?: boolean;
   publishedAt?: string;
+  publicSlug?: string;
+  publishedSnapshot?: PublishedQuizSnapshot;
+  result: FunnelResultScreen;
   createdAt: string;
   updatedAt: string;
 }
 
 export type QuizInput = Omit<Quiz, "id" | "createdAt" | "updatedAt">;
 
-export interface QuizLeadInfo {
-  email: string;
-  name?: string;
-}
-
-export interface QuizSubmission {
-  answers: Record<string, string>;
-  lead: QuizLeadInfo;
-}
-
-export interface QuizResponse {
-  id: string;
-  quizId: string;
-  answers: Record<string, string>;
-  leadEmail?: string;
-  leadName?: string;
-  completedAt: string;
-}
+export const RESULT_EDITOR_ID = "__result__";
 
 export const DEMO_QUIZ: QuizInput = {
   title: "Fitness Motivation Quiz",
@@ -81,4 +89,6 @@ export const DEMO_QUIZ: QuizInput = {
       ],
     },
   ],
+  status: "draft",
+  result: DEFAULT_FUNNEL_RESULT,
 };

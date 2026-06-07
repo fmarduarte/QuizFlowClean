@@ -1,20 +1,27 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { FileQuestion } from "lucide-react";
 import { QuizBuilder } from "@/components/builder/QuizBuilder";
+import { PublishSuccessModal } from "@/components/builder/PublishSuccessModal";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/context/AuthContext";
-import { useQuizzes } from "@/context/QuizzesContext";
+import { FunnelStoreError, useQuizzes } from "@/context/QuizzesContext";
 import { usePageMeta } from "@/hooks/use-page-meta";
-import { syncPublishedQuizIfLive } from "@/lib/quiz-published-store";
+import { isPublishedFunnel } from "@/lib/funnel-status";
+import { buildPublicQuizUrl, validateQuizForPublish } from "@/lib/quiz-publish";
 import { PAGE_META } from "@/lib/seo";
 import { ROUTES } from "@/lib/routes";
 import type { Quiz } from "@/types/quiz";
 
 export function QuizBuilderPage() {
   const { quizId } = useParams<{ quizId: string }>();
-  const { user } = useAuth();
-  const { getQuiz, updateQuiz } = useQuizzes();
+  const { getQuiz, updateQuiz, publishQuiz } = useQuizzes();
   const quiz = quizId ? getQuiz(quizId) : undefined;
+
+  const [publishModalOpen, setPublishModalOpen] = useState(false);
+  const [publicUrl, setPublicUrl] = useState("");
+  const [publishedAt, setPublishedAt] = useState("");
+  const [publishErrors, setPublishErrors] = useState<string[]>([]);
+  const [isPublishing, setIsPublishing] = useState(false);
 
   usePageMeta({
     title: quiz ? `${quiz.title} | ${PAGE_META.builder.title}` : PAGE_META.builder.title,
@@ -25,16 +32,54 @@ export function QuizBuilderPage() {
 
   function handleSave(draft: Quiz) {
     if (!quizId) return;
-    const updated = updateQuiz(quizId, {
+    updateQuiz(quizId, {
       title: draft.title,
       description: draft.description,
       questions: draft.questions,
       status: draft.status,
+      result: draft.result,
       published: draft.published,
       publishedAt: draft.publishedAt,
+      publicSlug: draft.publicSlug,
+      publishedSnapshot: draft.publishedSnapshot,
     });
-    if (updated && user?.id) {
-      void syncPublishedQuizIfLive(updated, user.id);
+  }
+
+  async function handlePublish(draft: Quiz) {
+    if (!quizId) return;
+
+    const validation = validateQuizForPublish(draft);
+    if (!validation.valid) {
+      setPublishErrors(validation.errors);
+      return;
+    }
+
+    setPublishErrors([]);
+    setIsPublishing(true);
+
+    try {
+      const published = await publishQuiz(quizId, draft);
+
+      setPublicUrl(buildPublicQuizUrl(published));
+      setPublishedAt(published.publishedAt ?? new Date().toISOString());
+      setPublishModalOpen(true);
+    } catch (err) {
+      setPublishErrors([
+        err instanceof FunnelStoreError
+          ? err.message
+          : "Could not publish your funnel. Please try again.",
+      ]);
+    } finally {
+      setIsPublishing(false);
+    }
+  }
+
+  async function handleCopyLink() {
+    if (!quiz || !isPublishedFunnel(quiz)) return;
+    try {
+      await navigator.clipboard.writeText(buildPublicQuizUrl(quiz));
+    } catch {
+      // clipboard unavailable
     }
   }
 
@@ -42,16 +87,36 @@ export function QuizBuilderPage() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
         <FileQuestion className="h-12 w-12 text-muted-foreground mb-4" />
-        <h1 className="text-xl font-semibold tracking-tight">Quiz not found</h1>
+        <h1 className="text-xl font-semibold tracking-tight">Funnel not found</h1>
         <p className="text-sm text-muted-foreground mt-2 max-w-sm">
-          This quiz may have been deleted or the link is incorrect.
+          This funnel may have been deleted or the link is incorrect.
         </p>
         <Button asChild className="mt-6 rounded-xl">
-          <Link to={ROUTES.app}>Back to dashboard</Link>
+          <Link to={ROUTES.appFunnels}>Back to my funnels</Link>
         </Button>
       </div>
     );
   }
 
-  return <QuizBuilder key={quiz.id} quiz={quiz} onSave={handleSave} />;
+  return (
+    <>
+      <QuizBuilder
+        key={`${quiz.id}-${quiz.publishedAt ?? "draft"}`}
+        quiz={quiz}
+        onSave={handleSave}
+        onPublish={(draft) => void handlePublish(draft)}
+        onCopyLink={isPublishedFunnel(quiz) ? handleCopyLink : undefined}
+        isPublished={isPublishedFunnel(quiz)}
+        isPublishing={isPublishing}
+        publishErrors={publishErrors}
+      />
+
+      <PublishSuccessModal
+        open={publishModalOpen}
+        onOpenChange={setPublishModalOpen}
+        publicUrl={publicUrl}
+        publishedAt={publishedAt}
+      />
+    </>
+  );
 }

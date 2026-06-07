@@ -1,0 +1,9 @@
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
+VITE_SITE_URL=https://quizflow.ai
+
+# OPENAI_API_KEY=  # Server-side only — never use VITE_ prefix; validate Supabase JWT before any AI call
+
+# Supabase Auth: add these redirect URLs in your project dashboard (Authentication → URL Configuration):
+# - https://quizflow.ai/reset-password
+# - http://localhost:5173/reset-password

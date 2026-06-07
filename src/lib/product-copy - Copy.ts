@@ -1,0 +1,53 @@
+export const PRODUCT_COPY = {
+  name: "QuizFlow AI",
+  tagline: "Generate High-Converting Quiz Funnels With AI",
+  hero: {
+    badge: "AI Quiz Funnel Builder",
+    headline: "Generate High-Converting Quiz Funnels With AI",
+    subhead:
+      "Describe your business and let AI create a complete quiz funnel in minutes.",
+    benefits: [
+      "Lead Qualification",
+      "Product Recommendations",
+      "Customer Segmentation",
+      "Higher Conversion Rates",
+      "AI Generated Questions",
+    ],
+    quizPickerHeading: "Choose your quiz type",
+    quizPickerSubhead: "Every path creates an AI-powered quiz — not a generic marketing funnel.",
+    primaryCta: "Generate AI Quiz Funnel",
+    secondaryCta: "See how it works",
+  },
+  app: {
+    homeHeadline: "Generate your quiz funnel",
+    homeSubhead: "AI will create the quiz questions — you edit and publish.",
+    createTitle: "Create Quiz Funnel",
+    createDescription: "Tell us about your business — AI generates the quiz.",
+    quizzesTitle: "My Quizzes",
+    quizzesDescription: "Edit, preview, and publish your AI-generated quizzes.",
+    settingsTitle: "Settings",
+    settingsDescription: "Account and workspace preferences.",
+    billingTitle: "Billing",
+    billingDescription: "Plan, payment method, and invoices.",
+  },
+  quiz: {
+    create: "Create Quiz Funnel",
+    generate: "Generate Quiz",
+    myQuizzes: "My Quizzes",
+    editor: "Quiz Editor",
+    new: "New Quiz",
+    saved: "Saved Quizzes",
+    generator: "Quiz Generator",
+    publish: "Publish Quiz",
+  },
+  /** @deprecated Use PRODUCT_COPY.quiz */
+  funnel: {
+    create: "Create Quiz Funnel",
+    generate: "Generate Quiz",
+    myFunnels: "My Quizzes",
+    builder: "Quiz Editor",
+    new: "New Quiz",
+    saved: "Saved Quizzes",
+    generator: "Quiz Generator",
+  },
+} as const;

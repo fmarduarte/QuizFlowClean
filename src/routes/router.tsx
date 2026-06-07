@@ -14,11 +14,8 @@ import { CreateFunnelPage } from "@/pages/app/CreateFunnelPage";
 import { MyFunnelsPage } from "@/pages/app/MyFunnelsPage";
 import { AppSettingsPage } from "@/pages/app/AppSettingsPage";
 import { AppBillingPage } from "@/pages/app/AppBillingPage";
+import { FunnelResponsesPage } from "@/pages/app/FunnelResponsesPage";
 import { QuizBuilderPage } from "@/pages/app/QuizBuilderPage";
-import { QuizReviewPage } from "@/pages/app/QuizReviewPage";
-import { QuizPublishPage } from "@/pages/app/QuizPublishPage";
-import { QuizSharePage } from "@/pages/app/QuizSharePage";
-import { QuizResponsesPage } from "@/pages/app/QuizResponsesPage";
 import { PublicQuizPage } from "@/pages/public/PublicQuizPage";
 import { NotFoundPage } from "@/pages/marketing/NotFoundPage";
 import { ROUTES } from "@/lib/routes";
@@ -28,6 +25,10 @@ export const router = createBrowserRouter([
     path: ROUTES.landing,
     element: <MarketingLayout />,
     children: [{ index: true, element: <LandingPage /> }],
+  },
+  {
+    path: "/quiz/public/:slug",
+    element: <PublicQuizPage />,
   },
   {
     element: <AuthLayout />,
@@ -59,17 +60,10 @@ export const router = createBrowserRouter([
           { path: "settings", element: <AppSettingsPage /> },
           { path: "billing", element: <AppBillingPage /> },
           { path: "quiz/:quizId", element: <QuizBuilderPage /> },
-          { path: "quiz/:quizId/review", element: <QuizReviewPage /> },
-          { path: "quiz/:quizId/publish", element: <QuizPublishPage /> },
-          { path: "quiz/:quizId/share", element: <QuizSharePage /> },
-          { path: "quiz/:quizId/responses", element: <QuizResponsesPage /> },
+          { path: "funnel/:quizId/responses", element: <FunnelResponsesPage /> },
         ],
       },
     ],
-  },
-  {
-    path: ROUTES.publicQuiz(":quizId"),
-    element: <PublicQuizPage />,
   },
   {
     element: <MarketingLayout />,

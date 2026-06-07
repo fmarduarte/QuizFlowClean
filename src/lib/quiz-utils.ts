@@ -1,5 +1,7 @@
 import type { FunnelBrief } from "@/types/funnel-brief";
-import type { AnswerOption, Question, Quiz, QuizInput, QuizStatus } from "@/types/quiz";
+import { normalizeResult } from "@/lib/quiz-publish";
+import type { AnswerOption, FunnelStatus, Question, Quiz, QuizInput } from "@/types/quiz";
+import { DEFAULT_FUNNEL_RESULT } from "@/types/quiz";
 
 export function createOption(label = "New option"): AnswerOption {
   return { id: crypto.randomUUID(), label };
@@ -54,16 +56,21 @@ export function normalizeQuiz(raw: unknown): Quiz | null {
   const brief =
     q.brief && typeof q.brief === "object" ? (q.brief as FunnelBrief) : undefined;
 
-  const published = q.published === true;
-  const status =
-    q.status === "draft" || q.status === "published" || q.status === "archived"
-      ? (q.status as QuizStatus)
-      : published
+  const publishedSnapshot =
+    q.publishedSnapshot && typeof q.publishedSnapshot === "object"
+      ? (q.publishedSnapshot as Quiz["publishedSnapshot"])
+      : undefined;
+
+  const status: FunnelStatus =
+    q.status === "published" || q.status === "archived" || q.status === "draft"
+      ? q.status
+      : q.published === true
         ? "published"
         : "draft";
 
   return {
     id: q.id,
+    supabaseId: typeof q.supabaseId === "string" ? q.supabaseId : undefined,
     title: q.title,
     description: typeof q.description === "string" ? q.description : undefined,
     questions,
@@ -71,6 +78,13 @@ export function normalizeQuiz(raw: unknown): Quiz | null {
     status,
     published: status === "published",
     publishedAt: typeof q.publishedAt === "string" ? q.publishedAt : undefined,
+    publicSlug: typeof q.publicSlug === "string" ? q.publicSlug : undefined,
+    publishedSnapshot,
+    result: normalizeResult(
+      q.result && typeof q.result === "object"
+        ? (q.result as Quiz["result"])
+        : publishedSnapshot?.result
+    ),
     createdAt,
     updatedAt,
   };
@@ -89,7 +103,7 @@ export function createSeedQuiz(
     description,
     questions: questionTitles.map((t) => createQuestion(t)),
     status: "draft",
-    published: false,
+    result: DEFAULT_FUNNEL_RESULT,
     createdAt: now,
     updatedAt: now,
   };
@@ -101,5 +115,7 @@ export function quizFromInput(input: QuizInput): Omit<Quiz, "id" | "createdAt" |
     description: input.description,
     questions: input.questions.map(regenerateIds),
     brief: input.brief,
+    status: input.status ?? "draft",
+    result: input.result ?? DEFAULT_FUNNEL_RESULT,
   };
 }

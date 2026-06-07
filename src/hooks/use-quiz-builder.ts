@@ -1,6 +1,6 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { arrayMove } from "@dnd-kit/sortable";
 import { useAutosave } from "@/hooks/use-autosave";
-import { moveQuestionByOffset } from "@/lib/quiz-reorder";
 import { createOption, createQuestion } from "@/lib/quiz-utils";
 import type { Quiz } from "@/types/quiz";
 
@@ -14,6 +14,25 @@ export function useQuizBuilder({ quiz, onSave }: UseQuizBuilderOptions) {
   const [selectedQuestionId, setSelectedQuestionId] = useState<string | null>(
     quiz.questions[0]?.id ?? null
   );
+
+  useEffect(() => {
+    setDraft((prev) => ({
+      ...prev,
+      status: quiz.status,
+      published: quiz.published,
+      publishedAt: quiz.publishedAt,
+      publicSlug: quiz.publicSlug,
+      publishedSnapshot: quiz.publishedSnapshot,
+      result: quiz.result,
+    }));
+  }, [
+    quiz.status,
+    quiz.published,
+    quiz.publishedAt,
+    quiz.publicSlug,
+    quiz.publishedSnapshot,
+    quiz.result,
+  ]);
 
   const saveStatus = useAutosave(draft, onSave);
 
@@ -38,6 +57,11 @@ export function useQuizBuilder({ quiz, onSave }: UseQuizBuilderOptions) {
 
   const updateDescription = useCallback(
     (description: string) => updateDraft((prev) => ({ ...prev, description })),
+    [updateDraft]
+  );
+
+  const updateResult = useCallback(
+    (result: Quiz["result"]) => updateDraft((prev) => ({ ...prev, result })),
     [updateDraft]
   );
 
@@ -85,40 +109,44 @@ export function useQuizBuilder({ quiz, onSave }: UseQuizBuilderOptions) {
 
   const deleteQuestion = useCallback(
     (questionId: string) => {
-      setDraft((prev) => {
+      updateDraft((prev) => {
         const nextQuestions = prev.questions.filter((q) => q.id !== questionId);
         if (selectedQuestionId === questionId) {
           const idx = prev.questions.findIndex((q) => q.id === questionId);
-          const next = nextQuestions[Math.min(idx, Math.max(0, nextQuestions.length - 1))];
+          const next = nextQuestions[Math.min(idx, nextQuestions.length - 1)];
           setSelectedQuestionId(next?.id ?? null);
         }
         return { ...prev, questions: nextQuestions };
       });
     },
-    [selectedQuestionId]
+    [updateDraft, selectedQuestionId]
   );
 
-  const duplicateQuestion = useCallback((questionId: string) => {
-    const copy = createQuestion();
-    setDraft((prev) => {
-      const idx = prev.questions.findIndex((q) => q.id === questionId);
-      if (idx === -1) return prev;
-      const source = prev.questions[idx];
-      copy.title = `${source.title} (copy)`;
-      copy.options = source.options.map((o) => ({ ...o, id: crypto.randomUUID() }));
-      const next = [...prev.questions];
-      next.splice(idx + 1, 0, copy);
-      return { ...prev, questions: next };
-    });
-    setSelectedQuestionId(copy.id);
-  }, []);
+  const duplicateQuestion = useCallback(
+    (questionId: string) => {
+      updateDraft((prev) => {
+        const idx = prev.questions.findIndex((q) => q.id === questionId);
+        if (idx === -1) return prev;
+        const source = prev.questions[idx];
+        const copy = createQuestion(`${source.title} (copy)`);
+        copy.options = source.options.map((o) => ({ ...o, id: crypto.randomUUID() }));
+        const next = [...prev.questions];
+        next.splice(idx + 1, 0, copy);
+        setSelectedQuestionId(copy.id);
+        return { ...prev, questions: next };
+      });
+    },
+    [updateDraft]
+  );
 
-  const moveQuestion = useCallback(
-    (questionId: string, offset: -1 | 1) => {
-      updateDraft((prev) => ({
-        ...prev,
-        questions: moveQuestionByOffset(prev.questions, questionId, offset),
-      }));
+  const reorderQuestions = useCallback(
+    (activeId: string, overId: string) => {
+      updateDraft((prev) => {
+        const oldIndex = prev.questions.findIndex((q) => q.id === activeId);
+        const newIndex = prev.questions.findIndex((q) => q.id === overId);
+        if (oldIndex === -1 || newIndex === -1 || oldIndex === newIndex) return prev;
+        return { ...prev, questions: arrayMove(prev.questions, oldIndex, newIndex) };
+      });
     },
     [updateDraft]
   );
@@ -159,13 +187,14 @@ export function useQuizBuilder({ quiz, onSave }: UseQuizBuilderOptions) {
     setSelectedQuestionId,
     updateTitle,
     updateDescription,
+    updateResult,
     updateQuestionTitle,
     updateQuestionDescription,
     updateOptionLabel,
     addQuestion,
     deleteQuestion,
     duplicateQuestion,
-    moveQuestion,
+    reorderQuestions,
     addOption,
     deleteOption,
   };
