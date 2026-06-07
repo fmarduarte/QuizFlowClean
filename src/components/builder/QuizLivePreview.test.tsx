@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { QuizLivePreview } from "@/components/builder/QuizLivePreview";
 import { createQuestion, createSeedQuiz } from "@/lib/quiz-utils";
 
@@ -37,16 +37,42 @@ describe("QuizLivePreview", () => {
     expect(screen.getByText("Second question")).toBeInTheDocument();
   });
 
-  it("completes the quiz flow on the final question", async () => {
+  it("shows Review Quiz on the final question and navigates to review", async () => {
     const user = userEvent.setup();
-    render(<QuizLivePreview quiz={quiz} />);
+    const onReviewQuiz = vi.fn();
+    render(<QuizLivePreview quiz={quiz} onReviewQuiz={onReviewQuiz} />);
+
+    await user.click(screen.getByRole("button", { name: "Option 1" }));
+    await user.click(screen.getByRole("button", { name: "Continue to next question" }));
+
+    const reviewButton = screen.getByRole("button", { name: "Review quiz before publishing" });
+    expect(reviewButton).toHaveTextContent("Review Quiz");
+
+    await user.click(screen.getByRole("button", { name: "Option 1" }));
+    await user.click(reviewButton);
+    expect(onReviewQuiz).toHaveBeenCalledOnce();
+  });
+
+  it("shows lead capture after the final public question", async () => {
+    const user = userEvent.setup();
+    const onComplete = vi.fn().mockResolvedValue(undefined);
+    render(<QuizLivePreview quiz={quiz} mode="public" onComplete={onComplete} />);
 
     await user.click(screen.getByRole("button", { name: "Option 1" }));
     await user.click(screen.getByRole("button", { name: "Continue to next question" }));
 
     await user.click(screen.getByRole("button", { name: "Option 1" }));
-    await user.click(screen.getByRole("button", { name: "Continue to next question" }));
+    await user.click(screen.getByRole("button", { name: "Continue to lead capture" }));
 
-    expect(screen.getByText("Quiz complete")).toBeInTheDocument();
+    expect(screen.getByText("Almost done!")).toBeInTheDocument();
+
+    await user.type(screen.getByLabelText(/email/i), "lead@example.com");
+    await user.click(screen.getByRole("button", { name: "Submit Lead" }));
+
+    expect(onComplete).toHaveBeenCalledWith({
+      answers: expect.any(Object),
+      lead: { email: "lead@example.com", name: undefined },
+    });
+    expect(screen.getByText("Thanks for completing the quiz!")).toBeInTheDocument();
   });
 });

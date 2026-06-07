@@ -35,10 +35,20 @@ export const PRODUCT_COPY = {
     generate: "Generate Quiz",
     myQuizzes: "My Quizzes",
     editor: "Quiz Editor",
+    review: "Review Quiz",
+    publish: "Publish Quiz",
+    share: "Share Quiz",
     new: "New Quiz",
     saved: "Saved Quizzes",
     generator: "Quiz Generator",
-    publish: "Publish Quiz",
+    workflow: {
+      create: "Create",
+      edit: "Edit",
+      review: "Review",
+      publish: "Publish",
+      share: "Share",
+      collect: "Collect Responses",
+    },
   },
   /** @deprecated Use PRODUCT_COPY.quiz */
   funnel: {

@@ -7,6 +7,8 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { removePublishedQuizSnapshot } from "@/lib/quiz-published-store";
+import { removeResponsesForQuiz } from "@/lib/quiz-responses";
 import { createSeedQuiz, normalizeQuiz } from "@/lib/quiz-utils";
 import type { Quiz, QuizInput } from "@/types/quiz";
 
@@ -60,6 +62,8 @@ export function QuizzesProvider({ children }: { children: ReactNode }) {
     const entry: Quiz = {
       ...quiz,
       id: crypto.randomUUID(),
+      status: quiz.status ?? "draft",
+      published: quiz.published ?? false,
       createdAt: now,
       updatedAt: now,
     };
@@ -84,6 +88,8 @@ export function QuizzesProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const removeQuiz = useCallback((id: string) => {
+    removePublishedQuizSnapshot(id);
+    removeResponsesForQuiz(id);
     setQuizzes((prev) => prev.filter((q) => q.id !== id));
   }, []);
 

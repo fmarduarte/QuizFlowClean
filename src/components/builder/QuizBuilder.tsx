@@ -1,21 +1,23 @@
 import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { useQuizBuilder } from "@/hooks/use-quiz-builder";
 import { BuilderToolbar } from "@/components/builder/BuilderToolbar";
 import { QuestionList } from "@/components/builder/QuestionList";
 import { QuestionEditor } from "@/components/builder/QuestionEditor";
 import { QuizLivePreview } from "@/components/builder/QuizLivePreview";
+import { QuizWorkflowSteps } from "@/components/quiz/QuizWorkflowSteps";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ROUTES } from "@/lib/routes";
 import type { Quiz } from "@/types/quiz";
 import { cn } from "@/lib/utils";
 
 interface QuizBuilderProps {
   quiz: Quiz;
   onSave: (quiz: Quiz) => void;
-  onPublish?: (draft: Quiz) => void;
-  isPublished?: boolean;
 }
 
-export function QuizBuilder({ quiz, onSave, onPublish, isPublished }: QuizBuilderProps) {
+export function QuizBuilder({ quiz, onSave }: QuizBuilderProps) {
+  const navigate = useNavigate();
   const handleSave = useCallback(
     (draft: Quiz) => {
       onSave({
@@ -50,15 +52,21 @@ export function QuizBuilder({ quiz, onSave, onPublish, isPublished }: QuizBuilde
     onSave: handleSave,
   });
 
+  const goToReview = useCallback(() => {
+    navigate(ROUTES.quizReview(quiz.id));
+  }, [navigate, quiz.id]);
+
   return (
     <div className="flex flex-col -m-4 sm:-m-6 lg:-m-8 min-h-[calc(100vh-4rem)] bg-background">
+      <div className="px-4 sm:px-6 pt-3 border-b border-hairline bg-surface-subtle/20">
+        <QuizWorkflowSteps current="edit" />
+      </div>
       <BuilderToolbar
+        quiz={quiz}
         title={draft.title}
         onTitleChange={updateTitle}
         saveStatus={saveStatus}
-        onPublish={onPublish ? () => onPublish(draft) : undefined}
-        isPublished={isPublished}
-        canPublish={draft.questions.length > 0}
+        canReview={draft.questions.length > 0}
       />
 
       {/* Desktop: three-panel layout */}
@@ -99,7 +107,7 @@ export function QuizBuilder({ quiz, onSave, onPublish, isPublished }: QuizBuilde
         </main>
 
         <aside className="border-l border-hairline bg-surface-subtle/20 min-h-0 overflow-hidden">
-          <QuizLivePreview quiz={draft} />
+          <QuizLivePreview quiz={draft} onReviewQuiz={goToReview} />
         </aside>
       </div>
 
@@ -149,7 +157,7 @@ export function QuizBuilder({ quiz, onSave, onPublish, isPublished }: QuizBuilde
             />
           </TabsContent>
           <TabsContent value="preview" className="flex-1 min-h-0 mt-0 data-[state=inactive]:hidden">
-            <QuizLivePreview quiz={draft} />
+            <QuizLivePreview quiz={draft} onReviewQuiz={goToReview} />
           </TabsContent>
         </Tabs>
       </div>
@@ -207,7 +215,7 @@ export function QuizBuilder({ quiz, onSave, onPublish, isPublished }: QuizBuilde
         </TabsContent>
 
         <TabsContent value="preview" className="flex-1 min-h-0 mt-0 data-[state=inactive]:hidden">
-          <QuizLivePreview quiz={draft} />
+          <QuizLivePreview quiz={draft} onReviewQuiz={goToReview} />
         </TabsContent>
       </Tabs>
     </div>

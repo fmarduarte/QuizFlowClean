@@ -1,28 +1,29 @@
-import { ArrowLeft, Check, Loader2, Rocket } from "lucide-react";
+import { ArrowLeft, Check, ClipboardCheck, Loader2, Share2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { QuizStatusBadge } from "@/components/quiz/QuizStatusBadge";
 import type { AutosaveStatus } from "@/hooks/use-autosave";
 import { ROUTES } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import { PRODUCT_COPY } from "@/lib/product-copy";
+import { isQuizPublished } from "@/lib/quiz-status";
+import type { Quiz } from "@/types/quiz";
 
 interface BuilderToolbarProps {
+  quiz: Pick<Quiz, "id" | "status" | "published">;
   title: string;
   onTitleChange: (title: string) => void;
   saveStatus: AutosaveStatus;
-  onPublish?: () => void;
-  isPublished?: boolean;
-  canPublish?: boolean;
+  canReview?: boolean;
 }
 
 export function BuilderToolbar({
+  quiz,
   title,
   onTitleChange,
   saveStatus,
-  onPublish,
-  isPublished,
-  canPublish = true,
+  canReview = true,
 }: BuilderToolbarProps) {
   const saveLabel =
     saveStatus === "pending"
@@ -32,6 +33,8 @@ export function BuilderToolbar({
         : saveStatus === "saved"
           ? "Saved"
           : null;
+
+  const published = isQuizPublished(quiz);
 
   return (
     <header className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 px-4 sm:px-6 py-3 border-b border-hairline bg-surface-subtle/40 backdrop-blur-xl sticky top-0 z-20">
@@ -64,7 +67,9 @@ export function BuilderToolbar({
         </div>
       </div>
 
-      <div className="flex items-center gap-2 self-start sm:self-auto">
+      <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
+        <QuizStatusBadge quiz={quiz} />
+
         {saveLabel && (
           <div
             className={cn(
@@ -89,22 +94,36 @@ export function BuilderToolbar({
           </div>
         )}
 
-        {isPublished ? (
-          <span className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full border text-emerald-300 border-emerald-500/25 bg-emerald-500/10">
-            <Rocket className="h-3.5 w-3.5" />
-            Published
-          </span>
-        ) : onPublish ? (
+        {published ? (
           <Button
-            type="button"
-            onClick={onPublish}
-            disabled={!canPublish}
+            asChild
             className="h-9 rounded-xl bg-white text-black hover:bg-white/90 text-xs font-medium px-4"
           >
-            <Rocket className="h-3.5 w-3.5" />
-            {PRODUCT_COPY.quiz.publish}
+            <Link to={ROUTES.quizShare(quiz.id)}>
+              <Share2 className="h-3.5 w-3.5" />
+              Share Quiz
+            </Link>
           </Button>
-        ) : null}
+        ) : canReview ? (
+          <Button
+            asChild
+            className="h-9 rounded-xl bg-white text-black hover:bg-white/90 text-xs font-medium px-4"
+          >
+            <Link to={ROUTES.quizReview(quiz.id)}>
+              <ClipboardCheck className="h-3.5 w-3.5" />
+              {PRODUCT_COPY.quiz.review}
+            </Link>
+          </Button>
+        ) : (
+          <Button
+            type="button"
+            disabled
+            className="h-9 rounded-xl bg-white/50 text-black/50 text-xs font-medium px-4"
+          >
+            <ClipboardCheck className="h-3.5 w-3.5" />
+            {PRODUCT_COPY.quiz.review}
+          </Button>
+        )}
       </div>
     </header>
   );

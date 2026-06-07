@@ -33,3 +33,17 @@ export function previewProgressPercent(currentIndex: number, totalQuestions: num
   if (totalQuestions <= 0) return 0;
   return ((currentIndex + 1) / totalQuestions) * 100;
 }
+
+export function isLastPreviewQuestion(currentIndex: number, totalQuestions: number): boolean {
+  return totalQuestions > 0 && currentIndex === totalQuestions - 1;
+}
+
+export function getContinueButtonLabel(currentIndex: number, totalQuestions: number): string {
+  return isLastPreviewQuestion(currentIndex, totalQuestions) ? "Review Quiz" : "Continue →";
+}
+
+export function getContinueButtonAriaLabel(currentIndex: number, totalQuestions: number): string {
+  return isLastPreviewQuestion(currentIndex, totalQuestions)
+    ? "Review quiz before publishing"
+    : "Continue to next question";
+}
