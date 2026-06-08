@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { FunnelResultScreen, Question, Quiz } from "@/types/quiz";
+import type { FunnelResultScreen, Question, Quiz, QuizLeadInfo } from "@/types/quiz";
 import { DEFAULT_FUNNEL_RESULT } from "@/types/quiz";
 import {
   canContinuePreview,
@@ -8,6 +8,7 @@ import {
   previewProgressPercent,
 } from "@/lib/quiz-preview-flow";
 import { FunnelResultScreenView } from "@/components/funnel/FunnelResultScreen";
+import { QuizLeadCaptureForm } from "@/components/quiz/QuizLeadCaptureForm";
 import { cn } from "@/lib/utils";
 
 export interface QuizPlayerAnswers {
@@ -17,6 +18,7 @@ export interface QuizPlayerAnswers {
 export interface QuizPlayerCompletePayload {
   answers: QuizPlayerAnswers;
   completedAt: string;
+  lead?: QuizLeadInfo;
   sessionId?: string;
   funnelId?: string;
 }
@@ -26,6 +28,8 @@ interface QuizPlayerProps {
   result?: FunnelResultScreen;
   funnelId?: string;
   sessionId?: string;
+  /** When true, ask for the respondent's email/name before completing. */
+  collectLead?: boolean;
   onStart?: () => void;
   onComplete?: (payload: QuizPlayerCompletePayload) => void;
   showRestart?: boolean;
@@ -37,6 +41,7 @@ export function QuizPlayer({
   result = DEFAULT_FUNNEL_RESULT,
   funnelId,
   sessionId,
+  collectLead = false,
   onStart,
   onComplete,
   showRestart = true,
@@ -44,6 +49,8 @@ export function QuizPlayer({
 }: QuizPlayerProps) {
   const [previewIndex, setPreviewIndex] = useState(0);
   const [selectedByQuestion, setSelectedByQuestion] = useState<QuizPlayerAnswers>({});
+  const [pendingAnswers, setPendingAnswers] = useState<QuizPlayerAnswers | null>(null);
+  const [showLeadForm, setShowLeadForm] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const startedRef = useRef(false);
 
@@ -55,6 +62,8 @@ export function QuizPlayer({
   useEffect(() => {
     setPreviewIndex(0);
     setSelectedByQuestion({});
+    setPendingAnswers(null);
+    setShowLeadForm(false);
     setIsComplete(false);
     startedRef.current = false;
   }, [questionIds]);
@@ -76,6 +85,17 @@ export function QuizPlayer({
     setSelectedByQuestion((prev) => ({ ...prev, [question.id]: optionId }));
   }
 
+  function complete(answers: QuizPlayerAnswers, lead?: QuizLeadInfo) {
+    setIsComplete(true);
+    onComplete?.({
+      answers,
+      completedAt: new Date().toISOString(),
+      lead,
+      sessionId,
+      funnelId,
+    });
+  }
+
   function handleContinue() {
     if (!canContinue) return;
     markStarted();
@@ -85,22 +105,26 @@ export function QuizPlayer({
         question && selectedOptionId
           ? { ...selectedByQuestion, [question.id]: selectedOptionId }
           : selectedByQuestion;
-      const completedAt = new Date().toISOString();
-      setIsComplete(true);
-      onComplete?.({
-        answers: finalAnswers,
-        completedAt,
-        sessionId,
-        funnelId,
-      });
+      if (collectLead) {
+        setPendingAnswers(finalAnswers);
+        setShowLeadForm(true);
+        return;
+      }
+      complete(finalAnswers);
       return;
     }
     setPreviewIndex(next);
   }
 
+  function handleLeadSubmit(lead: QuizLeadInfo) {
+    complete(pendingAnswers ?? selectedByQuestion, lead);
+  }
+
   function handleRestart() {
     setPreviewIndex(0);
     setSelectedByQuestion({});
+    setPendingAnswers(null);
+    setShowLeadForm(false);
     setIsComplete(false);
     startedRef.current = false;
   }
@@ -113,6 +137,14 @@ export function QuizPlayer({
           showRestart={showRestart}
           onRestart={handleRestart}
         />
+      </div>
+    );
+  }
+
+  if (showLeadForm) {
+    return (
+      <div className={cn("flex flex-col flex-1 min-h-0 w-full", className)}>
+        <QuizLeadCaptureForm onSubmit={handleLeadSubmit} />
       </div>
     );
   }

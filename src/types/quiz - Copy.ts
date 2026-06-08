@@ -12,12 +12,16 @@ export interface Question {
 
 import type { FunnelBrief } from "@/types/funnel-brief";
 
+export type QuizStatus = "draft" | "published" | "archived";
+
 export interface Quiz {
   id: string;
   title: string;
   description?: string;
   questions: Question[];
   brief?: FunnelBrief;
+  status?: QuizStatus;
+  /** @deprecated Prefer `status`. Kept for migration. */
   published?: boolean;
   publishedAt?: string;
   createdAt: string;
@@ -25,6 +29,25 @@ export interface Quiz {
 }
 
 export type QuizInput = Omit<Quiz, "id" | "createdAt" | "updatedAt">;
+
+export interface QuizLeadInfo {
+  email: string;
+  name?: string;
+}
+
+export interface QuizSubmission {
+  answers: Record<string, string>;
+  lead: QuizLeadInfo;
+}
+
+export interface QuizResponse {
+  id: string;
+  quizId: string;
+  answers: Record<string, string>;
+  leadEmail?: string;
+  leadName?: string;
+  completedAt: string;
+}
 
 export const DEMO_QUIZ: QuizInput = {
   title: "Fitness Motivation Quiz",

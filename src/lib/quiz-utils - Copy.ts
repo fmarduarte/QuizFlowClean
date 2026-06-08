@@ -1,5 +1,5 @@
 import type { FunnelBrief } from "@/types/funnel-brief";
-import type { AnswerOption, Question, Quiz, QuizInput } from "@/types/quiz";
+import type { AnswerOption, Question, Quiz, QuizInput, QuizStatus } from "@/types/quiz";
 
 export function createOption(label = "New option"): AnswerOption {
   return { id: crypto.randomUUID(), label };
@@ -54,13 +54,22 @@ export function normalizeQuiz(raw: unknown): Quiz | null {
   const brief =
     q.brief && typeof q.brief === "object" ? (q.brief as FunnelBrief) : undefined;
 
+  const published = q.published === true;
+  const status =
+    q.status === "draft" || q.status === "published" || q.status === "archived"
+      ? (q.status as QuizStatus)
+      : published
+        ? "published"
+        : "draft";
+
   return {
     id: q.id,
     title: q.title,
     description: typeof q.description === "string" ? q.description : undefined,
     questions,
     brief,
-    published: q.published === true,
+    status,
+    published: status === "published",
     publishedAt: typeof q.publishedAt === "string" ? q.publishedAt : undefined,
     createdAt,
     updatedAt,
@@ -79,6 +88,8 @@ export function createSeedQuiz(
     title,
     description,
     questions: questionTitles.map((t) => createQuestion(t)),
+    status: "draft",
+    published: false,
     createdAt: now,
     updatedAt: now,
   };

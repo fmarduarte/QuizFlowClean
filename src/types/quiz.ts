@@ -35,6 +35,12 @@ export interface PublishedQuizSnapshot {
   result: FunnelResultScreen;
 }
 
+/** Lead contact details captured from a respondent before completion. */
+export interface QuizLeadInfo {
+  email: string;
+  name?: string;
+}
+
 export interface Quiz {
   id: string;
   supabaseId?: string;

@@ -15,9 +15,9 @@ interface QuizBuilderProps {
   onSave: (quiz: Quiz) => void;
   onPublish: (draft: Quiz) => void;
   onCopyLink?: () => void;
-  isPublished?: boolean;
   isPublishing?: boolean;
   publishErrors?: string[];
+  copied?: boolean;
 }
 
 export function QuizBuilder({
@@ -25,9 +25,9 @@ export function QuizBuilder({
   onSave,
   onPublish,
   onCopyLink,
-  isPublished,
-  isPublishing,
+  isPublishing = false,
   publishErrors = [],
+  copied = false,
 }: QuizBuilderProps) {
   const handleSave = useCallback(
     (draft: Quiz) => {
@@ -68,8 +68,6 @@ export function QuizBuilder({
     quiz,
     onSave: handleSave,
   });
-
-  const canPublish = draft.questions.length > 0;
 
   const editorPanel = (
     <BuilderEditorPanel
@@ -115,14 +113,15 @@ export function QuizBuilder({
   return (
     <div className="flex flex-col -m-4 sm:-m-6 lg:-m-8 min-h-[calc(100vh-4rem)] bg-background">
       <BuilderToolbar
+        quiz={draft}
         title={draft.title}
         onTitleChange={updateTitle}
         saveStatus={saveStatus}
         onPublish={() => onPublish(draft)}
         onCopyLink={onCopyLink}
-        isPublished={isPublished}
-        canPublish={canPublish}
         isPublishing={isPublishing}
+        canPublish={draft.questions.length > 0}
+        copied={copied}
       />
 
       {publishErrors.length > 0 && (

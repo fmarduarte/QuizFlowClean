@@ -12,6 +12,11 @@ export const ROUTES = {
   appBilling: "/app/billing",
   appCreateWithType: (type: string) => `/app/create?type=${encodeURIComponent(type)}`,
   quizEdit: (id: string) => `/app/quiz/${id}`,
+  quizReview: (id: string) => `/app/quiz/${id}/review`,
+  quizPublish: (id: string) => `/app/quiz/${id}/publish`,
+  quizShare: (id: string) => `/app/quiz/${id}/share`,
+  quizResponses: (id: string) => `/app/quiz/${id}/responses`,
+  publicQuiz: (id: string) => `/q/${id}`,
   landingSections: {
     how: "/#how",
     features: "/#features",

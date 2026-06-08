@@ -1,0 +1,2672 @@
+﻿{
+  "summary": {
+    "totalFiles": 410,
+    "copyFiles": 168,
+    "duplicatePairs": 159,
+    "orphanCandidates": 65,
+    "safeToDelete": 168
+  },
+  "duplicatePairs": [
+    {
+      "copy": "src/App - Copy.tsx",
+      "original": "src/App.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/app/AppFunnelTypeGrid - Copy.tsx",
+      "original": "src/components/app/AppFunnelTypeGrid.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/app/BriefPreGenerationReview - Copy.tsx",
+      "original": "src/components/app/BriefPreGenerationReview.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/app/BriefReviewPanel - Copy.tsx",
+      "original": "src/components/app/BriefReviewPanel.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/app/FieldCoachHint - Copy.tsx",
+      "original": "src/components/app/FieldCoachHint.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/app/FieldHelpTooltip - Copy.tsx",
+      "original": "src/components/app/FieldHelpTooltip.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/app/FunnelBriefQuality - Copy.tsx",
+      "original": "src/components/app/FunnelBriefQuality.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/app/index - Copy.ts",
+      "original": "src/components/app/index.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/app/LanguageChoiceModal - Copy.tsx",
+      "original": "src/components/app/LanguageChoiceModal.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/app/LegacyHashRedirect - Copy.tsx",
+      "original": "src/components/app/LegacyHashRedirect.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/app/PageHeader - Copy.tsx",
+      "original": "src/components/app/PageHeader.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/app/QuizGeneratePanel - Copy.tsx",
+      "original": "src/components/app/QuizGeneratePanel.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/app/QuizResultCard - Copy.tsx",
+      "original": "src/components/app/QuizResultCard.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/app/SectionHeading - Copy.tsx",
+      "original": "src/components/app/SectionHeading.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/app/WizardStepIndicator - Copy.tsx",
+      "original": "src/components/app/WizardStepIndicator.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/auth/AuthAlert - Copy.tsx",
+      "original": "src/components/auth/AuthAlert.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/auth/AuthRequiredModal - Copy.tsx",
+      "original": "src/components/auth/AuthRequiredModal.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/auth/AuthShell - Copy.tsx",
+      "original": "src/components/auth/AuthShell.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/auth/GuestRoute - Copy.tsx",
+      "original": "src/components/auth/GuestRoute.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/auth/index - Copy.ts",
+      "original": "src/components/auth/index.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/auth/PasswordInput - Copy.tsx",
+      "original": "src/components/auth/PasswordInput.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/auth/ProtectedRoute - Copy.tsx",
+      "original": "src/components/auth/ProtectedRoute.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/builder/BuilderToolbar - Copy.tsx",
+      "original": "src/components/builder/BuilderToolbar.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/builder/QuestionEditor - Copy.tsx",
+      "original": "src/components/builder/QuestionEditor.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/builder/QuestionList - Copy.tsx",
+      "original": "src/components/builder/QuestionList.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/builder/QuizBuilder - Copy.tsx",
+      "original": "src/components/builder/QuizBuilder.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/builder/QuizLivePreview - Copy.tsx",
+      "original": "src/components/builder/QuizLivePreview.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/dashboard/AppNavbar - Copy.tsx",
+      "original": "src/components/dashboard/AppNavbar.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/dashboard/AppSidebar - Copy.tsx",
+      "original": "src/components/dashboard/AppSidebar.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/dashboard/BillingSection - Copy.tsx",
+      "original": "src/components/dashboard/BillingSection.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/dashboard/DashboardStats - Copy.tsx",
+      "original": "src/components/dashboard/DashboardStats.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/dashboard/index - Copy.ts",
+      "original": "src/components/dashboard/index.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/dashboard/SavedQuizzesSection - Copy.tsx",
+      "original": "src/components/dashboard/SavedQuizzesSection.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/dashboard/SettingsSection - Copy.tsx",
+      "original": "src/components/dashboard/SettingsSection.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/ActiveDashboard - Copy.tsx",
+      "original": "src/components/landing/ActiveDashboard.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/AIGeneration - Copy.tsx",
+      "original": "src/components/landing/AIGeneration.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/Audiences - Copy.tsx",
+      "original": "src/components/landing/Audiences.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/Conversion - Copy.tsx",
+      "original": "src/components/landing/Conversion.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/DashboardMockup - Copy.tsx",
+      "original": "src/components/landing/DashboardMockup.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/FAQ - Copy.tsx",
+      "original": "src/components/landing/FAQ.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/Features - Copy.tsx",
+      "original": "src/components/landing/Features.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/FinalCTA - Copy.tsx",
+      "original": "src/components/landing/FinalCTA.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/Footer - Copy.tsx",
+      "original": "src/components/landing/Footer.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/FunnelTypePicker - Copy.tsx",
+      "original": "src/components/landing/FunnelTypePicker.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/Hero - Copy.tsx",
+      "original": "src/components/landing/Hero.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/HowItWorks - Copy.tsx",
+      "original": "src/components/landing/HowItWorks.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/Integrations - Copy.tsx",
+      "original": "src/components/landing/Integrations.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/MobileFirst - Copy.tsx",
+      "original": "src/components/landing/MobileFirst.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/Nav - Copy.tsx",
+      "original": "src/components/landing/Nav.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/Pricing - Copy.tsx",
+      "original": "src/components/landing/Pricing.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/QuizPreview - Copy.tsx",
+      "original": "src/components/landing/QuizPreview.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/Reveal - Copy.tsx",
+      "original": "src/components/landing/Reveal.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/SocialProof - Copy.tsx",
+      "original": "src/components/landing/SocialProof.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/Templates - Copy.tsx",
+      "original": "src/components/landing/Templates.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/Testimonials - Copy.tsx",
+      "original": "src/components/landing/Testimonials.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/Trust - Copy.tsx",
+      "original": "src/components/landing/Trust.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/landing/Workflow - Copy.tsx",
+      "original": "src/components/landing/Workflow.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/seo/JsonLd - Copy.tsx",
+      "original": "src/components/seo/JsonLd.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/seo/LandingJsonLd - Copy.tsx",
+      "original": "src/components/seo/LandingJsonLd.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/seo/SkipLink - Copy.tsx",
+      "original": "src/components/seo/SkipLink.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/accordion - Copy.tsx",
+      "original": "src/components/ui/accordion.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/alert - Copy.tsx",
+      "original": "src/components/ui/alert.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/alert-dialog - Copy.tsx",
+      "original": "src/components/ui/alert-dialog.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/aspect-ratio - Copy.tsx",
+      "original": "src/components/ui/aspect-ratio.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/avatar - Copy.tsx",
+      "original": "src/components/ui/avatar.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/badge - Copy.tsx",
+      "original": "src/components/ui/badge.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/breadcrumb - Copy.tsx",
+      "original": "src/components/ui/breadcrumb.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/button - Copy.tsx",
+      "original": "src/components/ui/button.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/calendar - Copy.tsx",
+      "original": "src/components/ui/calendar.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/card - Copy.tsx",
+      "original": "src/components/ui/card.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/carousel - Copy.tsx",
+      "original": "src/components/ui/carousel.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/chart - Copy.tsx",
+      "original": "src/components/ui/chart.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/checkbox - Copy.tsx",
+      "original": "src/components/ui/checkbox.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/collapsible - Copy.tsx",
+      "original": "src/components/ui/collapsible.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/command - Copy.tsx",
+      "original": "src/components/ui/command.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/context-menu - Copy.tsx",
+      "original": "src/components/ui/context-menu.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/dialog - Copy.tsx",
+      "original": "src/components/ui/dialog.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/drawer - Copy.tsx",
+      "original": "src/components/ui/drawer.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/dropdown-menu - Copy.tsx",
+      "original": "src/components/ui/dropdown-menu.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/form - Copy.tsx",
+      "original": "src/components/ui/form.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/hover-card - Copy.tsx",
+      "original": "src/components/ui/hover-card.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/input - Copy.tsx",
+      "original": "src/components/ui/input.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/input-otp - Copy.tsx",
+      "original": "src/components/ui/input-otp.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/label - Copy.tsx",
+      "original": "src/components/ui/label.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/menubar - Copy.tsx",
+      "original": "src/components/ui/menubar.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/navigation-menu - Copy.tsx",
+      "original": "src/components/ui/navigation-menu.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/pagination - Copy.tsx",
+      "original": "src/components/ui/pagination.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/popover - Copy.tsx",
+      "original": "src/components/ui/popover.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/progress - Copy.tsx",
+      "original": "src/components/ui/progress.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/radio-group - Copy.tsx",
+      "original": "src/components/ui/radio-group.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/resizable - Copy.tsx",
+      "original": "src/components/ui/resizable.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/scroll-area - Copy.tsx",
+      "original": "src/components/ui/scroll-area.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/select - Copy.tsx",
+      "original": "src/components/ui/select.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/separator - Copy.tsx",
+      "original": "src/components/ui/separator.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/sheet - Copy.tsx",
+      "original": "src/components/ui/sheet.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/sidebar - Copy.tsx",
+      "original": "src/components/ui/sidebar.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/skeleton - Copy.tsx",
+      "original": "src/components/ui/skeleton.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/slider - Copy.tsx",
+      "original": "src/components/ui/slider.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/sonner - Copy.tsx",
+      "original": "src/components/ui/sonner.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/switch - Copy.tsx",
+      "original": "src/components/ui/switch.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/table - Copy.tsx",
+      "original": "src/components/ui/table.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/tabs - Copy.tsx",
+      "original": "src/components/ui/tabs.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/textarea - Copy.tsx",
+      "original": "src/components/ui/textarea.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/toggle - Copy.tsx",
+      "original": "src/components/ui/toggle.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/toggle-group - Copy.tsx",
+      "original": "src/components/ui/toggle-group.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/components/ui/tooltip - Copy.tsx",
+      "original": "src/components/ui/tooltip.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/context/AuthContext - Copy.tsx",
+      "original": "src/context/AuthContext.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/context/QuizzesContext - Copy.tsx",
+      "original": "src/context/QuizzesContext.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/hooks/use-active-section - Copy.ts",
+      "original": "src/hooks/use-active-section.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/hooks/use-app-nav-active - Copy.ts",
+      "original": "src/hooks/use-app-nav-active.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/hooks/use-autosave - Copy.ts",
+      "original": "src/hooks/use-autosave.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/hooks/use-mobile - Copy.tsx",
+      "original": "src/hooks/use-mobile.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/hooks/use-page-meta - Copy.ts",
+      "original": "src/hooks/use-page-meta.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/hooks/use-quiz-builder - Copy.ts",
+      "original": "src/hooks/use-quiz-builder.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/layouts/AuthLayout - Copy.tsx",
+      "original": "src/layouts/AuthLayout.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/layouts/DashboardLayout - Copy.tsx",
+      "original": "src/layouts/DashboardLayout.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/layouts/index - Copy.ts",
+      "original": "src/layouts/index.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/layouts/MarketingLayout - Copy.tsx",
+      "original": "src/layouts/MarketingLayout.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/api/example.functions - Copy.ts",
+      "original": "src/lib/api/example.functions.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/auth-errors - Copy.ts",
+      "original": "src/lib/auth-errors.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/auth-redirect - Copy.ts",
+      "original": "src/lib/auth-redirect.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/brief-protection - Copy.ts",
+      "original": "src/lib/brief-protection.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/config.server - Copy.ts",
+      "original": "src/lib/config.server.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/content-moderation - Copy.ts",
+      "original": "src/lib/content-moderation.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/error-capture - Copy.ts",
+      "original": "src/lib/error-capture.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/error-page - Copy.ts",
+      "original": "src/lib/error-page.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/funnel-brief - Copy.ts",
+      "original": "src/lib/funnel-brief.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/funnel-brief-store - Copy.ts",
+      "original": "src/lib/funnel-brief-store.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/funnel-types - Copy.ts",
+      "original": "src/lib/funnel-types.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/input-coach - Copy.ts",
+      "original": "src/lib/input-coach.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/language-detect - Copy.ts",
+      "original": "src/lib/language-detect.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/mock-funnel-generator - Copy.ts",
+      "original": "src/lib/mock-funnel-generator.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/mock-translate - Copy.ts",
+      "original": "src/lib/mock-translate.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/product-copy - Copy.ts",
+      "original": "src/lib/product-copy.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/quiz-generation - Copy.ts",
+      "original": "src/lib/quiz-generation.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/quiz-utils - Copy.ts",
+      "original": "src/lib/quiz-utils.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/routes - Copy.ts",
+      "original": "src/lib/routes.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/seo - Copy.ts",
+      "original": "src/lib/seo.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/supabase - Copy.ts",
+      "original": "src/lib/supabase.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/utils - Copy.ts",
+      "original": "src/lib/utils.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/lib/version - Copy.ts",
+      "original": "src/lib/version.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/main - Copy.tsx",
+      "original": "src/main.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/pages/app/AppBillingPage - Copy.tsx",
+      "original": "src/pages/app/AppBillingPage.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/pages/app/AppHomePage - Copy.tsx",
+      "original": "src/pages/app/AppHomePage.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/pages/app/AppSettingsPage - Copy.tsx",
+      "original": "src/pages/app/AppSettingsPage.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/pages/app/CreateFunnelPage - Copy.tsx",
+      "original": "src/pages/app/CreateFunnelPage.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/pages/app/MyFunnelsPage - Copy.tsx",
+      "original": "src/pages/app/MyFunnelsPage.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/pages/app/QuizBuilderPage - Copy.tsx",
+      "original": "src/pages/app/QuizBuilderPage.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/pages/auth/ForgotPasswordPage - Copy.tsx",
+      "original": "src/pages/auth/ForgotPasswordPage.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/pages/auth/LoginPage - Copy.tsx",
+      "original": "src/pages/auth/LoginPage.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/pages/auth/ResetPasswordPage - Copy.tsx",
+      "original": "src/pages/auth/ResetPasswordPage.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/pages/auth/SignupPage - Copy.tsx",
+      "original": "src/pages/auth/SignupPage.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/pages/index - Copy.ts",
+      "original": "src/pages/index.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/pages/marketing/LandingPage - Copy.tsx",
+      "original": "src/pages/marketing/LandingPage.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/pages/marketing/NotFoundPage - Copy.tsx",
+      "original": "src/pages/marketing/NotFoundPage.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/routes/router - Copy.tsx",
+      "original": "src/routes/router.tsx",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/types/funnel-brief - Copy.ts",
+      "original": "src/types/funnel-brief.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/types/quiz - Copy.ts",
+      "original": "src/types/quiz.ts",
+      "safeToDelete": true
+    },
+    {
+      "copy": "src/vite-env.d - Copy.ts",
+      "original": "src/vite-env.d.ts",
+      "safeToDelete": true
+    }
+  ],
+  "files": [
+    {
+      "path": " - Copy.gitignore",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": ".env - Copy.example",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "index - Copy.html",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "package - Copy.json",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "package-lock - Copy.json",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/App - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/app/AppFunnelTypeGrid - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/app/AppFunnelTypeGrid.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/app/BriefPreGenerationReview - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/app/BriefPreGenerationReview.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/app/BriefReviewPanel - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/app/BriefReviewPanel.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/app/CoachFieldHint.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/app/FieldCoachHint - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/app/FieldCoachHint.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/app/FieldHelpTooltip - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/app/FieldHelpTooltip.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/app/FunnelBriefQuality - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/app/FunnelBriefQuality.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/app/index - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/app/LanguageChoiceModal - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/app/LegacyHashRedirect - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/app/onboarding/AIConfidenceSummary.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/app/onboarding/ConversationalInputStep.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/app/onboarding/GoalOptionList.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/app/PageHeader - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/app/QuizGeneratePanel - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/app/QuizResultCard - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/app/SectionHeading - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/app/WizardStepIndicator - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/app/WizardStepIndicator.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/auth/AuthAlert - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/auth/AuthRequiredModal - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/auth/AuthShell - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/auth/GuestRoute - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/auth/index - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/auth/PasswordInput - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/auth/ProtectedRoute - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/builder/BuilderToolbar - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/builder/QuestionEditor - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/builder/QuestionList - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/builder/QuizBuilder - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/builder/QuizLivePreview - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/builder/QuizLivePreview.test.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/dashboard/AppNavbar - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/dashboard/AppSidebar - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/dashboard/BillingSection - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/dashboard/DashboardStats - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/dashboard/index - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/dashboard/SavedQuizzesSection - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/dashboard/SettingsSection - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/ActiveDashboard - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/ActiveDashboard.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/landing/AIGeneration - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/AIGeneration.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/landing/Audiences - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/Audiences.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/landing/Conversion - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/Conversion.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/landing/DashboardMockup - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/FAQ - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/Features - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/FinalCTA - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/Footer - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/FunnelTypePicker - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/Hero - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/HowItWorks - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/Integrations - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/Integrations.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/landing/MobileFirst - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/MobileFirst.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/landing/Nav - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/Pricing - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/QuizPreview - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/QuizPreview.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/landing/Reveal - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/SocialProof - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/SocialProof.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/landing/Templates - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/Templates.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/landing/Testimonials - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/Trust - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/Trust.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/landing/Workflow - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/landing/Workflow.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/quiz/QuizLeadCaptureForm.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/seo/JsonLd - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/seo/LandingJsonLd - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/seo/SkipLink - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/accordion - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/alert - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/alert-dialog - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/aspect-ratio - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/aspect-ratio.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/avatar - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/avatar.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/badge - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/badge.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/breadcrumb - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/breadcrumb.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/button - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/calendar - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/card - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/carousel - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/carousel.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/chart - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/chart.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/checkbox - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/checkbox.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/collapsible - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/collapsible.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/command - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/command.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/context-menu - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/context-menu.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/dialog - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/drawer - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/drawer.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/dropdown-menu - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/form - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/hover-card - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/hover-card.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/input - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/input-otp - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/label - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/menubar - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/menubar.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/navigation-menu - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/navigation-menu.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/pagination - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/pagination.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/popover - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/popover.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/progress - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/radio-group - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/radio-group.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/resizable - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/resizable.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/scroll-area - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/scroll-area.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/select - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/select.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/separator - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/sheet - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/sidebar - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/skeleton - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/slider - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/slider.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/sonner - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/switch - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/table - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/tabs - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/textarea - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/toggle - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/toggle-group - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/components/ui/toggle-group.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/components/ui/tooltip - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/context/AuthContext - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/context/QuizzesContext - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/hooks/use-active-section - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/hooks/use-active-section.ts",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/hooks/use-app-nav-active - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/hooks/use-autosave - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/hooks/use-mobile - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/hooks/use-page-meta - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/hooks/use-quiz-builder - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/layouts/AuthLayout - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/layouts/DashboardLayout - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/layouts/index - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/layouts/MarketingLayout - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/ai-quiz-understanding.test.ts",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/lib/api/example.functions - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/api/example.functions.ts",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/lib/auth-errors - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/auth-redirect - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/brief-protection - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/config.server - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/content-moderation - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/error-capture - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/error-capture.ts",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/lib/error-page - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/error-page.ts",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/lib/free-brief-coach.ts",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/lib/funnel-brief - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/funnel-brief-store - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/funnel-store.test.ts",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/lib/funnel-types - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/input-coach - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/language-detect - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/mock-funnel-generator - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/mock-translate - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/product-copy - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/quiz-analytics.test.ts",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/lib/quiz-generation - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/quiz-preview-flow.test.ts",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/lib/quiz-publication-flow.test.ts",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/lib/quiz-publish.test.ts",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/lib/quiz-reorder.test.ts",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/lib/quiz-status.test.ts",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/lib/quiz-utils - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/quiz-validation.test.ts",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/lib/routes - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/seo - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/supabase - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/utils - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/lib/version - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/main - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/pages/app/AppBillingPage - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/pages/app/AppHomePage - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/pages/app/AppSettingsPage - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/pages/app/CreateFunnelPage - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/pages/app/MyFunnelsPage - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/pages/app/QuizBuilderPage - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/pages/app/QuizPublishPage.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/pages/app/QuizResponsesPage.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/pages/app/QuizReviewPage.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/pages/app/QuizSharePage.tsx",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "src/pages/auth/ForgotPasswordPage - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/pages/auth/LoginPage - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/pages/auth/ResetPasswordPage - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/pages/auth/SignupPage - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/pages/index - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/pages/marketing/LandingPage - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/pages/marketing/NotFoundPage - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/routes/router - Copy.tsx",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/styles - Copy.css",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/types/funnel-brief - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/types/quiz - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/vite-env.d - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "src/vite-env.d.ts",
+      "category": "orphan-candidate",
+      "reason": "No import/reference found in scanned source files",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": false
+    },
+    {
+      "path": "tsconfig - Copy.json",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "vercel - Copy.json",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    },
+    {
+      "path": "vite.config - Copy.ts",
+      "category": "duplicate-backup",
+      "reason": "Windows duplicate backup file (\" - Copy\" in filename); not imported anywhere",
+      "referencesCount": 0,
+      "referencedBy": [],
+      "safeToDelete": true
+    }
+  ]
+}

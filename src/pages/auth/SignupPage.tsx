@@ -71,7 +71,8 @@ export function SignupPage() {
         <p className="text-center text-sm text-muted-foreground">
           Already have an account?{" "}
           <Link
-            to={{ pathname: ROUTES.login, state: { from } }}
+            to={ROUTES.login}
+            state={{ from }}
             className="text-violet-300 hover:text-violet-200 font-medium transition-colors"
           >
             Sign in

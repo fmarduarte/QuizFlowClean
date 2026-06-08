@@ -42,6 +42,9 @@ export function QuizzesProvider({ children }: { children: ReactNode }) {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [loading, setLoading] = useState(true);
   const saveTimersRef = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map());
+  const pendingSavesRef = useRef<Map<string, Quiz>>(new Map());
+  const userIdRef = useRef<string | undefined>(undefined);
+  userIdRef.current = user?.id;
 
   useEffect(() => {
     if (authLoading) return;
@@ -73,11 +76,23 @@ export function QuizzesProvider({ children }: { children: ReactNode }) {
   }, [user?.id, authLoading]);
 
   useEffect(() => {
+    const timers = saveTimersRef.current;
+    const pendingSaves = pendingSavesRef.current;
     return () => {
-      for (const timer of saveTimersRef.current.values()) {
+      // Flush any pending debounced saves so the last edit isn't lost on navigation.
+      const uid = userIdRef.current;
+      for (const timer of timers.values()) {
         clearTimeout(timer);
       }
-      saveTimersRef.current.clear();
+      timers.clear();
+      if (uid) {
+        for (const quiz of pendingSaves.values()) {
+          void saveFunnelDraft(uid, quiz).catch((err) => {
+            console.warn("[QuizzesContext] flush save failed:", err);
+          });
+        }
+      }
+      pendingSaves.clear();
     };
   }, []);
 
@@ -86,8 +101,11 @@ export function QuizzesProvider({ children }: { children: ReactNode }) {
       if (!user?.id) return;
 
       const timers = saveTimersRef.current;
+      const pendingSaves = pendingSavesRef.current;
       const pending = timers.get(quiz.id);
       if (pending) clearTimeout(pending);
+
+      pendingSaves.set(quiz.id, quiz);
 
       timers.set(
         quiz.id,
@@ -96,6 +114,7 @@ export function QuizzesProvider({ children }: { children: ReactNode }) {
             console.warn("[QuizzesContext] draft save failed:", err);
           });
           timers.delete(quiz.id);
+          pendingSaves.delete(quiz.id);
         }, DRAFT_SAVE_DELAY_MS)
       );
     },
@@ -123,9 +142,20 @@ export function QuizzesProvider({ children }: { children: ReactNode }) {
       setQuizzes((prev) => [entry, ...prev]);
 
       if (user?.id) {
-        void insertFunnel(user.id, entry).catch((err) => {
-          console.warn("[QuizzesContext] insert failed:", err);
-        });
+        void insertFunnel(user.id, entry)
+          .then((saved) => {
+            // Hydrate the DB id so analytics/responses work without a reload.
+            if (saved.supabaseId) {
+              setQuizzes((prev) =>
+                prev.map((q) =>
+                  q.id === entry.id ? { ...q, supabaseId: saved.supabaseId } : q
+                )
+              );
+            }
+          })
+          .catch((err) => {
+            console.warn("[QuizzesContext] insert failed:", err);
+          });
       }
 
       return entry;
@@ -165,6 +195,7 @@ export function QuizzesProvider({ children }: { children: ReactNode }) {
         clearTimeout(pending);
         saveTimersRef.current.delete(id);
       }
+      pendingSavesRef.current.delete(id);
 
       const published = await publishFunnelToSupabase(user.id, { ...draft, id });
 

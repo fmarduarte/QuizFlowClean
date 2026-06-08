@@ -12,11 +12,11 @@ export function loginRedirectState(from: string): AuthRedirectState {
   return { from };
 }
 
-export function loginLink(from = ROUTES.app) {
+export function loginLink(from: string = ROUTES.app) {
   return { pathname: ROUTES.login, state: loginRedirectState(from) };
 }
 
-export function signupLink(from = ROUTES.app) {
+export function signupLink(from: string = ROUTES.app) {
   return { pathname: ROUTES.signup, state: loginRedirectState(from) };
 }
 

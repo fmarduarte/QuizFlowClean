@@ -77,7 +77,15 @@ async function getAuthenticatedClient() {
       password: env.E2E_TEST_PASSWORD,
     });
     if (error || !data.session) {
-      throw new Error(error?.message ?? "E2E test user sign-in failed");
+      const msg = error?.message ?? "E2E test user sign-in failed";
+      if (/email not confirmed/i.test(msg)) {
+        throw new Error(
+          `${msg}. Confirm the E2E account: Supabase Dashboard → Authentication → Users → ` +
+            `select ${env.E2E_TEST_EMAIL} → "..." → Confirm email. ` +
+            `(Or Authentication → Providers → Email → turn off "Confirm email".)`
+        );
+      }
+      throw new Error(msg);
     }
     pass("Auth (E2E_TEST credentials)", data.user.id);
     return { client: supabase, userId: data.user.id };
@@ -251,19 +259,26 @@ const publicPath = buildPublicPath(publicSlug);
 const publicUrl = `http://localhost:${previewPort}${publicPath}`;
 pass("5. Generate Public URL", publicPath);
 
-// --- 6. Open Public URL ---
+// --- 6. Open Public URL (via hardened RPC, migration 004) ---
 const { data: publicFunnel, error: publicFetchError } = await anonClient
-  .from("funnels")
-  .select("id, public_slug, published_snapshot, title, status")
-  .eq("public_slug", publicSlug)
-  .eq("status", "published")
-  .not("published_snapshot", "is", null)
+  .rpc("get_published_funnel", { p_slug: publicSlug })
   .maybeSingle();
 
 if (publicFetchError) fail("6. Open Public URL (data)", publicFetchError.message);
 else if (publicFunnel?.published_snapshot?.title === editedDraft.title) {
-  pass("6. Open Public URL (data)", publicFunnel.title);
-} else fail("6. Open Public URL (data)", "Not found");
+  pass("6. Open Public URL (data via RPC)", publicFunnel.title);
+} else fail("6. Open Public URL (data)", "Not found via get_published_funnel");
+
+// --- 6c. Verify broad anon table read is blocked (RLS hardening) ---
+const { data: leakRows } = await anonClient
+  .from("funnels")
+  .select("id, draft_data, user_id")
+  .eq("public_slug", publicSlug);
+if (!leakRows || leakRows.length === 0) {
+  pass("6c. Anon cannot read raw funnels rows (RLS hardened)");
+} else {
+  fail("6c. RLS leak", "anon can still read raw funnels rows");
+}
 
 try {
   const res = await fetch(publicUrl);
@@ -282,27 +297,36 @@ const answers = { q1: "o1" };
 await anonClient.from("funnel_events").insert({ funnel_id: funnelDbId, session_id: sessionId, event_type: "view" });
 await anonClient.from("funnel_events").insert({ funnel_id: funnelDbId, session_id: sessionId, event_type: "start" });
 
-const { data: responseRow, error: responseError } = await anonClient
+// Insert WITHOUT .select(): anon may write responses but (correctly) has no SELECT
+// policy to read them back. This mirrors the real app (lib/response-store.ts).
+const { error: responseError } = await anonClient
   .from("funnel_responses")
-  .insert({ funnel_id: funnelDbId, session_id: sessionId, answers, completed_at: completedAt })
-  .select("*")
-  .single();
+  .insert({
+    funnel_id: funnelDbId,
+    session_id: sessionId,
+    answers,
+    lead_email: "e2e.lead@example.com",
+    lead_name: "E2E Lead",
+    completed_at: completedAt,
+  });
 
 if (responseError) fail("7–8. Submit & save response", responseError.message);
 else {
   pass("7. Submit a response (anon)");
-  pass("8. Save response into funnel_responses", responseRow.id);
+  pass("8. Save response + lead into funnel_responses", sessionId);
 }
 
+// Verify storage the legitimate way: the authenticated owner reads it back.
 const { data: ownerResponses, error: ownerReadError } = await authClient
   .from("funnel_responses")
   .select("*")
   .eq("funnel_id", funnelDbId);
 
+const stored = ownerResponses?.find((r) => r.session_id === sessionId);
 if (ownerReadError) fail("8b. Owner reads responses", ownerReadError.message);
-else if (ownerResponses?.some((r) => r.id === responseRow?.id)) {
-  pass("8b. Owner reads funnel_responses");
-} else fail("8b. Owner reads responses");
+else if (stored && stored.lead_email === "e2e.lead@example.com") {
+  pass("8b. Owner reads response + lead in dashboard");
+} else fail("8b. Owner reads responses", stored ? "lead not persisted" : "row not found");
 
 // --- 9. Persist after refresh ---
 const { data: afterRefresh, error: refreshError } = await authClient
@@ -318,11 +342,9 @@ else if (afterRefresh.status === "published" && afterRefresh.public_slug === pub
 
 const freshClient = createClient(url, anonKey);
 const { data: secondFetch } = await freshClient
-  .from("funnels")
-  .select("status")
-  .eq("public_slug", publicSlug)
+  .rpc("get_published_funnel", { p_slug: publicSlug })
   .maybeSingle();
-if (secondFetch?.status === "published") pass("9b. New session sees published funnel");
+if (secondFetch?.public_slug === publicSlug) pass("9b. New session sees published funnel (RPC)");
 else fail("9b. New session sees published funnel");
 
 // Cleanup

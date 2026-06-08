@@ -109,7 +109,9 @@ export function createSeedQuiz(
   };
 }
 
-export function quizFromInput(input: QuizInput): Omit<Quiz, "id" | "createdAt" | "updatedAt"> {
+export function quizFromInput(
+  input: Omit<QuizInput, "status" | "result"> & Partial<Pick<QuizInput, "status" | "result">>
+): Omit<Quiz, "id" | "createdAt" | "updatedAt"> {
   return {
     title: input.title,
     description: input.description,

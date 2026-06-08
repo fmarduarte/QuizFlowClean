@@ -4,7 +4,8 @@ import { FileQuestion, Loader2 } from "lucide-react";
 import { QuizPlayer } from "@/components/quiz/QuizPlayer";
 import { Button } from "@/components/ui/button";
 import { fetchPublishedFunnelBySlug, type PublishedFunnelPublic } from "@/lib/funnel-store";
-import { recordFunnelEvent, saveFunnelResponse } from "@/lib/response-store";
+import { flushPendingResponses, recordFunnelEvent, saveFunnelResponse } from "@/lib/response-store";
+import type { QuizPlayerCompletePayload } from "@/components/quiz/QuizPlayer";
 import {
   getRespondentSessionId,
   hasRecordedEvent,
@@ -20,6 +21,11 @@ export function PublicQuizPage() {
   const [notFound, setNotFound] = useState(false);
 
   const sessionId = useMemo(() => getRespondentSessionId(), []);
+
+  // Retry any response that failed to persist on a previous visit.
+  useEffect(() => {
+    void flushPendingResponses();
+  }, []);
 
   useEffect(() => {
     if (!slug) {
@@ -70,15 +76,13 @@ export function PublicQuizPage() {
     });
   }
 
-  function handleComplete(payload: {
-    answers: Record<string, string>;
-    completedAt: string;
-  }) {
+  function handleComplete(payload: QuizPlayerCompletePayload) {
     if (!published?.id) return;
     void saveFunnelResponse({
       funnelId: published.id,
       sessionId,
       answers: payload.answers,
+      lead: payload.lead,
       completedAt: payload.completedAt,
     });
   }
@@ -130,6 +134,7 @@ export function PublicQuizPage() {
             result={published.result}
             funnelId={published.id}
             sessionId={sessionId}
+            collectLead
             onStart={handleStart}
             onComplete={handleComplete}
             showRestart={false}

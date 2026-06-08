@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { FileQuestion } from "lucide-react";
 import { QuizBuilder } from "@/components/builder/QuizBuilder";
-import { PublishSuccessModal } from "@/components/builder/PublishSuccessModal";
 import { Button } from "@/components/ui/button";
 import { FunnelStoreError, useQuizzes } from "@/context/QuizzesContext";
 import { usePageMeta } from "@/hooks/use-page-meta";
@@ -17,11 +16,9 @@ export function QuizBuilderPage() {
   const { getQuiz, updateQuiz, publishQuiz } = useQuizzes();
   const quiz = quizId ? getQuiz(quizId) : undefined;
 
-  const [publishModalOpen, setPublishModalOpen] = useState(false);
-  const [publicUrl, setPublicUrl] = useState("");
-  const [publishedAt, setPublishedAt] = useState("");
   const [publishErrors, setPublishErrors] = useState<string[]>([]);
   const [isPublishing, setIsPublishing] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   usePageMeta({
     title: quiz ? `${quiz.title} | ${PAGE_META.builder.title}` : PAGE_META.builder.title,
@@ -58,11 +55,7 @@ export function QuizBuilderPage() {
     setIsPublishing(true);
 
     try {
-      const published = await publishQuiz(quizId, draft);
-
-      setPublicUrl(buildPublicQuizUrl(published));
-      setPublishedAt(published.publishedAt ?? new Date().toISOString());
-      setPublishModalOpen(true);
+      await publishQuiz(quizId, draft);
     } catch (err) {
       setPublishErrors([
         err instanceof FunnelStoreError
@@ -78,8 +71,10 @@ export function QuizBuilderPage() {
     if (!quiz || !isPublishedFunnel(quiz)) return;
     try {
       await navigator.clipboard.writeText(buildPublicQuizUrl(quiz));
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
     } catch {
-      // clipboard unavailable
+      setCopied(false);
     }
   }
 
@@ -99,24 +94,15 @@ export function QuizBuilderPage() {
   }
 
   return (
-    <>
-      <QuizBuilder
-        key={`${quiz.id}-${quiz.publishedAt ?? "draft"}`}
-        quiz={quiz}
-        onSave={handleSave}
-        onPublish={(draft) => void handlePublish(draft)}
-        onCopyLink={isPublishedFunnel(quiz) ? handleCopyLink : undefined}
-        isPublished={isPublishedFunnel(quiz)}
-        isPublishing={isPublishing}
-        publishErrors={publishErrors}
-      />
-
-      <PublishSuccessModal
-        open={publishModalOpen}
-        onOpenChange={setPublishModalOpen}
-        publicUrl={publicUrl}
-        publishedAt={publishedAt}
-      />
-    </>
+    <QuizBuilder
+      key={`${quiz.id}-${quiz.publishedAt ?? "draft"}`}
+      quiz={quiz}
+      onSave={handleSave}
+      onPublish={(draft) => void handlePublish(draft)}
+      onCopyLink={isPublishedFunnel(quiz) ? () => void handleCopyLink() : undefined}
+      isPublishing={isPublishing}
+      publishErrors={publishErrors}
+      copied={copied}
+    />
   );
 }

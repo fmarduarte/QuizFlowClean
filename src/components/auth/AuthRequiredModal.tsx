@@ -26,6 +26,8 @@ export function AuthRequiredModal({
   description = "AI funnel generation, the visual builder, and your dashboard are available to signed-in users. Create a free account to get started.",
 }: AuthRequiredModalProps) {
   const redirect = redirectTo ?? loginLink().state.from;
+  const loginTarget = loginLink(redirect);
+  const signupTarget = signupLink(redirect);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -59,7 +61,11 @@ export function AuthRequiredModal({
               asChild
               className="flex-1 h-11 rounded-xl btn-shimmer text-white border-0 bg-accent-gradient shadow-glow font-medium"
             >
-              <Link to={loginLink(redirect)} onClick={() => onOpenChange(false)}>
+              <Link
+                to={loginTarget.pathname}
+                state={loginTarget.state}
+                onClick={() => onOpenChange(false)}
+              >
                 Sign in
               </Link>
             </Button>
@@ -68,7 +74,11 @@ export function AuthRequiredModal({
               variant="outline"
               className="flex-1 h-11 rounded-xl border-hairline font-medium"
             >
-              <Link to={signupLink(redirect)} onClick={() => onOpenChange(false)}>
+              <Link
+                to={signupTarget.pathname}
+                state={signupTarget.state}
+                onClick={() => onOpenChange(false)}
+              >
                 Create account
               </Link>
             </Button>

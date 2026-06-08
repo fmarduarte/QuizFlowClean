@@ -110,7 +110,11 @@ export async function insertFunnel(userId: string, quiz: Quiz): Promise<Quiz> {
     updated_at: quiz.updatedAt ?? now,
   };
 
-  const { data, error } = await supabase.from("funnels").insert(row).select("*").single();
+  const { data, error } = await supabase
+    .from("funnels")
+    .upsert(row, { onConflict: "user_id,client_quiz_id" })
+    .select("*")
+    .single();
 
   if (error) {
     console.warn("[funnel-store] insert failed:", error.message);
@@ -149,13 +153,16 @@ export async function saveFunnelDraft(userId: string, quiz: Quiz): Promise<void>
     return;
   }
 
-  const { error } = await supabase.from("funnels").insert({
-    user_id: userId,
-    client_quiz_id: quiz.id,
-    public_slug: quiz.publicSlug ?? quiz.id,
-    ...payload,
-    status: "draft",
-  });
+  const { error } = await supabase.from("funnels").upsert(
+    {
+      user_id: userId,
+      client_quiz_id: quiz.id,
+      public_slug: quiz.publicSlug ?? quiz.id,
+      ...payload,
+      status: "draft",
+    },
+    { onConflict: "user_id,client_quiz_id" }
+  );
 
   if (error) {
     console.warn("[funnel-store] draft insert failed:", error.message);
@@ -246,32 +253,47 @@ export async function deleteFunnelFromSupabase(userId: string, clientQuizId: str
   }
 }
 
+interface PublishedFunnelRpcRow {
+  id: string;
+  public_slug: string;
+  title: string;
+  description: string | null;
+  published_snapshot: PublishedQuizSnapshot | null;
+  published_at: string | null;
+}
+
 export async function fetchPublishedFunnelBySlug(slug: string): Promise<PublishedFunnelPublic | null> {
+  // Reads via a security-definer RPC that exposes only public-safe columns
+  // (see supabase/migrations/004_leads_and_public_access.sql).
   const { data, error } = await supabase
-    .from("funnels")
-    .select("id, public_slug, published_snapshot, published_at, title")
-    .eq("public_slug", slug)
-    .eq("status", "published")
-    .not("published_snapshot", "is", null)
-    .maybeSingle();
+    .rpc("get_published_funnel", { p_slug: slug })
+    .maybeSingle<PublishedFunnelRpcRow>();
 
   if (error) {
-    console.warn("[funnel-store] public fetch failed:", error.message);
+    // PGRST202 = function missing from schema cache. This means the public-access
+    // migration (004/005) was not fully applied; the public page cannot render.
+    if (error.code === "PGRST202") {
+      console.error(
+        "[funnel-store] get_published_funnel RPC is missing. Apply supabase/migrations/005_fix_get_published_funnel.sql."
+      );
+    } else {
+      console.warn("[funnel-store] public fetch failed:", error.message);
+    }
     return null;
   }
 
   if (!data?.published_snapshot) return null;
 
-  const snapshot = data.published_snapshot as PublishedQuizSnapshot;
+  const snapshot = data.published_snapshot;
 
   return {
-    id: data.id as string,
-    publicSlug: data.public_slug as string,
-    title: snapshot.title ?? (data.title as string),
+    id: data.id,
+    publicSlug: data.public_slug,
+    title: snapshot.title ?? data.title,
     description: snapshot.description,
     questions: snapshot.questions,
     result: normalizeResult(snapshot.result),
-    publishedAt: (data.published_at as string | null) ?? undefined,
+    publishedAt: data.published_at ?? undefined,
   };
 }
 

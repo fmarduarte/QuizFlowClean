@@ -11,6 +11,7 @@ export function useAutosave<T>(
   const onSaveRef = useRef(onSave);
   const isFirstRender = useRef(true);
   const valueRef = useRef(value);
+  const resetTimerRef = useRef<number | null>(null);
 
   onSaveRef.current = onSave;
   valueRef.current = value;
@@ -26,12 +27,19 @@ export function useAutosave<T>(
       setStatus("saving");
       onSaveRef.current(valueRef.current);
       setStatus("saved");
-      const resetTimer = window.setTimeout(() => setStatus("idle"), 2000);
-      return () => window.clearTimeout(resetTimer);
+      resetTimerRef.current = window.setTimeout(() => setStatus("idle"), 2000);
     }, delay);
 
     return () => window.clearTimeout(timer);
   }, [value, delay]);
+
+  useEffect(() => {
+    return () => {
+      if (resetTimerRef.current !== null) {
+        window.clearTimeout(resetTimerRef.current);
+      }
+    };
+  }, []);
 
   return status;
 }
